@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Muru's home page - Resources.
+		</title>
+		<link rel="stylesheet" href="style.css" type="text/css">
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
+		<script type="text/javascript" src="murujs.js"></script>
+	</head>
+	<body>
+		<div id="header">
+			<h1>Murukesh Mohanan</h1>
+			<ul>
+				<li>First year, Master of Technology in Computer Science and Engineering</li>
+				<li>RA, System Administration, CSE</li>
+			</ul>
+		 </div>
+		 <div id="sidebar">
+			<ul>
+				<li><a href="index.html">Main</a></li>
+				<li><a href="acad.html">Acads</a></li>
+				<li><a href="#">Resources</a></li>
+				<li><a href="contact.html">Contact<br> <span id="contact-comment">(Please don't!)</span></a></li>
+			</ul>
+		</div>
+		<div id="main">
+			A CV template in LaTeX (modified from one obtained online, original included): <br>
+			<a href="files/CV-LaTeX.tar.gz">CV-LaTeX.tar.gz</a>
+<!-- Link to local page with a bookmark used. -->			
+			<hr>
+			My current timetable is shown <a href="acad.html#timetable">here</a>.
+			<hr>
+			Some stuff that I drag around with me on my various Linux boxes:
+			<ol>
+				<li>Vimrc and vim plugins: 
+					<a href="files/vim.tar.bz2">vim.tar.bz2</a><br>
+					Currently contains a nifty vimrc, and some plugins:
+<!-- Link to external sites, opening in new window. -->					
+					<ul class="resources-list">
+						<li><a href="http://www.vim.org/scripts/script.php?script_id=2332" target="_blank">Pathogen</a></li>
+						<li><a href="http://www.vim.org/scripts/script.php?script_id=2736" target="_blank">Syntastic</a></li>
+						<li><a href="http://www.vim.org/scripts/script.php?script_id=1643" target="_blank">SuperTab</a></li>
+					</ul>
+				</li>
+				<li>Some bash scripts:
+					<ul class="resources-list" style="list-style: decimal">
+						<li><a href="files/curlwc.sh">curlwc.sh</a>:
+							This script uses <a href="http://linux.die.net/man/1/curl" target="_blank">curl(1)</a> to download the target file in parts. Not very robust.
+						</li>
+						<li><a href="files/mtcd.sh">mtcd.sh</a>:
+							This script mounts all arguments in directories within ~/cdrom (as ISO9660 images), and also handles unmounting.
+						</li>
+					</ul>
+				</li>
+			</ol>
+		</div>
+		<div id="footer">
+			<img src="images/Copyleft.png" style="height: 1em;" alt="copyleft"> Murukesh Mohanan.
+			 <p>Permission to use content is granted under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">the CC BY-SA license</a>.
+			 <p>The font used here is the Ubuntu font, via Google Web Fonts.
+		</div>
+</body>
+<script type="text/javascript">
+	MuruJS.init();
+</script>
+</html>

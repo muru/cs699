@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+	<head>
+<!-- If you want to fix the weird fonts on Chrome or Firefox 
+	 on Android, uncomment this meta tag. The weird font size 
+	 is due to "font boosting". 
+-->
+<!--	<meta name="viewport" content="width=device-width, initial-scale=1">
+-->
+		<meta charset="utf-8">
+		<title>
+			Muru's home page.
+		</title>
+		<link rel="stylesheet" href="style.css" type="text/css">
+<!-- Web Fonts FTW! -->
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
+		<script type="text/javascript" src="murujs.js"></script>
+	</head>
+	<body>
+<!-- 
+	The common sections in all of my html pages are the header, 
+	the sidebar and the footer.
+	TODO: Ask the Web team about SSI on the CSE site, so that
+		  the common sections can be put in files included by
+		  the others.
+-->
+		<div id="header">
+<!-- Header style used count: 1 -->
+			<h1>Murukesh Mohanan</h1>
+<!-- Unordered list, unmarked. -->
+			<ul>
+				<li>First year, Master of Technology in Computer Science
+				and Engineering</li>
+				<li>RA, System Administration, CSE</li>
+			</ul>
+		 </div>
+		 <div id="sidebar">
+<!-- Navigational link. -->
+<!-- Unordered list, marked. -->
+			<h3>
+			<ul>
+				<li><a href="#">Main</a></li>
+				<li><a href="acad.html">Acads</a></li>
+				<li><a href="resources.html">Resources</a></li>
+				<li><a href="contact.html">Contact<br> <span id="contact-comment">(Please don't!)</span></a></li>
+			</ul></h3>
+		</div>
+		<div id="main">
+<!-- Horizonatal line. -->
+			Call me Muru.<hr>
+			I am an aspiring BOFH. Often called a psycho.<hr>
+<!-- Line break and em tags used. -->
+			I share the hobby of the masses - reading. :P<br>
+			Favourite books include <em>The Green Mile</em>, <em>The Wheel
+			of Time</em> series, the <em>Foundation</em> series and the
+			<em>Rama</em> series.<hr>
+			I am a Gooner. Favourite players include "Mad Jens" Lehmann,
+			Dennis Bergkamp and Wojciech Szczęsny.
+			I have been an Arsenal fan since the Champions League final in
+			Paris, 2006.<hr>
+<!-- Header style used count: 2 -->
+			<h4 style="text-decoration: underline; margin-bottom: 0.5em;">Pet peeves include:</h4>
+<!-- Unordered list used, style: decimal. -->
+			<ol style="margin-top: 0;">
+				<li>Menus in web pages that don't work in mobile phones,
+				especially one with touchscreens. See the CSE site for an
+				example.</li>
+				<li>Webpages laid out using tables. This one most
+				definitely isn't.</li>
+				<li>Sites (really, most about anything) with mostly white backgrounds.</li>
+			</ol>
+			<p> As you may have noticed from the site, I prefer dark
+			backgrounds, with not-too-light text.
+			<p> I would have chosen the green-on-black style seen on 
+			terminals, but most of you would have fled from the 
+			monitor screaming, <em>"My eyes! MY EYES!"</em>, wouldn't you?
+			<p> Don't believe me? <span id="colour-change"
+			style="text-decoration: underline;">Click here and try it
+			out!</span></div>
+		<div id="footer">
+<!-- Copyleft FTW! -->
+<!-- img tag and inline style attribute used. -->
+			<img src="images/Copyleft.png" style="height: 1em;" alt="copyleft"> Murukesh Mohanan.
+			 <p>Permission to use content is granted under <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank">the CC BY-SA license</a>.
+			 <p>The font used here is the Ubuntu font, via Google Web Fonts.
+		</div>
+</body>
+<script type="text/javascript">
+/* The init() function assigns the event handlers.
+ */
+	MuruJS.init();
+	document.getElementById("colour-change").onclick = MuruJS.greenText;
+</script>
+</html>

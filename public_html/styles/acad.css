@@ -1,0 +1,18 @@
+#timetable {
+/* borderColor=#000000 width="100%" cellSpacing=0 cellPadding=9	border=1*/
+	border: 0.1em solid gray;
+	width: 100%;
+	margin-left: 0.5em;
+}
+#timetable td {
+	border: 0.1em solid gray;
+	width: 30%;
+	padding: 1em;
+	margin: 0;
+}
+/** The fiirst-child CSS selector is used here to decrease the width
+  * of the first column.
+  */
+#timetable td:first-child {
+	width: 8%;
+}

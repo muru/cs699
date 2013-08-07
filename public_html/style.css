@@ -1,0 +1,130 @@
+/** Global CSS file, contains common styles. 
+  * Styles for individual pages with page-specific changes
+  * are provided in the styles/ directory, if needed.
+  * The styles are arranged thus:
+  * 1. divs and other named tags.
+  * 2. Sub-elements of the above.
+  * 3. Unnamed tags.
+  * 4. Sub-elements of the above.
+  */
+#header {
+	border-bottom: 0.2em solid white;
+	padding: 0.1em 3%;
+	margin: 0;
+	font-variant: small-caps;
+}
+/** The #main div is given a min-height so that it isn't
+  * squished on pages with little content, or for displays
+  * that are tall (like phones in portrait mode).
+  * Height obtained by trial-and-error on a Nexus 4
+  * Chrome browser. Didn't work on a Nexus 4 Opera Mini.
+  */
+#main {
+	padding: 2% 4%;
+	width: 70%;
+	min-height: 42em;
+	border-right: 0.2em solid white;
+}
+#sidebar {
+	padding-top: 1%;
+	width: 20%;
+/*	min-height: 42em;*/
+	float: right;
+	font-size: 1.5em;
+}
+/** To be used when CSE enables SSI.
+  * #footer-include {
+  *	clear: both;
+  *	width: 100%;
+  *	overflow: auto;
+  *	border-top: 0.2em solid white;
+  * }
+  */
+#footer {
+	clear: both;
+	padding: 2%;
+	padding-bottom: 1%;
+	font-size: 80%;
+	border-top: 0.25em solid white;
+}
+#contact-comment {
+	display: none;
+}
+
+#header li {
+	list-style: none;
+}
+#sidebar ul {
+	padding: 0;
+	margin: 0;
+}
+#sidebar li {
+	border-bottom: 0.1em solid gray;
+	padding: 0.5em 0;
+	margin-left: 0.5em;
+}
+#sidebar a {
+	text-decoration: none;
+}
+#main li {
+	padding: 0.5em 0;
+	margin-left: 0.5em;
+}
+#main ul {
+	margin: 0 0 0.75em 0.75em;
+	padding: 0;
+}
+#footer img {
+	height: 1em;
+}
+
+html {
+	background-color: black; /*#404040;*/
+}
+/** The width of the body, and in turn the #main div, was
+  * decided by two things:
+  *  a) The length of the title of CS 613:
+  *		Design and Implementation of Functional Programming.
+  *		I didn't want the title to wrap on desktop browsers. :P
+  *	 b) The width of the page after font boosting on Chrome and
+  *		Firefox on Android. 60em just about perfectly fit in on
+  *		my Nexus 4.
+  *
+  *	I provided Ubuntu as a fallback to Ubuntu Mono (and similarly for
+  *	Droid) because my Nexus 4 browsers (Firefox, Firefox Nightly, 
+  *	Chrome, Chrome Beta) wouldn't work with the monospace versions.
+  *	Opera Mini didn't work with web fonts at all.
+  */
+body {
+	font-family: 'Ubuntu Mono', 'Ubuntu', 'Droid Mono', 'Droid', 'Verdana' ,sans;
+	font-size: 16px;
+	margin: 0 auto;
+	padding: 0;
+	color: #CECECE;
+	background-color: #222222;
+	width: 60em;
+}
+h1 {
+	font-size: 2em;
+}
+h3 {
+	margin-top: 0;
+}
+
+a:link {
+	color: #0DD;
+}
+a:visited {
+	color: #1387B4;
+}
+a:hover {
+/*	text-shadow: 0 0 2px #999;*/
+	font-weight: bold;
+}
+
+ol li, ul ol li {
+	list-style: decimal;
+}
+ul li {
+	list-style-image: url("images/not_sign.png");
+}
