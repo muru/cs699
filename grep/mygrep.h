@@ -1,3 +1,3 @@
 #include<string>
-using namespace std
+using namespace std;
 int find(string str, string key);
