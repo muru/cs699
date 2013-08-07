@@ -1,0 +1,11 @@
+# Col-1: node id
+# Col-2: 10 times the pkt loss % due to overflow
+# Col-3: 10 times the pkt loss % due to retry-limit exceeded
+2	21	10
+3	13	8
+4	10	1
+5	14	7
+6	8	0
+7	11	1
+8	14	7
+9	15	0

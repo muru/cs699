@@ -1,0 +1,31 @@
+# Each row has data corresponding to a particular transmitter reciver pair
+# Col-1: 5th percentile silence level
+# Col-2: 95th percentile silence level
+# Col-3: width of band between 5th and 95th percentile
+# Col-4: median of silence level
+-100	-99	1	-100
+-97	-84	13	-94
+-98	-90	8	-94
+-95	-89	6	-93
+-95	-89	6	-93
+-95	-84	11	-93
+-94	-89	5	-93
+-94	-87	7	-92
+-92	-87	5	-91
+-92	-87	5	-91
+-92	-85	7	-91
+-96	-80	16	-90
+-91	-86	5	-90
+-92	-84	8	-90
+-91	-87	4	-90
+-91	-84	7	-90
+-91	-86	5	-89
+-91	-83	8	-89
+-90	-84	6	-89
+-91	-85	6	-89
+-91	-85	6	-89
+-91	-84	7	-89
+-91	-85	6	-89
+-90	-85	5	-89
+-91	-81	10	-88
+-88	-81	7	-86

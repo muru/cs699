@@ -1,0 +1,14 @@
+# Col-1: number of bytes
+# Col-2: flash read time
+# Col-3: flash write time
+# Col-4: flash sync time
+512 1084 991 33
+256 560 542 32
+128 311 290 33
+64 178 166 32
+1 59 47 32
+2 61 48 32
+4 63 52 32
+8 70 58 32
+16 85 74 33
+32 117 105 32
