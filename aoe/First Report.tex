@@ -1,0 +1,222 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{a4wide}
+%\usepackage{fullpage}
+% \usepackage{html}
+\hyphenpenalty=750
+% Title Page
+\title{AI Scripting for \\Microsoft{\small \texttrademark} Age of Empires II{\small \texttrademark}}
+\author{Balajiganapathi Senthilnathan\\Murukesh Mohanan\\Nilang Shah}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}              % To suppress page no. on the report or document & this shall be repeated in all page near any command or line
+% \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}            % Macro used for creating derivatives
+\section*{Aim:}
+To write an AI script that will defeat the standard AI of Age of Empires II: The Conquerors 1.0c (AoC) 
+using principles learned in CS 621: Artificial Intelligence, and the AI scripting mechanism provided by 
+Microsoft for AoC.
+\section*{Introduction}
+Microsoft{\small \texttrademark} Age of Empires II: Age of Kings{\small \texttrademark} (AoK) is 
+one of the most popular Real-Time Strategy games of our time. Originally released in 1999 and followed
+by an expansion pack called Age of Empires II: The Conquerors{\small \texttrademark}
+in 2000. It has developed an extensive, thriving community centred on developing custom maps, 
+scenarios, campaigns and AIs. The immense popularity of AoC has spwaned a number of modified maps, 
+open-source clones, etc.
+
+AoC has 18 different civlizations, each with its own unique technologies and units. The Tech Tree of 
+common technologies spans four distinct ages, representing real historic periods.  The wide variety 
+available in units, technologies, formations, terrain and other parts of the game make it a very complex 
+game in terms of AI.
+
+The gameplay involves a player controlling some units and buildings to gather resources, research 
+technologies and build more powerful units and buildings. The end target varies from utterly destroying
+the enemy players' units and buildings (Conquest) to guarding a position or an object for a certain 
+period of time (King of the Hill) to killing a specific unit of the enemy player (Regicide). 
+
+The multiplayer mode of the game involve humans and computer-controlled players teaming up in various
+combinations. Multiple humans can control the same in-game player, or humans can co-operate with
+the computer and control a single player.
+
+\subsection*{Economy}
+Civilian units, called ``villagers'', are used to gather resources. Resources can be used to train units, 
+construct buildings, and research technologies, among other things; for example, players can research 
+better armour for infantry units. The game offers four types of resources: food, wood, gold, and stone. 
+Food is obtained by hunting animals, gathering berries, harvesting livestock, farming, and shore fishing 
+and fishing from boats. Wood is gathered by chopping down trees. Gold is obtained from either gold 
+mines, trade or collecting relics in a monastery, and stone is collected from stone mines. Villagers 
+require checkpoints, typically depository buildings (Town Center, mining camps, mills, and lumber yards), 
+where they can store gathered resources.
+
+Every player has a limit to the number of units they can create — a population limit — but may not 
+immediately use the entire potential population. The population capacity, which can be capped at 
+anywhere between 75 - 200 in intervals of 25, is based on the number of houses, Castles, or Town Centers
+-- the main building in a player's town -- which have been built.
+
+\section*{Strategy, Tactics and Logistics}
+Strategic decisions are of immens importance in a Real-Time Strategy game like AoC. The layout of the
+terrain, availability of resources, locations, strengths and weaknesses of allies and their civilizations,
+all go into deciding a good strategy, which acts as an overall guide, or framework,  using which the 
+individual players make appropriate tactical decisions.
+
+The land military units are broadly categorized into infantry, cavalry, archers and seige weapons.
+Most types have a corresponding counter-unit, which is specialized against the original. There are
+units which blur the lines - such as cavalry archers (which don't have a typical archer's weakness 
+against cavalry) or camel-riders (mounted units especially effective against other mounted units).
+Further, the individual civilizations have their own strengths and weakness when it comes to the
+various military units. Franks (equivalent to modern-day French) produce stronger cavalry than most other
+civilizations, whereas the Tutons produce particularly powerful infantry. The Celts feature infantry 
+using throwing axes, thus giving them ranged abilites without the typical weakness of archers. And so
+on for the other civilizaitions.
+
+
+
+
+The scripting language is vaguely Lisp-like.
+
+%To analyse the spring-mass system and solve its second-order, first-degree differential equation to find the displacement of the mass
+% through direct analysis method as well as Runge-Kutta (5,4) Method.
+%% \begin{abstract}
+%% \end{abstract}
+%\subsection*{Governing equation for spring-mass system with mass m and spring constant k:}
+%\begin{equation}
+%\dfrac{d^2 y}{dt^2} + \dfrac{c}{m}\dfrac{dy}{dt} + \dfrac{k}{m}y=F(t) \label{eqn1}
+%\end{equation}
+%Where,
+%\\$c=\text{Damping parameter,}
+%\\m=\text{Mass of the weight, and}
+%\\k=\text{Force constant of spring.}$
+%\\This equation can also be written as follows:
+%\begin{equation}
+%\dfrac{d^2 y}{dt^2} + 2\zeta\omega_0\dfrac{dy}{dt} + \omega_0^2y= f(t) \label{eqn2}
+%\end{equation}
+%% Please note the position of $ it is not used in making equation
+%Where,\\$\zeta=\dfrac{c}{2\sqrt{mk}}$, and $\omega_0=\sqrt{\dfrac{k}{m}}$.       % within a pair of $$ we can use any no of
+%% values that uses $$ without using it
+%\\\\Now depending upon values of $c,m,k$ and $F(t)$, the characteristics of the above differential equations are determined.
+%\subsection*{Analysis of spring-mass system with no external force applied:}
+%\subsubsection*{Free, undamped motion}
+%For free undamped motion, $c$ is equal to 0, i.e., the damping coefficient is zero. So, the governing equation will be:
+%\begin{equation}
+%m\dfrac{d^2 y}{dt^2} + ky= 0 \label{eqn3}
+%\end{equation}
+%Upon solving this governing equation, we get:
+%\begin{equation}
+%y(t)=C\cos(\omega_0t-\alpha) \label{eqn4}
+%\end{equation}
+%where $C$ and $\alpha$ are parameters to be found using appropriate initial or boundary conditions.
+%\subsubsection*{Free damped motion}
+%The governing equation is:
+%\begin{equation}
+%m\dfrac{d^2 y}{dt^2} + c\dfrac{dy}{dt} + ky= 0 \label{eqn5}
+%\end{equation}
+%or,
+%\begin{equation}
+%\dfrac{d^2 y}{dt^2} + 2p\dfrac{dy}{dt} + \omega_0^2y= 0 \label{eqn6}
+%\end{equation}
+%
+%Where,\\$p=\dfrac{c}{2m} = \zeta\omega_0$
+%\\The critical damping coefficient is given by:
+%\[
+%c_{CR}= \sqrt{4km}
+%\]
+%\subsubsection*{Overdamped case:}
+%The condition for overdamped system is:$\quad c > c_{CR}$
+%\\After solving the governing equation we get: % all subscript shall be mathematic so they shall be in $$.
+%\begin{equation}
+%y(t)= c_1e^{r_1 t} + c_2e^{r_2 t} \label{eqn7}   % to include more parameter in power etc. we need to use curly braces & _ is used for subscrpit.
+%\end{equation}
+%It is easy to see $x(t) \rightarrow 0$ as $t \rightarrow +\infty$.
+%\subsubsection*{Critically damped case ($c=c_{CR}$):}
+%In this case both roots $r_1$ and $r_2$ are equal to $-p$.Hence the solution shall be of the form:
+%\begin{equation}
+%y(t)= e^{-pt} (c_1 + c_2 t) \label{eqn8}
+%\end{equation}
+%\subsubsection*{Underdamped case ($c < c_{CR}$):}
+%The characteristic equation has 2 complex conjugate roots $-p \pm \iota \sqrt{(\omega_0 ^ 2 - p^2)}$\\and the general solution is :
+%\[
+%y(t) = e^{-pt} (c_1\cos\omega_1 t + c_2\sin\omega_1 t)
+%\]
+% or 
+%\begin{equation}
+% y(t)= Ce^{-pt}\cos (\omega_1 t - \alpha ) \label{eqn9}
+%\end{equation}
+%Where 
+%\\$\omega_1= \sqrt{\omega_0 ^2 - p^2}= \dfrac{\sqrt{4km - c^2}}{2m}$,
+%\\$ C= \sqrt{c_1^2 + c_2^2}$, and
+%\\$\tan(\alpha)= \dfrac{c_2}{c_1}$.
+%\thispagestyle{empty} 
+%\subsection*{Forced spring mass system:}
+%\subsubsection*{The general governing equation in this case:}
+%\begin{equation}
+%m\dfrac{d^2 y}{dt^2} + c\dfrac{dy}{dt} + ky= F(t) \label{eqn10}
+%\end{equation}
+%For a constant force $F = F_0$, substituting $x = y - l$, where $l = \tfrac{F_0}{k}$, in the above equation, we see that the equilibrium position is displaced, and the general motion of the mass is  the same as in free systems. Let us assume that the force provided is: $F(t)= F_0\sin(\omega t)$where,$F_0$ is amplitude and $\omega$ is natural frequency of force.
+%\subsubsection*{Undamped forced oscillation ($ c = 0$):}
+%Hence the governing equation will be:
+%\begin{equation}
+%m\dfrac{d2 y}{dt^2} + ky= F_0\cos(\omega t) \label{eqn11}
+%\end{equation}
+%Whose complementary function $y_c$ is given by: $ y_c= c_1\cos(\omega_0 t) + c_2\sin(\omega_0 t)$, here, $\omega_0$ is natural circular frequency of spring mass system. To solve the equation lets put $y_p= A\cos(\omega t)$ as there is no sine term on the right hand side of equation \eqref{eqn11}.Therefore the general solution, taken as $y= y_p + y_c$, is given by,
+%\begin{equation}
+%y(t)= c_1\cos(\omega_0 t) + c_2\sin(\omega_0 t) + \dfrac{F_0/m}{\omega_0^2 - \omega^2} \cos(\omega t) \label{eqn12}
+%\end{equation}
+%After applying boundary conditions we can find out exact solutions.
+%\subsubsection*{Damped forced ocsillation:}
+%The governing equation is given by:
+%\begin{equation}
+%m\dfrac{d^2 y}{dt^2} + c\dfrac{dy}{dt} + ky= F_0\cos(\omega t) \label{eqn13}
+%\end{equation}
+%This governing equation mainly depends on the value of $\zeta$ and $\omega$.\\Now, the transient solution of this equation for different conditions of $\zeta$ is given by equations $\eqref{eqn7},\eqref{eqn8}$ and $\eqref{eqn9}$. To obtain the complete solution $y = y_c + y_p$, we substitute $y_p= A\cos(\omega t) + B\sin(\omega t), \omega \ne \omega_0$ in $\eqref{eqn13}$ to get:
+%\thispagestyle{empty} 
+%\[
+%A=\dfrac{(k - m\omega^2)F_0}{(k - m\omega^2)^2 + (c\omega)^2},
+%B= \dfrac{(c\omega)F_0}{(k - m\omega^2)^2 + (c\omega)^2}
+%\]
+%hence the solution becomes:
+%\begin{equation}
+%y_p(t)= \rho\dfrac{F_0}{k}\cos(\omega t - \alpha) \label{eqn14}
+%\end{equation}
+%where,$\quad \alpha = \tan ^{-1}\dfrac{c\omega}{k - m\omega^2},\text{ and}\\
+%\rho= \dfrac{k}{\sqrt{(k - m\omega^2)^2 + (c\omega)^2}}.$
+%
+%Here, $y_p$ is the steady-state solution that we will obtain when the transient solution $y_c$ dies out.
+%\subsection*{Resonance}
+%The above solutions were obtained for $\omega \ne \omega_0$. When $\omega = \omega_0$, the system is in \emph{resonance}. For undamped resonant systems, we can see that, as $\omega \rightarrow \omega_0$, $\tfrac{F_0}{2m\omega_0}\rightarrow\infty$. We substitute $y_p  = t(A\cos(\omega t) + B\sin(\omega t))$ in \eqref{eqn11}, giving
+%\[
+% A = 0, \\B = \dfrac{F_0}{2m\omega_0}
+%\]
+%so that,
+%\begin{equation}
+%y_p(t) =  \dfrac{F_0}{2m\omega_0}t\sin{\omega_0t} \label{eqn15}
+%\end{equation}
+%For damped systems, as long as $c > 0$, $\rho$ will remain finite,reaching a maximum at resonance. But, when the system is undamped, $y$ increases unboundedly, in a state known as \emph{pure resonance}.
+%
+%\thispagestyle{empty}
+%\section*{Numerical Methods for Ordinary Differential Equations}
+%Often, the exact  solutions of differential equations are difficult to obtain, due to complicated boundary conditions, 
+%or because of the difficulty of the equations themselves. In such cases, various numerical methods can be used to find approximate
+%solutions of the equations. Of the various numerical methods  in use, the most common, and the first choice in many cases, method is 
+%the classical Runge-Kutta method (RK4). The Runge-Kutta method  can be extended to  higher orders, and for adaptive solvers using 
+%varying \mbox{time-steps}, as is commonly done in various computational software, including MATLAB, Mathematica, Sage, etc. 
+%
+%\subsection*{RK45 (the Dormand-Prince (5,4) pair):}
+%Explicit Runge-Kutta methods are multi-stage, single-step solvers, i.e., they use multiple stages between two solution steps, and only use results of the previous computation to  obtain the next result. The accuracy of the Runge-Kutta methods can be improved by deriving solutions of orders $p$ and $p+1$ (called embedded solutions), comparing the two and varying the step size to suit the error requirements, using the difference between the two as an error estimate. In particular,  the Dormand-Prince (5,4) pair (known as DOPRI) uses 5$^{th}$ and 4$^{th}$ order embedded solutions to give a 5$^{th}$ order solution. It has replaced the Runge-Kutta-Fehlberg (4,5) method as the solver  in ode45 of MATLAB. DOPRI is a seven-stage method,  however the last stage of one step is the same as the first stage of the next step, effectively making it a six-stage method, of accuracy comparable  to a $5^{th}$\!-degree Taylor expansion. DOPRI slightly underestimates error at large time-steps, and over-estimates error at smaller time steps. DOPRI is unsuited for solving stiff problems, but differential equations of the spring-mass system solved here are non-stiff, and DOPRI can be safely used.
+%\thispagestyle{empty}
+%\newpage
+%\thispagestyle{empty}
+%\begin{figure}[!ht]
+%\centering
+%\includegraphics*[scale=0.35]{Free.eps}
+%\caption{Plots of Free Oscillations}
+%\includegraphics*[scale=0.35]{Forced.eps}
+%\caption{Plots of Forced Oscillations}
+%
+%\label{fig:digraph}
+%\end{figure}
+\end{document}          
