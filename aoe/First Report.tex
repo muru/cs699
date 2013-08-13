@@ -12,10 +12,9 @@
 \title{AI Scripting for \\Microsoft{\small \texttrademark} Age of Empires II{\small \texttrademark}}
 \author{Balajiganapathi Senthilnathan\\Murukesh Mohanan\\Nilang Shah}
 
-
 \begin{document}
 \maketitle
-\thispagestyle{empty}              % To suppress page no. on the report or document & this shall be repeated in all page near any command or line
+% \thispagestyle{empty}              % To suppress page no. on the report or document & this shall be repeated in all page near any command or line
 % \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}            % Macro used for creating derivatives
 \section*{Aim:}
 To write an AI script that will defeat the standard AI of Age of Empires II: The Conquerors 1.0c (AoC) 
@@ -75,16 +74,23 @@ using throwing axes, thus giving them ranged abilites without the typical weakne
 on for the other civilizaitions.
 
 One must also consider the logistics involved: 
-Movement of large armies
-	Over land:	Slower, delicate units such as seige weapons and monks need to be protected.
+\begin{itemize}
+	\item Movement of armies:
+	\begin{itemize}
+		\item Over land:	Slower, delicate units such as seige weapons and monks need to be protected.
 				Exploit the speed of mounted units to ward off attacks on the main army.
-	Over sea:	Transport ships have limited capacity and units in ships cannot defend themselves.
+		\item Over sea:	Transport ships have limited capacity and units in ships cannot defend themselves.
 				If the enemy is across a body of water, one must set up a base on enemy territory. 
-Replenishment of armies after battles and skirmishes:
-	Maintaining a level of resources, to allow for quick replenishment
-	Ensuring that the replacement units reachthe main army in a usable manner.
-Retreating under fire with minimal losses
+	\end{itemize}
+	\item Replenishment of armies after battles and skirmishes:
+	\begin{itemize}
+		\item Maintaining a level of resources, to allow for quick replenishment.
+		\item Ensuring that the replacement units reach the main army in a usable and orderly manner.
+	\end{itemize}
+	\item Retreating under fire with minimal losses.
+\end{itemize}
 
+\section*{Scripting}
 
 The scripting language is vaguely Lisp-like.
 
