@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{a4wide}
-%\usepackage{fullpage}
+\usepackage{program}
 % \usepackage{html}
 \hyphenpenalty=750
 % Title Page
@@ -91,8 +91,15 @@ One must also consider the logistics involved:
 \end{itemize}
 
 \section*{Scripting}
-
-The scripting language is vaguely Lisp-like.
+Scripting in AoC is based on a propritary system provided by Microsoft. A vaguely Lisp-like
+language is used throughout. The essential form of a command in a script looks like this:
+\begin{program}
+( 
+	\emph{set of conditions}
+	=>
+	\emph{set of actions}
+)
+\end{program}
 
 %To analyse the spring-mass system and solve its second-order, first-degree differential equation to find the displacement of the mass
 % through direct analysis method as well as Runge-Kutta (5,4) Method.
