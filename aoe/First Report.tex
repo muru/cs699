@@ -4,7 +4,7 @@
 \usepackage{latexsym}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage{a4wide}
+\usepackage{fullpage}
 \usepackage{program}
 % \usepackage{html}
 \hyphenpenalty=750
@@ -22,11 +22,11 @@ using principles learned in CS 621: Artificial Intelligence, and the AI scriptin
 Microsoft for AoC.
 \section*{Introduction}
 Microsoft{\small \texttrademark} Age of Empires II: Age of Kings{\small \texttrademark} (AoK) is 
-one of the most popular Real-Time Strategy games of our time. Originally released in 1999 and followed
-by an expansion pack called Age of Empires II: The Conquerors{\small \texttrademark}
+one of the most popular Real-Time Strategy games of our time. Originally released in 1999 
+and followed by an expansion pack called Age of Empires II: The Conquerors{\small \texttrademark}
 in 2000. It has developed an extensive, thriving community centred on developing custom maps, 
-scenarios, campaigns and AIs. The immense popularity of AoC has spwaned a number of modified maps, 
-open-source clones, etc.
+scenarios, campaigns and AIs.\footnotemark[1] The immense popularity of AoC has spwaned a number 
+of modified maps, open-source clones, etc.
 
 AoC has 18 different civlizations, each with its own unique technologies and units. The Tech Tree of 
 common technologies spans four distinct ages, representing real historic periods.  The wide variety 
@@ -41,7 +41,11 @@ period of time (King of the Hill) to killing a specific unit of the enemy player
 The multiplayer mode of the game involve humans and computer-controlled players teaming up in various
 combinations. Multiple humans can control the same in-game player, or humans can co-operate with
 the computer and control a single player.
-
+\footnotetext[1]{The \href{http://www.aok.heavengames.com/}{Age of Kings Heaven} is perhaps the
+largest of these.}
+\footnotetext[2]{A popular mod called \href{http://userpatch.aiscripters.net/}{The User Patch}
+considerably enhances the game, in graphics capability, AI configurability, and a lot more. However,
+at least initally, we won't be using it.}
 \subsection*{Economy}
 Civilian units, called ``villagers'', are used to gather resources. Resources can be used to train units, 
 construct buildings, and research technologies, among other things; for example, players can research 
@@ -57,12 +61,7 @@ immediately use the entire potential population. The population capacity, which 
 anywhere between 75 - 200 in intervals of 25, is based on the number of houses, Castles, or Town Centers
 -- the main building in a player's town -- which have been built.
 
-\section*{Strategy, Tactics and Logistics}
-Strategic decisions are of immens importance in a Real-Time Strategy game like AoC. The layout of the
-terrain, availability of resources, locations, strengths and weaknesses of allies and their civilizations,
-all go into deciding a good strategy, which acts as an overall guide, or framework,  using which the 
-individual players make appropriate tactical decisions.
-
+\subsection*{Strategy and Logistics}
 The land military units are broadly categorized into infantry, cavalry, archers and seige weapons.
 Most types have a corresponding counter-unit, which is specialized against the original. There are
 units which blur the lines - such as cavalry archers (which don't have a typical archer's weakness 
@@ -72,6 +71,11 @@ various military units. Franks (equivalent to modern-day French) produce stronge
 civilizations, whereas the Teutons produce particularly powerful infantry. The Celts feature infantry 
 using throwing axes, thus giving them ranged abilites without the typical weakness of archers. And so
 on for the other civilizaitions.
+
+Strategic decisions are of immense importance in a Real-Time Strategy game like AoC. The layout of the
+terrain, availability of resources, locations of allies, strengths and weaknesses of their civilizations,
+all go into deciding a good strategy, which acts as an overall guide, or framework,  using which the 
+individual players make appropriate tactical decisions.
 
 One must also consider the logistics involved: 
 \begin{itemize}
@@ -87,19 +91,56 @@ One must also consider the logistics involved:
 		\item Maintaining a level of resources, to allow for quick replenishment.
 		\item Ensuring that the replacement units reach the main army in a usable and orderly manner.
 	\end{itemize}
-	\item Retreating under fire with minimal losses.
+	\item Retreating under fire while minimizing losses.
 \end{itemize}
 
 \section*{Scripting}
-Scripting in AoC is based on a propritary system provided by Microsoft. A vaguely Lisp-like
-language is used throughout. The essential form of a command in a script looks like this:
+Scripting in AoC is based on a propritary system provided by Microsoft. A vaguely 
+Lisp-like language is used throughout. The essential form of a command in a script 
+looks like this:
 \begin{program}
 ( 
-	\emph{set of conditions}
-	=>
-	\emph{set of actions}
+	\emph{set of conditions} =>	\emph{set of actions}
 )
 \end{program}
+While the basic form of the languuage might look simple, the number of conditions and 
+actions available is immense. Aside from these conditions and actions, there are also 
+hundreds of gameplay parameters called strategic numbers. Changing some of these numbers 
+can drastically alter the course of game.
+
+Since the AI engine is able to run through the script at speeds well above the average 
+human's reactions, AI players face some limitations. For example, only one player might 
+be started on constructing a building. The default strategic numbers that govern an AI 
+player's military units are also different.
+
+Finally, unlike in the original Age of Empires, the standard AI engine in AoC can, 
+and (at higher difficulty levels) does, cheat.\footnotemark[1] This is done, for 
+example, by the standard AI giving itself free resourcs on occasion. But an AI 
+script cannot benefit from this ``feature''. All these issues must be taken into 
+account when writing the script.
+
+\footnotetext[1]{\
+	\href{http://web.archive.org/web/20081013144438/http://www.microsoft.com/games/empires/behind_dave.htm}{Archived copy of AoC AI specialist Dave Pottinger's interview.}}
+
+\section*{Conclusion}
+Implementing the AI script can be broadly classified into three sections:
+\begin{enumerate}
+	\item Balancing the economy - maintaining levels of production, researching technology 
+		and advancing through the ages, maintaining population (both available and used), etc.
+	\item Managing the military - production of balanced armies, timing the attacks, 
+		replensihing units and so on.
+	\item Fine-tuning the strategy - Adding rules for each civilization's strengths and 
+		weaknesses, variations based on the terrain and game style and so on. 
+		Thus an overall strategy coordinates the economy and military.
+\end{enumerate}
+
+Writing a strong AI script requires both focusing the details and, at the same time,
+keeping an eye on the big picture. We believe that the innate duality of the details - 
+economic and military - combined with the need for attention to the overall scheme of
+things make this project perfect for three people.
+
+
+\end{document}          
 
 %To analyse the spring-mass system and solve its second-order, first-degree differential equation to find the displacement of the mass
 % through direct analysis method as well as Runge-Kutta (5,4) Method.
@@ -241,4 +282,3 @@ language is used throughout. The essential form of a command in a script looks l
 %
 %\label{fig:digraph}
 %\end{figure}
-\end{document}          
