@@ -1,0 +1,23 @@
+\begin{abstract}
+This project aims to implement True Modal Control, whereby every controllable 
+mode of a dynamic system will be modelled and controlled independently. As 
+dynamic systems can be represented by spring-mass-viscous-damper system  
+via the Lumped Parameter strategy, we would have to decouple the equations 
+so obtained to obtain the individual modes. Decoupling classically damped 
+systems is easily done, however not much has been done in the case of non-classical
+damping. We aim to make our method as general as possible, so we shall focus 
+on general damping in this project. There have been recent advances 
+in this field by \citet{GARVEY2002885,GARVEY2002911} and \citet{Chu200896,Chu2008112}. 
+We shall review these advances, and build upon them, principally on the work of
+\citet{Chu200896}.
+
+In phase I, we shall attempt decoupling of coupled second-order dynamic equations.
+We will take a general quadratic pencil and systematically show how to obtain 
+an equivalent pencil involving diagonal matrices. For this we shall use the 
+concepts of \glsentryfirstplural{lam} and \glsentryfirstplural{spe}. The method 
+described in \citet{Chu200896} will adapted to handle cases of singular system
+matrices, with an example of this case presented. Then we shall discuss Automorphic 
+(reflexive) \glspl{spe}, which enable us to develop stable modal filters. The
+transformations so derived will all be real-valued, keeping in mind that most 
+controllers lack support for complex arimthetic.
+\end{abstract}

@@ -1,0 +1,262 @@
+\chapter{Introduction}
+\label{chap:intro}
+Second-order dynamic systems with multiple \glspl{dof} are very common,
+and a number of methods have been developed to deal with them. Typically, 
+these systems take the following form:
+
+\begin{equation}
+	\mathbf{M\ddot{r} + C\dot{r} + Kr = f}(t) \label{eqn:basic}
+\end{equation}
+where \gls{r}, \gls{f} $\in \mathbb{R}^n$ are the vector of physical variables,
+and the vector of external forces respectively and  \gls{m}, \gls{k} and \gls{c}
+$\in$ \gls{R}. \gls{m} may be considered to be the Mass matrix, \gls{c} the 
+Damping matrix and \gls{k} the Stiffness matrix in analogy with the single 
+\gls{dof} spring-mass-viscous-damper system given by the equation 
+(and its corresponding dimensionless form)
+\begin{subequations}
+\begin{align}	
+	m\ddot{r} + c\dot{r} + kr &=~f(t) \label{eqn:simple}\\
+	\ddot{r} + 2\zeta\omega\dot{r} + \omega^2r &=~g(t) \label{eqn:simple_nodim}
+\end{align}
+\end{subequations}
+
+The multi-degree-of-freedom system in \eqref{eqn:basic} is usually a coupled system, 
+and the equations are not dimensionless. Hence solving these equations
+analytically is very difficult, but the equations are usually amenable to numerical
+solutions. The problem of solving them aside, there is also the vastly more 
+difficult problem of controlling such systems. Manipulating a single physical 
+variable would affect the entire system due to coupling, and the side-effects may
+be counter-productive. Also, the number of physical quantities in consideration 
+may be more than the number of linearly independent modes of the system. 
+Hence, it is preferable to control the individual \emph{natural modes} of the system, 
+instead of the physical displacements. If the natural modes are independent, as
+they usually are, the physical displacements are but linear combinations of the 
+modes, one may obtain the needed effect by a proper combination of controlling 
+forces on the modes. 
+
+To manipulate the modes, one must first obtain the decoupled equations, since
+solving these equations yield the modes. Once decoupled, we apply appropriate
+modal control forces. The decoupled equations must be obtained through 
+\emph{isospectral} transformations, that is, the eigensolution of the coupled
+and decoupled systems must be the same. Once the forces have been applied,
+inverse transforms have to be used to obtain the physical quantities, which will
+be used in the feedback loop. Whether the system is amenable to decoupling has
+traditionally been considered to be dependant on the damping matrix \gls{c}.
+For the homogenous system,
+\begin{equation}
+	\mathbf{M\ddot{r} + C\dot{r} + Kr} = \gls{0} \label{eqn:homogenous}
+\end{equation}
+\gls{c} may be zero, the system being undamped. This represents the trivial 
+case and decoupling this is possible due to results dating back to the $19^{th}$
+century.
+
+If the system has \emph{Rayleigh} or \emph{proportional} damping, then 
+\gls{c} = $\alpha$\gls{m} + $\beta$\gls{k}. The system may have 
+\emph{classical} damping, for which the Caughey-O'Kelly criterion \citep{caughey:583}
+applies: 
+\[ \gls{c}\gls{m}^{-1}\gls{k} = \gls{k}\gls{m}^{-1}\gls{c} \]
+Rayleigh damping is a special case of classical damping. For classically damped
+systems, the system maybe decoupled by a simple transformation.
+
+As we shall see, the related eigenvalue problem of the system is quite important in 
+modal analysis and control. Therefore, let us first consider mathematics involved.
+
+\section{Mathematical Background}
+\label{sec:intro_math}
+% Systems of the form \ref{eqn:basic} are closely related to eigenvalue problems,
+% which vary in form depending mostly on \gls{c}.  
+% However, the criteria for classical damping has been called into question, 
+% a point to which we shall return later.
+Aside from the form presented here, one may also choose to go about using decoupling
+via the state space form of the equation \eqref{eqn:homogenous}. The state space form
+presents its own eigenvalue problem. However the decoupled equations obtained thus 
+are different from the natural modes. The natural modes would be the equivalents of 
+the dimensionless form \eqref{eqn:simple_nodim}. To obtain these, one must diagonalize 
+the system matrices and not the state-space matrices.
+
+\subsection*{No Damping $ (\mathbf{C = 0})$}
+Equation \ref{eqn:homogenous} now reduces to
+\begin{equation}
+	\mathbf{M\ddot{r} + Kr = 0} \label{eqn:no_damp}
+\end{equation}
+the corresponding generalized eigenvalue problems being:
+\begin{subequations}
+\label{eqn:eigen_problem}
+\begin{align}
+	\mathbf{Kx} =  &-\gls{l}\mathbf{Mx}, \label{eqn:eigen_problem_right}\\
+	\gls{y}\gls{trans}\gls{k} =  &-\gls{l}\gls{y}^T\gls{m}, \label{eqn:eigen_problem_left}
+\end{align}
+\end{subequations}
+The eigenvalue problem, when written as a matrix polynomial in \gls{l},
+is called a pencil, and is termed linear, quadratic, etc. depending the
+on the order of the polynomial. The matrix pencil \gls{lp} in this case is:
+\begin{equation}
+	\gls{lp} := \gls{m}\gls{l} + \gls{k} = 0 \label{eqn:linear_pencil}
+\end{equation}
+The eigensolution is:
+\begin{align*}
+  \gls{L} = 
+  	&\begin{bmatrix}
+		\gls{l}_1 & & \\
+		 & \ddots & \\
+		 & & \gls{l}_n \\
+	\end{bmatrix} \in \gls{C}, 
+	\gls{l}_1 \geq \ldots \geq \gls{l}_n\\
+	\gls{X} = 
+ 	&\begin{bmatrix}
+		\gls{x}[_1] & \dots & \gls{x}[_n] 
+	\end{bmatrix} \in \mathbb{C}^{n \times n}\\
+	\gls{y} = 
+ 	&\begin{bmatrix}
+		\gls{y}[_1] & \dots & \gls{y}_n
+	\end{bmatrix} \in \mathbb{C}^{n \times n}
+\end{align*}
+Now, if the matrices \gls{m} and \gls{k} are symmetric, then we
+can have \gls{X} $=$ \gls{Y} but we shall consider the more general,
+asymmetric,	case. For this introduction let us make an assumption, that the
+system is not defective\footnote{A system with $n$ eigenvalues is defective 
+iff it does not have $n$ linearly independent eigenvectors.}\glsadd{det}:
+\begin{equation}
+	\left\vert{\gls{X}}\right\vert \neq 0 \neq \left\vert{\gls{Y}}\right\vert \label{eqn:asptn_defective}
+\end{equation}
+Traditionally, from this point on, one would usually encounter similarity
+transformations \citep{watkins2010fundamentals}. Thus:
+\begin{align*}
+ 	\gls{md} &= \gls{X}^{-1}\gls{m}\gls{X}\\
+ 	\gls{kd} &= \gls{X}^{-1}\gls{k}\gls{X}
+\end{align*}
+If the matrices were special in some way, say, if they were \emph{normal}\footnote{%
+Matrix $\mathbf{A}$ is said to be normal iff 
+$\mathbf{AA}\gls{ctrans} = \mathbf{A}\gls{ctrans}\mathbf{A}$.}, 
+one would expect some unitary similarity transformations\footnote{If $\mathbf{U} \in \gls{C}$ 
+is a unitary matrix, $\mathbf{U}\gls{ctrans}\mathbf{U} = \mathbf{UU}\gls{ctrans} = \gls{I}$. 
+Orthogonal matrices are real unitary matrices.}. 
+Or, if they were symmetric, which is often the case, 
+orthogonal transformations ($\gls{X}\gls{trans}\gls{X} = \gls{I}$):
+\begin{align*}	
+ 	\gls{md} &= \gls{X}^{T}\gls{m}\gls{X}\\
+ 	\gls{kd} &= \gls{X}^{T}\gls{k}\gls{X}
+\end{align*}
+
+However, let us depart from the traditional way, and inspect the use of both left
+and right eigenvectors. It turns out that we can diagonalize \gls{m} and 
+\gls{k} by the \emph{isospectral} transformations \citep{Chu200896}
+\begin{align*}
+ 	\gls{md} &= \gls{Y}^T\gls{m}\gls{X}\\
+ 	\gls{kd} &= \gls{Y}^T\gls{k}\gls{X}
+\end{align*}
+The term “isospectral” is used in the strong sense that the eigenvalues and 
+all their partial multiplicities are common to isospectral systems. 
+Note that all similarity transforms are isospectral, but the converse is not 
+necessarily true. Now, if the eigenvectors given by \gls{X} and \gls{Y}
+are normalized, we have,
+\begin{subequations}
+\label{eqn:MK_diag}
+\begin{align}
+	\gls{I} &= \gls{Y}^T\gls{m}\gls{X}\\
+	\gls{L} &= \gls{Y}^T\gls{k}\gls{X}
+\end{align}
+\end{subequations}
+yielding the decoupled equations
+\[ \mathbf{\ddot{q} + \gls{l}{q} = 0, \quad q = Xr}\]
+which represent the individual modes of the system.
+
+\subsection*{Classical Damping $( \gls{c}\gls{m}^{-1}\gls{k} = \gls{k}\gls{m}^{-1}\gls{c} )$}
+For classically damped systems, the eigenvalue problem remains unchanged. Further,
+the transformations that diagonalize \gls{m} and \gls{k} \eqref{eqn:MK_diag} 
+also diagonalize \gls{c}. This is trivially so for Rayleigh
+damping. The proof is not of essence to our task, so it shall not be stated here.
+However those interested may consult \citet{Inman15012001} for a short proof
+that the Caughey-O'Kelly criterion is the necessary and sufficient condition
+for this.
+
+\subsection*{General damping}
+In the event that damping is not classical, the transformations are not 
+guaranteed to simultaneously diagonalize all three matrices.  In 
+particular, gyroscopic systems have skew-symmetric damping matrices. The 
+eigenvalue problem is also different. It is no longer linear, but quadratic:
+\begin{subequations}
+\label{eqn:quadratic_problem}
+\begin{align}
+	(\gls{m}\gls{l}^{2} + \gls{c}\gls{l} + \gls{k})\mathbf{x} &= 0 \label{eqn:quadratic_pencil_r} \\
+	\gls{y}^T(\gls{m}\gls{l}^{2} + \gls{c}\gls{l} + \gls{k}) &= 0 \label{eqn:quadratic_pencil_l}\\
+	\gls{qp} := \gls{m}\gls{l}^{2} + \gls{c}\gls{l} + \gls{k} &= 0 \label{eqn:quadratic_pencil}
+\end{align}
+\end{subequations}	
+This eigenvalue problem, is no longer $n$-dimensional, but $2n$-dimensional,
+since there are $2n$ eigenvalues which satisfy the quadratic pencil. Hence the
+computational complexity of the problem becomes considerably higher.
+
+\subsection*{Defective systems}
+We made an assumption that the system is not defective \eqref{eqn:asptn_defective}.
+Defective matrices are rare enough that one is justified in making this assumption. 
+Defective matrices may not be fully diagonalized, but they can be converted into 
+the Jordan normal form:
+\begin{align*}
+ \gls{L} &= \begin{bmatrix}
+	\gls{L}_1 & & & \\
+	 & \gls{L}_2 & & \\
+	 & & \ddots & \\
+	 & & & \gls{L}_n	
+\end{bmatrix} \\
+\gls{L}_i &= \begin{bmatrix}
+	\gls{l}_i & 1 & & \\
+ 	 & \gls{l}_i & \ddots & \\
+ 	 & & \ddots & 1 \\
+ 	 & & & \gls{l}_i
+\end{bmatrix}
+\end{align*}
+The \gls{L}[$_i$] are called Jordan blocks.
+The number of Jordan blocks for an eigenvalue is its geometric multiplicity,
+and the sum of the sizes of the blocks is its algebraic multiplicity. The 
+matrix is diagonalizable iff both multiplicities are same for all eigenvalues.
+If this is not the case, then the modes involving a common eigenvalue
+might be coupled with each other, as they are not independent. Defective 
+systems are very sensitive to perturbation, and even systems close to
+defective matrices suffer from this problem. Therefore an error in 
+computation, due to round-off error, or truncation, can change the 
+characteristics of the problem. 
+%For example, purely imaginary eigenvalues may become complex.
+
+\section{Modal Control in General}
+\label{intro_modal_general}
+Modal Control enjoyed its heyday in the 1980s and 1990s. Then it fell out of favour, 
+due to problems involving uncontrolled modes and spillover, which we shall discuss in 
+the next chapter. Another major drawback was the requirement of a large number of 
+sensors to monitor all the modes. Further, \gls{imsc} and other methods are not suited 
+for problems involving gyroscopic systems. \citet{Meirovitch19791} has presented 
+improvements in \gls{imsc} which handle gyroscopic systems with slight damping,
+a restriction which we seek to remove. The Caughey-O'Kelly criterion has been called 
+into question, and qualifications added \citep{A2003741}. Thus, there is a need for 
+general decoupling transformations.
+
+However, not only do we need general decoupling transformations, we need \emph{real-valued}
+transformations. Complex transforms, while mathematically convenient to obtain,
+add a layer of complexity in practical computation. The Caughey-O'Kelly condition,
+insofar as it holds, do provide for such transformations, from results known to
+mathematicians from the times of Weierstrass. Another requirement is that the
+transformations be \emph{stable}. Stability can be considered in two contexts -- 
+numerical stability and stability of the eigensystem with respect to perturbation.
+If the transforms are not numerically stable, errors in the system will be
+magnified, and attempts at control will prove expensive and ineffectual. Since
+modal control aims to modify the modes, i.e., the eigenvalues and eigenvectors,
+unstable perturbations of the eigensystem would prove counter-productive.
+
+\subsection*{True Modal Control}
+True Modal Control aims to use such general decoupling transformations to completely
+decouple systems with arbitrary damping. Then each mode shall be controlled 
+independently, such that the overall effect is to coerce the physical variables
+to the desired state. The transformations involved would be real-valued. Thus,
+True Modal Control will address the problems of spillover, since all modes will
+be modelled. Further, characteristics of the system such as gyroscopic damping,
+which often proves stabilizing, would be retained, and put to use in an
+advantageous manner.
+
+There have been recent advances in this field by \citet{GARVEY2002885,GARVEY2002911}
+and \citet{Chu200896,Chu2008112}. This project aims to build on and improve 
+their results, both in a mathematical sense and in a computational sense. One case
+that is side-stepped by current strategies is a zero eigenvalue, or, equivalently,
+a system with rigid-body modes. Accommodating this case and that of defective systems
+is another goal of this project. We shall discuss these and the various modal 
+control strategies in the next chapter. %These methods, as well as IMSC, convert the 
+%$n$-\gls{dof} problem to $2n$-\gls{dof}.

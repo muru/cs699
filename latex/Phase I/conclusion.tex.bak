@@ -1,0 +1,24 @@
+\chapter{Conclusion}
+So as we can see, that \glspl{spe} and stable filters derived thus far 
+can convert any coupled equations of motion of most systems into 
+decoupled differential equations, which can easily be solved. 
+This part of the project will work as an accessory for applying
+True Modal Control on a real-life system, which shall be the main aim
+of phase II.
+\section{Future research}
+Aside from applying True Modal Control to a real system, there
+are other avenues for academic research as well:
+\begin{itemize}
+\item The presence of zeros in \gls{md} in systems with singular system
+matrices, and its implications: The reduction of order of the matrix
+pencils and the physical implications of equations of motion without 
+an acceleration term.
+\item The effect of defective systems: The Jordan canonical form, and
+study of loosely coupled equations that the Jordan form represents. Investigate 
+whether \glspl{lam} can be defective, and if so, explore the conditions
+when this may occur.
+\item The relation between stable filters and \glspl{spe}, that is, 
+exploring the field of all stable filters that can be obtained from
+a given set of \glspl{spe}. Monte Carlo methods may be used to 
+establish numerical relations, which may lead to analytical relations.
+\end{itemize}

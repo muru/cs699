@@ -1,0 +1,125 @@
+\chapter{Decoupling Algorithm}
+\label{app:2}
+We shall present an algorithm for obtaining the diagonalized
+matrices directly from using only eigenvalues and not the 
+eigenvectors. The expressions for \gls{md}, \gls{kd} and \gls{cd} can be
+derived by expanding the matrix products in \eqref{eqn:decoupled}.
+The derivations are lengthy, and not of consequence in themselves, 
+since the matrix relations in Appendix \ref{app:A} are far more
+convenient for understanding the mathematics involved. Therefore,
+we shall proceed directly to the expressions.  
+
+One may consult the classification of eigenvalues in Appendix \ref{list:class} 
+to better understand the terms used. Note that the following 
+pseudocode begins \emph{after} the eigensolution of the system has been
+obtained and the classification of eigenvalues accomplished. Since the
+steps for classification are obvious enough, they were not included here. Unfortunately,
+the classification of real eigenvalues and the operations on the resulting 
+sets is such that the sets do not readily yield to loops. 
+\begin{itemize}
+\item The eigenvalues $\gls{l}_{v^+}$ are obtained from the corresponding 
+index set $C_{v^{+}}$, with similar terms for $C_{v^{-}}$.
+\item Eigenvalue $\gls{l}_k = \alpha_k + \gls{i}\beta_k$ is the $k$th 
+eigenvalue in $\gls{L}_{\gls{ic}^+}$.
+\item The $k$th diagonal element in \gls{md}, \gls{kd} and \gls{cd} are 
+$m_k, k_k$ and $c_k$ respectively.
+\item The $k$th eigenvector in $\gls{X}_{\gls{ic}^+}^{[1]}$ is
+$\mathbf{v}_k^r  + \gls{i}\mathbf{w}_k^r$ and $\mathbf{p}_k^r$ the $k$th column
+of $\gls{Pi}_r$, with similar terms for $\gls{Y}_{\gls{ic}^+}^{[1]}$
+and $\gls{Pi}_l$.
+\item Considering a structure for $\gls{Pi}_l$ and $\gls{Pi}_l$
+similar to the one in \eqref{eqn:exp_x}, so $\mathbf{p}_{v^+}$ corresponds
+to the position occupied by $\gls{X}_{C_v^+}$ for $v = a,\dots,f$ and \gls{it}.
+\end{itemize}
+ 
+
+\newpage
+\begin{program}
+\BEGIN
+	\COMMENT{If the denominator in any term is 0, set that term to 0}
+	\FOR k = 1 \TO p \DO 	
+        \sigma_k \gets \alpha_k^2 + \beta_k^2
+		\phi_k \gets (\sqrt{\sigma_k}-\beta_k)/\alpha_k
+        t_k \gets \beta_k(1 + \phi_k^2)/(\sigma_k(\phi_k^2-1))
+        m_k \gets t_k^2(1 - \phi_k^2)
+        k_k \gets \phi_k^2 - 1
+        c_k \gets -4\beta_k\phi_k/\sigma_k
+        
+        \mathbf{p}_k^r \gets \sqrt{2}(\mathbf{v}_k^r\phi_k + \mathbf{w}_k^r)
+        \mathbf{p}_{k+n}^r \gets \sqrt{2}t_k(\mathbf{v}_k^r + \mathbf{w}_k^r\phi_k)
+        \mathbf{p}_k^l \gets \sqrt{2}(\mathbf{v}_k^l\phi_k + \mathbf{w}_k^l)
+        \mathbf{p}_{k+n}^l \gets\sqrt{2}t_k(\mathbf{v}_k^l + \mathbf{w}_k^l\phi_k)
+    \OD
+    
+    k \gets p
+    \FOR v = a \TO f \DO
+	    \FOR i = 1 \TO n(C_v) \DO 
+			m_{vi} \gets (\gls{l}_{v_i^+} + \gls{l}_{v_i^-})^2/\gls{l}_{v_i^+}^2\gls{l}_{v_i^-}(\gls{l}_{v_i^+} - \gls{l}_{v_i^-})
+			k_{vi} \gets \gls{l}_{v_i^-}/\gls{l}_{v_i^+} - 1
+			c_{vi} \gets \gls{l}_{v_i^-}/\gls{l}_{v_i^+}^2 - 1/\gls{l}_{v_i^-}
+			\IF v := b,f 
+			\THEN
+				m_{vi} \gets -m_{vi}
+				k_{vi} \gets -k_{vi}
+				c_{vi} \gets -c_{ci}
+			\FI
+			m_{k+i} \gets m_{vi}
+			k_{k+i} \gets k_{vi}
+			c_{k+i} \gets c_{vi}			 
+		\OD
+		k \gets k + n(C_v)
+	\OD
+	
+	\FOR v = a,d,f \DO
+	u_v = -(\gls{l}_{v^+} + \gls{l}_{v^-})/\sqrt{\gls{l}_{v^+}\gls{l}_{v^-}}(\gls{l}_{v^+} - \gls{l}_{v^-})
+	\OD
+	\FOR v = b,c,e \DO
+	u_v = (\gls{l}_{v^+} + \gls{l}_{v^-})/\sqrt{-\gls{l}_{v^+}\gls{l}_{v^-}}(\gls{l}_{v^+} - \gls{l}_{v^-})
+	\OD
+	
+    
+	\mathbf{p}_{a^+}^r \gets  \sqrt{ \gls{l}_{a^-}/\gls{l}_{a^+}}\gls{X}_{C_a^+} - \Im\gls{X}_{C_a^-}
+	\mathbf{p}_{b^+}^r \gets  \sqrt{-\gls{l}_{b^-}/\gls{l}_{b^+}}\gls{X}_{C_b^+} + \gls{X}_{C_b^-}
+	\mathbf{p}_{c^+}^r \gets -\sqrt{-\gls{l}_{c^-}/\gls{l}_{c^+}}\Im\gls{X}_{C_c^+} - \Im\gls{X}_{C_c^-}
+	\mathbf{p}_{d^+}^r \gets  \sqrt{ \gls{l}_{d^-}/\gls{l}_{d^+}}\gls{X}_{C_d^+} + \gls{X}_{C_d^-}
+	\mathbf{p}_{e^+}^r \gets -\sqrt{ \gls{l}_{e^-}/\gls{l}_{e^+}}\Im\gls{X}_{C_e^+} - \Im\gls{X}_{C_e^-}
+	\mathbf{p}_{f^+}^r \gets  \sqrt{-\gls{l}_{f^-}/\gls{l}_{f^+}}\gls{X}_{C_f^+} - \Im\gls{X}_{C_f^-}
+
+	\mathbf{p}_{\gls{it}^+}^r \gets \left[\mathbf{p}_{a^+}^r\; \mathbf{p}_{b^+}^r\; \mathbf{p}_{c^+}^r\; \mathbf{p}_{d^+}^r\; \mathbf{p}_{e^+}^r\; \mathbf{p}_{f^+}^r\; \right]
+
+    \mathbf{p}_{a^-}^r \gets  u_a(\gls{X}_{C_a^+} + \sqrt{ \gls{l}_{a^-}/\gls{l}_{a^+}}\Im\gls{X}_{C_a^-})
+	\mathbf{p}_{b^-}^r \gets  u_b(   \gls{X}_{C_b^+} + \sqrt{-\gls{l}_{b^-}/\gls{l}_{b^+}}\gls{X}_{C_b^-})
+	\mathbf{p}_{c^-}^r \gets u_c(-\Im\gls{X}_{C_c^+} - \sqrt{-\gls{l}_{c^-}/\gls{l}_{c^+}}\Im\gls{X}_{C_c^-})
+	\mathbf{p}_{d^-}^r \gets u_d(    \gls{X}_{C_d^+} - \sqrt{ \gls{l}_{d^-}/\gls{l}_{d^+}}\gls{X}_{C_d^-})
+	\mathbf{p}_{e^-}^r \gets u_e(-\Im\gls{X}_{C_e^+} + \sqrt{ \gls{l}_{e^-}/\gls{l}_{e^+}}\Im\gls{X}_{C_e^-})
+	\mathbf{p}_{f^-}^r \gets u_f(    \gls{X}_{C_f^+} - \sqrt{-\gls{l}_{f^-}/\gls{l}_{f^+}}\Im\gls{X}_{C_f^-})
+		
+	\mathbf{p}_{\gls{it}^-}^r \gets \left[\mathbf{p}_{a^-}^r\; \mathbf{p}_{b^-}^r\; \mathbf{p}_{c^-}^r\; \mathbf{p}_{d^-}^r\; \mathbf{p}_{e^-}^r\; \mathbf{p}_{f^-}^r \right]		
+	
+	
+	\mathbf{p}_{a^+}^l \gets  \sqrt{ \gls{l}_{a^-}/\gls{l}_{a^+}}\gls{X}_{C_a^+} - \Im\gls{X}_{C_a^-}
+	\mathbf{p}_{b^+}^l \gets  \sqrt{-\gls{l}_{b^-}/\gls{l}_{b^+}}\gls{X}_{C_b^+} + \gls{X}_{C_b^-}
+	\mathbf{p}_{c^+}^l \gets -\sqrt{-\gls{l}_{c^-}/\gls{l}_{c^+}}\Im\gls{X}_{C_c^+} - \Im\gls{X}_{C_c^-}
+	\mathbf{p}_{d^+}^l \gets  \sqrt{ \gls{l}_{d^-}/\gls{l}_{d^+}}\gls{X}_{C_d^+} - \gls{X}_{C_d^-}
+	\mathbf{p}_{e^+}^l \gets  \sqrt{ \gls{l}_{e^-}/\gls{l}_{e^+}}\Im\gls{X}_{C_e^+} - \Im\gls{X}_{C_e^-}
+	\mathbf{p}_{f^+}^l \gets  \sqrt{-\gls{l}_{f^-}/\gls{l}_{f^+}}\gls{X}_{C_f^+} + \Im\gls{X}_{C_f^-}
+
+	\mathbf{p}_{\gls{it}^+}^l \gets \left[\mathbf{p}_{a^+}^l\; \mathbf{p}_{b^+}^l\; \mathbf{p}_{c^+}^l\; \mathbf{p}_{d^+}^l\; \mathbf{p}_{e^+}^l\; \mathbf{p}_{f^+}^l\; \right]
+
+    \mathbf{p}_{a^-}^l \gets   u_a(  \gls{X}_{C_a^+} + \sqrt{ \gls{l}_{a^-}/\gls{l}_{a^+}}\Im\gls{X}_{C_a^-})
+	\mathbf{p}_{b^-}^l \gets u_b(    \gls{X}_{C_b^+} + \sqrt{-\gls{l}_{b^-}/\gls{l}_{b^+}}\gls{X}_{C_b^-})
+	\mathbf{p}_{c^-}^l \gets u_c(-\Im\gls{X}_{C_c^+} - \sqrt{-\gls{l}_{c^-}/\gls{l}_{c^+}}\Im\gls{X}_{C_c^-})
+	\mathbf{p}_{d^-}^l \gets u_e(    \gls{X}_{C_d^+} + \sqrt{ \gls{l}_{d^-}/\gls{l}_{d^+}}\gls{X}_{C_d^-})
+	\mathbf{p}_{e^-}^l \gets u_e( \Im\gls{X}_{C_e^+} + \sqrt{ \gls{l}_{e^-}/\gls{l}_{e^+}}\Im\gls{X}_{C_e^-})
+	\mathbf{p}_{f^-}^l \gets u_f(    \gls{X}_{C_f^+} + \sqrt{-\gls{l}_{f^-}/\gls{l}_{f^+}}\Im\gls{X}_{C_f^-})
+		
+	\mathbf{p}_{\gls{it}^-}^l \gets \left[\mathbf{p}_{a^-}^l\; \mathbf{p}_{b^-}^l\; \mathbf{p}_{c^-}^l\; \mathbf{p}_{d^-}^l\; \mathbf{p}_{e^-}^l\; \mathbf{p}_{f^-}^l \right]
+	
+	\FOR i = 1 \TO n(\gls{it}^+) \DO
+		\mathbf{p}_{p+i}^r \gets \mathbf{p}_{\gls{it}_i^+}^r
+		\mathbf{p}_{n+p+i}^r \gets \mathbf{p}_{\gls{it}_i^-}^r
+		\mathbf{p}_{p+i}^l \gets \mathbf{p}_{\gls{it}_i^+}^l
+		\mathbf{p}_{n+p+i}^l \gets \mathbf{p}_{\gls{it}_i^-}^l	
+	\OD
+\END
+\end{program}

@@ -1,0 +1,399 @@
+\chapter{Total Decoupling}
+In this chapter, we shall first describe the diagonalizing transformations
+derived by \citet{Chu200896}, followed by the modifications needed for 
+handling the case when zero is an eigenvalue. Then we shall have a brief 
+discussion of the computational complexity involved and measures to decrease 
+it. Before we start, let us a have brief overview of the symbols used,
+which were previously introduced. We shall be using the \glspl{lam} \gls{a}
+and \gls{b}, with the corresponding matrix pencil \gls{lp} and eigensystem
+\gls{L}, \gls{X} and \gls{Y} $\in \mathbb{C}^{2n\times 2n}$ :
+\begin{align}
+	\gls{a} &\phantom{:}= \begin{bmatrix}
+	-\gls{k} & \gls{0}\\
+	\mathbf{0} & \gls{m}
+	\end{bmatrix}\\
+	\quad\gls{b} &\phantom{:}= \begin{bmatrix}
+	\gls{c} & \gls{m}\\
+	\gls{m} & \gls{0}
+	\end{bmatrix}\\	
+	\gls{lp} &:= \gls{b}\gls{l} - \gls{a} = 0
+\end{align}
+Except for \gls{j}, we shall not be using the matrices defined in \autoref{sec:SPT}.
+We are using normalized eigenvectors, so that:
+\begin{subequations}
+\label{eqn:norm_eigv}
+\begin{align}
+	\gls{Y}^T\gls{a}\gls{X} &= \gls{L}\\
+	\gls{Y}^T\gls{b}\gls{X} &= \gls{I}_{2n}
+\end{align}
+\end{subequations}
+Now let us scale the eigenvectors by their eigenvalues, thus:
+\begin{align}
+	\label{eqn:vec_scale}
+	\gls{X}^{[1]} &= \gls{X}\gls{L}^{-1/2}\\
+	\gls{Y}^{[1]} &= \gls{Y}\gls{L}^{-1/2}
+\end{align}
+Since \gls{L} is a diagonal matrix, its inverse is obtained by taking the 
+reciprocals of its diagonal elements. The principle square root of the
+diagonal elements is used. Then \eqref{eqn:norm_eigv} becomes
+\begin{subequations}
+\begin{align}
+	\gls{Y}^{[1]T}\gls{a}\gls{X}^{[1]} &= \gls{I}_{2n}\\
+	\gls{Y}^{[1]T}\gls{b}\gls{X}^{[1]} &= \gls{L}^{-1}
+\end{align}
+\end{subequations}
+The remaining steps belong to three stages: classification of the eigenvalues
+and their eigenvectors, elimination of complex values and scaling to restore
+the transformed \gls{a} and \gls{b} to \glspl{lam}. The classification procedure 
+and the derivation of the other matrices are provided in Appendix \autoref{app:A}.
+For now, we shall simply state the key matrices obtained:
+\begin{subequations}
+\label{eqn:pjfg}
+\begin{align}
+	\gls{p} &= \gls{I}_{2n}\left[\gls{ic}^+\gls{it}^+\gls{ic}^-\gls{it}^-\right]\\
+%	
+	\gls{j}_L &= \begin{bmatrix}
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \mathbf{L}^+ & \gls{0} & \gls{0} \\
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \gls{0} & \gls{0} & \mathbf{L}^- \\
+	\end{bmatrix}\\ 
+	\gls{j}_R &= \begin{bmatrix}
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \mathbf{R}^+ & \gls{0} & \gls{0} \\
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \gls{0} & \gls{0} & \mathbf{R}^- \\
+	\end{bmatrix}\\
+%
+	\gls{F} &= \begin{bmatrix}
+		\mathbf{\Phi} & \gls{0} & \gls{I}_{p} & \gls{0} \\
+		\gls{0} & \mathbf{\Psi}^+ & \gls{0} & \gls{I}_{n-p} \\
+		\gls{I}_{p} & \gls{0} & \mathbf{\Phi} & \gls{0} \\
+		\gls{0} & \gls{I}_{n-p} & \gls{0} & \mathbf{\Psi}^-
+	\end{bmatrix}\\
+%
+	\gls{G} &= \begin{bmatrix}
+	\gls{I}_n & \gls{0} \\
+	\gls{0} & \mathbf{\Theta}
+	\end{bmatrix}
+\end{align}
+\end{subequations}
+which give us the diagonalizing transformations \gls{Pi}[$_L$] and \gls{Pi}[$_R$]:
+\begin{subequations}
+\begin{align}
+	\gls{Pi}_L = \gls{X}^{[1]}\gls{p}\gls{j}_L\gls{F}\gls{G}\\
+	\gls{Pi}_R = \gls{X}^{[1]}\gls{p}\gls{j}_R\gls{F}\gls{G}
+\end{align}
+\end{subequations}
+\gls{Pi}[$_L$] and \gls{Pi}[$_R$] give us the diagonalized system --- \gls{kd},
+\gls{md} and \gls{cd}:
+\begin{subequations}
+\label{eqn:decoupled}
+\begin{align}
+	\gls{Pi}_L^T\gls{a}\gls{Pi}_R &= \begin{bmatrix}
+	\gls{kd} & \gls{0} \\
+	\gls{0} & \gls{md}\\
+	\end{bmatrix}\\
+	\gls{Pi}_L^T\gls{b}\gls{Pi}_R &= \begin{bmatrix}
+	\gls{0} & \gls{md} \\
+	\gls{md} & \gls{cd}\\
+	\end{bmatrix}
+\end{align}
+\end{subequations}
+
+\section{Modifications}
+Consider the case when \gls{l}$_i = 0$, for some $ 1\leq i \leq 2n$. Then, 
+the algorithm fails when at the very beginning, when scaling the 
+eigenvectors using the eigenvalues \eqref{eqn:vec_scale}. The matrix form 
+of the equation immediately suggests an alternate route. Pseudo-inverses of 
+singular matrices are very well known and well-defined. Therefore, we use 
+the pseudo-inverse of the matrix of eigenvalues, specifically the Moore-Penrose 
+pseudo-inverse. The inverse of a diagonal matrix is also a diagonal 
+matrix with reciprocals of the corresponding diagonal terms. The 
+pseudo-inverse of a singular diagonal matrix (obviously having atleast one 
+zero in the diagonal), is also a diagonal matrix with reciprocals of the 
+corresponding diagonal terms, except for the zeros, which remain zero. 
+Thus:
+\begin{align}
+	{\begin{bmatrix}
+		\gls{L}_1 & & \\		 
+		 & \gls{0} & \\
+		 & & \gls{L}_2	
+	\end{bmatrix}}^{\gls{pinv}} = 
+	\begin{bmatrix}
+		\gls{L}_1^{-1} & & \\		 
+		 & \gls{0} & \\
+		 & & \gls{L}_2^{-1}	
+	\end{bmatrix}
+\end{align}
+
+Therefore, when we scale the eigenvectors using the pseudo-inverse, the
+columns of \gls{X} and \gls{Y} corresponding to the eigenvalue zero become
+zero themselves. Whenever the inverse of a singular matrix is needed in 
+the equations, we shall use the pseudo-inverse instead. This may happen 
+in the equations \eqref{eqn:phi}, \eqref{eqn:psi} and \eqref{eqn:theta}. 
+The next problem arising when a \gls{l}$_i = 0$ is in the classification 
+of eigenvalues (see \autoref{list:class}). Here we may relax one each
+of the three pairs of strict inequalities. The choice is quite arbitrary, since
+the use pseudo-inverses means that any cases division by 0 would be have 
+a result equivalent to multiplication 0.
+In any case, one must check for small non-zero values that maybe result of
+round-off errors and truncation errors. These values should rightly be
+exactly zero, but often aren't, and dividing by these small values
+should be avoided.
+ 
+Now let us consider the implications of using the pseudo-inverse.
+Since the the transformations represented by \gls{p}, \gls{j} and \gls{F}
+are linear combinations of the scaled eigenvectors, the final \glspl{spe} 
+obtained do not have full rank, and hence are not invertible. But, the 
+filters obtained from these \glspl{spe} can be made invertible, using the 
+concept of stable filters discussed in the next chapter. Consider the 
+quadratic pencil \gls{qp} \eqref{eqn:quadratic_pencil}, now using the 
+diagonalized matrices \gls{kd}, \gls{md} and \gls{cd}. Then we can write 
+the pencil as separate polynomials in \gls{l}. If zero satisfies one of 
+these polynomials, as it should, then one would expect that one of the
+diagonal elements in \gls{kd} is zero. For each repeated occurrence of 
+zero as an eigenvalue, a diagonal element in \gls{kd} would be zero. 
+
+Unexpectedly, this is not what happens. Instead of ending up in \gls{kd}, 
+the zeros end up in \gls{md}. Effectively, this means that, for each 
+multiplicity of zero as an eigenvalue, one of the decoupled polynomial 
+reduces its degree from quadratic to linear. The reduced polynomials
+have a non-zero real eigenvalue as their root. Also, the corresponding
+equation of motion now lacks an acceleration term! Studying the 
+implications of this could be a goal of future research.
+
+\section{Computational Improvements}
+Like complex numbers, matrices are convenient for mathematics and rather 
+inconvenient for computation. Multiplying two square matrices of size $n$
+is an $O(n^3)$ task. Hence, while it is convenient to write 
+$\gls{X}^{[1]} = \gls{X}\gls{p},$ for the purpose of computation,
+selecting the individual columns is much faster. Also, the original equations
+presented in \citet{Chu200896} use arbitrary eigenvectors, and scale them via 
+the matrix multiplication $\gls{X}^{[1]} = \gls{X}\gls{b}_1^{-1/2}$, and
+$\gls{Y}^{[1]} = \gls{Y}\gls{b}_1^{-1/2}$, where 
+$\gls{b}_1 = \gls{Y}^T\gls{b}\gls{X}$. This involves 4 matrix 
+multiplications, whereas solving for \gls{Y} in the equation 
+\begin{align}
+	 \gls{I}_{2n} = \gls{Y}^T\gls{b}\gls{X}
+\end{align}
+gives us $\gls{Y} = (\gls{X}\gls{b})^{-T}$, which saves us two matrix 
+multiplications and the cost of calculating the left eigenvectors of
+the system.
+
+From similar arguments, the role of $\gls{j}_R,$ and $ \gls{j}_L$,
+can be eliminated, reducing the matrix multiplications to obtaining 
+multiples of eigenvectors or obtaining real or imaginary parts of the
+eigenvectors, for example\footnote{Refer \autoref{app:A} for an 
+explanation of the subscripts.}:
+\begin{subequations}
+\label{eqn:exp_x}
+\begin{align}
+\gls{X}^{[2]} &= \gls{X}\gls{p}\gls{j}_R \nonumber \\
+&= \begin{bmatrix}
+\sqrt{2}\gls{re}{\gls{X}_{\gls{ic}^+}} & \gls{X}_{\gls{it}^+}^{[1]} & \sqrt{2}\gls{im}{\gls{X}_{\gls{ic}^+}} & \gls{X}_{\gls{it}^+}^{[1]}
+\end{bmatrix}\\
+\gls{X}_{\gls{it}^+}^{[1]} &= \begin{bmatrix}
+\gls{X}_{C_a^+} & \gls{X}_{C_b^+} & -\gls{im}{\gls{X}_{C_c^+}} & \gls{X}_{C_d^+} & -\gls{im}{\gls{X}_{C_e^+}} & \gls{X}_{C_f^+}
+\end{bmatrix}\\
+\gls{X}_{\gls{it}^+}^{[1]} &= \begin{bmatrix}
+-\gls{im}{\gls{X}_{C_a^-}} & \gls{X}_{C_b^-} & -\gls{im}{\gls{X}_{C_c^-}} & \gls{X}_{C_d^-} & -\gls{im}{\gls{X}_{C_e^-}} & -\gls{im}{\gls{X}_{C_f^-}}
+\end{bmatrix}
+\end{align}
+\end{subequations}
+This can be extended further to \gls{F} and \gls{G}. Expanding these 
+matrix products can, and does, give us the values of the diagonalized 
+matrices directly. An algorithm using simplified results obtained from 
+expanding the matrix products is provided in \autoref{app:2}. As one may 
+observe, complex arithmetic is not used. In fact, the algorithm reveals 
+that complex calculations are not necessary at all for derivation of the 
+\glspl{spe}, and one may simply store the real and imaginary parts of the 
+complex values involved individually without being inconvenienced about 
+complex calculations.
+
+\section{An Example}
+\label{sec:ex_sing}
+For an example of decoupling from this procedure, we shall make use of
+a system with an eigenvalue equal to zero, since both \citet{Chu200896}
+and \citet{GARVEY2002885} present examples where no eigenvalues are zero.
+The system matrices are:
+\begin{align}
+\gls{m} &= \begin{bmatrix}
+ 0.7621  &     0.4447   &    0.7382    &   0.9169\\
+   0.4565  &     0.6154    &   0.1763    &   0.4103\\
+   0.0185   &    0.7919   &    0.4057    &   0.8936\\
+   0.8214   &    0.9218   &    0.9355     &  0.0579
+\end{bmatrix}\\
+\gls{k} &= \begin{bmatrix}
+0.2111   &   -0.6014   &  -0.48997   &    1.2366\\
+   1.1902  &     0.5512  &    0.44908   &   -0.6313\\
+  -1.1162   &   -1.0998  &   -0.89603   &   -2.3252\\
+   0.6353   &     0.086  &   0.070066   &   -1.2316
+\end{bmatrix}\\
+\gls{c} &= \begin{bmatrix}
+ 0.371  &    -1.0226  &     0.3155   &    0.5045\\
+   0.7283   &    1.0378   &    1.5532  &     1.8645\\
+   2.1122   &   -0.3898   &    0.7079   &   -0.3398\\
+  -1.3573  &    -1.3813   &    1.9574   &   -1.1398
+\end{bmatrix}
+\end{align}
+Here, \gls{k} is singular. Hence eigenvalues would be zero. As the nullity 
+of \gls{k} is 1, only one eigenvalue should be zero, and this is indeed 
+the case. The eigenvalues (sorted by absolute value) are:
+\begin{align}
+\left\lbrace\begin{matrix}
+ 0, & -0.13669 \pm 0.47519\gls{i}, & -1.7264 \pm 0.36492\gls{i}, & 0.087312 \pm 2.4286\gls{i}, & 3.4173
+\end{matrix}\right\rbrace
+\end{align}
+The \glspl{spe} are:
+\begin{align}
+\gls{Pi}_L &= \begin{bmatrix}
+ -4.3438 & -9.3035 &  0.9329 &  3.8414 & 0.64854 &  2.3448 &  1.8965 & -1.3706\\
+ -4.0555 & -3.2867 & 0.38837 &  2.0024 &   5.956 &  4.4991 & -0.61423 & -2.7666\\
+ -38.405 &  67.603 &  7.7113 & -2.1625 & -14.964 &  21.717 &  -70.529 & -49.728\\
+ -0.071343 & -0.43711 & 0.77466 & -0.043924 & -0.2438 & -1.4938 & 2.6473 & -0.1501\\
+ -2.6527 & -9.5906 & -7.7571 &   5.606 & -3.6186 & -6.6816 &   3.0535 &  2.3088\\
+ -1.9128 & -1.4449 & 0.19726 & 0.88851 &  2.5491 &  1.7025 &   -0.29276 & -1.0655\\
+  2.5338 & -3.6772 &  11.942 &    8.42 & -37.963 &  66.961  &  9.7967  &   -0.69221\\
+  0   & 0 &   0 &   0   & 0   & 0 &   0 & 0
+\end{bmatrix}\\
+\gls{Pi}_R &= \begin{bmatrix}
+7.4028 & -0.08227 & -0.32704 &  -0.1583 &  -10.226 & -0.059461 &   1.1118 & 0 \\
+-7.626 & 0.074557 &  -14.944 & 0.015977 &    15.84 & 0.080423 &   1.4468 &  0 \\
+8.9447 &  0.32858 &   6.8018 &  0.06258 &   16.439 &  0.28605 &   3.5329 &  0 \\
+-0.68185 & -0.28094 &   4.5378 & 0.071865 &   2.6872 & -0.21892 &  -1.7018 & 0 \\
+2.5002 &  0.18514 &  -6.5661 & -0.54095 &   10.198 &  0.12304 &  -0.1329 &  0 \\
+-3.8727 & -0.25042 &  -8.5445 & 0.054599 &  -11.956 & -0.20313 &  -14.691 & 0 \\
+-4.0191 & -0.89067 &  -20.865 &  0.21386 &   4.4507 & -0.65909 &   7.4188 & 0 \\
+-0.65698 &  0.68167 &   10.051 &  0.24559 &  -1.4164 &  0.47497 &   4.2406 & 0
+\end{bmatrix}
+\end{align}
+Obviously, both \glspl{spe} are singular, but a column or row of zeros 
+need not be present for all such cases. And the diagonalized matrices:
+\begin{align}
+\gls{md} &= diag\begin{bmatrix}
+ 201.74  &   0.16746   &   524.19   &         0
+\end{bmatrix}\\
+\gls{kd} &= diag\begin{bmatrix}
+     49.323  &   0.52144   &  3095.8     &    1
+\end{bmatrix}\\
+\gls{cd} &= diag\begin{bmatrix}
+      55.151   &  0.57823  &     -91.537  &   - 0.29263
+\end{bmatrix}
+\end{align}
+The corresponding quadratic eigenvalue equations are:
+\begin{align}
+201.74\lambda^2 + 55.151\lambda + 49.323 = 0 &\Rightarrow \lambda = -0.13669 \pm 0.47519\gls{i}\\
+0.16746\lambda^2 + 0.57823\lambda + 0.52144 = 0 &\Rightarrow \lambda = -1.7265 \pm 0.3649\gls{i}\\
+524.19\lambda^2 - 91.537\lambda + 3095.8 = 0 &\Rightarrow \lambda = 0.087312 \pm 2.4286\gls{i}
+\end{align}
+As we can see, a diagonal element of \gls{md} is 0, and the 
+corresponding (linear) polynomial $0.29263\gls{l} - 1 = 0$ has 
+the solution $\gls{l} =3.4173,$ the only other real eigenvalue. 
+
+\section{An Alternate Formulation}
+As we have seen, an eigenvalue being zero results in a singular 
+diagonalized mass matrix. Since the transformation is done in a 
+$2n\times2n$ matrix space, this mass matrix doesn't correspond to a 
+physical mass, but rather to a amalgam of the system properties. While the 
+singularity of the mass matrix does not pose a computational problem so 
+far, this oddity might have consequences not yet known. Consider the 
+original LAMs, presented again for convenience:
+\begin{align}
+	\gls{a} &\phantom{:}= \begin{bmatrix}
+	-\gls{k} & \gls{0}\\
+	\mathbf{0} & \gls{m}
+	\end{bmatrix}\\
+	\quad\gls{b} &\phantom{:}= \begin{bmatrix}
+	\gls{c} & \gls{m}\\
+	\gls{m} & \gls{0}
+	\end{bmatrix}\\	
+	\gls{lp} &:= \gls{b}\gls{l} - \gls{a} = 0
+\end{align}
+As seen in the example above, the transformation matrices are also 
+singular -- in fact, they have respectively a column and a row entirely 
+zero. Since the common matrix to both LAMs is \gls{m}, and further the 
+column and row which are zero are located such that both affect \gls{m}. 
+If the common matrix were changed to another, with a corresponding change 
+in location of zero-valued column and row, then we might be able to avoid 
+a singular \gls{md}. As mentioned in \autoref{sec:SPT}, there are three LAMs, 
+any two of which can be used to linearise the quadratic eigenvalue problem. 
+So far we have used only one pair. We theorized that by using alternate LAMs, 
+we may be able to avoid singular mass matrices. To this end, consider the 
+LAM \gls{d}:
+\begin{align}
+\gls{d} = \begin{bmatrix}
+0 & \gls{k} \\
+\gls{k} & \gls{c}
+\end{bmatrix}
+\end{align}
+paired with \gls{a} to obtain the corresponding eigenvalue problem:
+\begin{align}
+L(\lambda) := \lambda\gls{a} + \gls{d} = 0
+\end{align}
+
+For this matrix pencil, the transformation matrices are different, as is
+the construction of the intermediate matrices. The intermediate matrices,
+where different, are presented here:
+\begin{subequations}
+\label{eqn:pjfg2}
+\begin{align}
+	\gls{p} &= \gls{I}_{2n}\left[\gls{ic}^-\gls{it}^-\gls{it}^+\gls{ic}^+\right]
+\end{align}
+\begin{align}
+	\gls{j}_L &= \begin{bmatrix}
+		\mathbf{L}^- & \gls{0} & \gls{0} & \gls{0} \\
+		\gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{1}{\sqrt{2}}\gls{I}_p\\
+		\gls{0} & \gls{0} & \mathbf{L}^+ & \gls{0} \\
+		\gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{1}{\sqrt{2}}\gls{I}_p\\
+	\end{bmatrix}\\ 
+	\gls{j}_R &= \begin{bmatrix}
+		\mathbf{R}^- & \gls{0} & \gls{0} & \gls{0} \\
+		\gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{1}{\sqrt{2}}\gls{I}_p\\
+		\gls{0} & \gls{0} & \mathbf{R}^+ & \gls{0} \\
+		\gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{1}{\sqrt{2}}\gls{I}_p\\
+	\end{bmatrix}
+\end{align}
+\begin{align}
+	\gls{F} &= \begin{bmatrix}
+		\mathbf{\Psi}^- & \gls{0} & \gls{I}_{n-p} & \gls{0} \\
+		\gls{0} & \mathbf{\Phi} & \gls{0} & \gls{I}_{p} \\
+		\gls{I}_{n-p} & \gls{0} & \mathbf{\Psi}^+ & \gls{0} \\
+		\gls{0} & \gls{I}_{p} & \gls{0} & \mathbf{\Phi}
+	\end{bmatrix}\\
+%
+	\mathbf{\Theta} &= \gls{a}_{11}^{-1}\gls{d}_{12}
+\end{align}
+\end{subequations}
+
+When \gls{a} and \gls{b} were used, if \gls{m} or \gls{k} were singular,
+then some eigenvalues would be zero. Unfortunately, when \gls{a} and 
+\gls{d} are used, the corresponding eigenvalues are infinite. While a 
+workaround existed for the earlier approach, whereby pseudo-inverses where 
+used instead of inverses, no such workaround could be obtained for this 
+alternate approach. However, some computations are eliminated (see 
+\autoref{app:A} for details). So, for large non-singular systems, the LAMs 
+should be \gls{a} and \gls{d}, but for singular systems, the LAMs should 
+be \gls{a} and \gls{b}. The expanded vector-based algorithm presented in 
+\autoref{app:2} is not repeated for the alternate approach, since it is 
+trivial to obtain the required changes from the changes in the 
+intermediate matrices.
+A similar situation holds true for the third pair of LAMs, \gls{b} and 
+\gls{d}. Again, eigenvalues become infinite instead if the component 
+matrices are zero. Since there seemed to be no advantage here, the 
+intermediate matrices were not derived.
+
+\section{Stable Filters}
+So far, we have been discussing decoupling transformations, which are generally in 
+the $\mathbb{R}^{2n\times 2n}$ space. Since the control systems will operate in the
+\gls{R} space, we must derive appropriate filters from the decoupling transformations.
+These filters will be used whenever we exert control, so that their stability is of
+paramount importance. To this end, we shall use Automorphic Transformations which
+map a matrix to itself, which we can select based upon our stability criteria to 
+obtain appropriate filters. However, the mapping is of the form 
+$f(\mathbf{\theta}^{n}):\mathbb{R}^n\rightarrow\mathbb{R}^{2n\times 2n}$, and thus far
+the exact nature of the mapping has not been established. Therefore we must rely 
+on either (a) exhaustive tables of results, which quickly become unwieldy in 
+practice, or (b) a Monte Carlo search for an appropriate filter. 
+The notion of filter goodness described in \citet{Jiffri2011} shall be our criteria 
+for selecting filters. We shall discuss both these methods in the next two chapters.

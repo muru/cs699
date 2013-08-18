@@ -1,0 +1,7 @@
+This LaTeX file was compiled using xelatex, and has a glossary.
+You need to have texlive-xetex installed for xelatex and 
+texlive-latex-extra installed for the makeglossaries command.
+Usage of makeglossaries is similar to that of bibtex.
+
+The same LaTeX doc has both multicolumn and single column
+areas, using the multicol package.

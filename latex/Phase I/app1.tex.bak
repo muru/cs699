@@ -1,0 +1,201 @@
+\chapter{Details of Total Decoupling}
+\label{app:A}
+In this appendix we'll present in detail the derivation of the matrices in
+\eqref{eqn:pjfg}. The classification procedure \citep[sec~3.1]{Chu200896} is based upon the 
+scaled eigenvectors \gls{X}[$^{[1]}$], (or, equivalently, \gls{Y}[$^{[1]}$]),
+and divides the real eigenvalues into pairs. Let \gls{ic}, \gls{ir} and 
+\gls{ii} be the index sets of complex, real and purely imaginary eigenvectors 
+in \gls{X}[$^{[1]}$], which provide us the index set \gls{it}. As before, 
+let the number of complex eigenvalues be $2p$. \gls{ic}[$^+$] and \gls{ic}[$^-$]
+are the index sets of complex-valued eigenvalues with positive and negative 
+imaginary parts respectively. Hence, $p = n(\gls{ic}[^+])$. \gls{it}[$^+$] 
+and \gls{it}[$^-$] are index sets formed from the first and second values of
+the pairs of real eigenvalues. First, let us examine the classification of eigenvalues.
+The real eigenvalues \gls{L}$_{\gls{ir}}$ and \gls{L}$_{\gls{ii}}$ will be
+regrouped into six categories:
+\begin{enumerate}
+\label{list:class}
+\item For $j = 1, \dots, \rho$,
+\begin{align*}
+\left\lbrace \mathrm{r}_j, \mathrm{i}_j\right\rbrace \in \mathbf{C}_a 
+&\Leftrightarrow \gls{l}_{\mathrm{r}_j}\gls{l}_{\mathrm{i}_j} > 0\\
+\left\lbrace \mathrm{r}_j, \mathrm{i}_j\right\rbrace \in \mathbf{C}_f 
+&\Leftrightarrow \gls{l}_{\mathrm{r}_j}\gls{l}_{\mathrm{i}_j} < 0
+\end{align*}
+\item For $j = 1, \dots, (n(\gls{ir}) - \rho)/2$,
+\begin{align*}
+\left\lbrace \mathrm{r}_{\rho+2j-1}, \mathrm{r}_{\rho+2j}\right\rbrace \in \mathbf{C}_b
+&\Leftrightarrow \gls{l}_{\mathrm{r}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} < 0\\
+\left\lbrace \mathrm{r}_{\rho+2j-1}, \mathrm{r}_{\rho+2j}\right\rbrace \in \mathbf{C}_d
+&\Leftrightarrow \gls{l}_{\mathrm{r}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} > 0
+\end{align*}
+\item For $j = 1, \dots, (n(\gls{ii}) - \rho)/2$,
+\begin{align*}
+\left\lbrace \mathrm{i}_{\rho+2j-1}, \mathrm{i}_{\rho+2j}\right\rbrace \in \mathbf{C}_c
+&\Leftrightarrow \gls{l}_{\mathrm{i}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} < 0\\
+\left\lbrace \mathrm{i}_{\rho+2j-1}, \mathrm{r}_{\rho+2j}\right\rbrace \in \mathbf{C}_e
+&\Leftrightarrow \gls{l}_{\mathrm{i}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} > 0
+\end{align*}
+\end{enumerate}
+Collect all first indices in each $\mathbf{C}_v$ in  $\mathbf{C}_v^+$ and the second 
+indices in $\mathbf{C}_v^-$, so that $\mathbf{C}_v = \mathbf{C}_v^+\bigcup\mathbf{C}_v^-$.
+Let $q_v = n(\mathbf{C}_v)/2$. Gathering the indices of real eigenvalues in \gls{it}:
+\begin{align*}
+  	\gls{it}^+ &= \left[\mathbf{C}_a^+,\dots,\mathbf{C}_f^+\right]\\
+  	\gls{it}^- &= \left[\mathbf{C}_a^+,\dots,\mathbf{C}_f^-\right]
+\end{align*}
+Rearranging the columns of \gls{I}$_{2n}$ using the index order 
+$\left[\gls{ic}^+\gls{it}^+\gls{ic}^-\gls{it}^-\right]$, we obtain the 
+permutation matrix \gls{p}.
+
+Consider the identity matrices \gls{I}$_a,$
+$\dots,$ \gls{I}$_f$ of size $q_a, \dots, q_f.$ Define the following
+block diagonal matrices: 
+\begin{align*}
+	\mathbf{L}^+ &= diag\left[\gls{I}_a,\gls{I}_b,\gls{i}\gls{I}_c,
+	\gls{I}_d,-\gls{i}\gls{I}_e,\gls{I}_f,\right]\\
+	\mathbf{L}^- &= diag\left[\gls{i}\gls{I}_a,\gls{I}_b,\gls{i}\gls{I}_c,
+	-\gls{I}_d,\gls{i}\gls{I}_e,-\gls{i}\gls{I}_f,\right]\\
+	\mathbf{R}^+ &= diag\left[\gls{I}_a,\gls{I}_b,\gls{i}\gls{I}_c,
+	\gls{I}_d,\gls{i}\gls{I}_e,\gls{I}_f,\right]\\
+	\mathbf{R}^- &= diag\left[\gls{i}\gls{I}_a,\gls{I}_b,\gls{i}\gls{I}_c,
+	\gls{I}_d,\gls{i}\gls{I}_e,\gls{i}\gls{I}_f,\right]\\
+	\hat{\gls{I}}_{n-p} &= diag\left[\gls{I}_a,\gls{I}_b,-\gls{I}_c,\gls{I}_d,
+	\gls{I}_e,\gls{I}_f,\right]\\ 
+	\tilde{\gls{I}}_{n-p} &= diag\left[-\gls{I}_a,\gls{I}_b,-\gls{I}_c,
+	-\gls{I}_d,-\gls{I}_e,\gls{I}_f,\right]
+\end{align*}
+to obtain \gls{j}$_L$ and \gls{j}$_R$:
+\begin{align*}
+	\gls{j}_L &= \begin{bmatrix}
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \mathbf{L}^+ & \gls{0} & \gls{0} \\
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \gls{0} & \gls{0} & \mathbf{L}^- \\
+	\end{bmatrix}\\ 
+	\gls{j}_R &= \begin{bmatrix}
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \mathbf{R}^+ & \gls{0} & \gls{0} \\
+		\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0}\\
+		\gls{0} & \gls{0} & \gls{0} & \mathbf{R}^- \\
+	\end{bmatrix}
+\end{align*}
+A cursory inspection of \gls{j}$_L$ and \gls{j}$_R$ tells us that 
+$\mathbf{L}^+, \mathbf{L}^-, \mathbf{R}^+, $ and $\mathbf{R}^-$ are used
+to convert the purely imaginary eigenvectors to real ones, and the other
+blocks of \gls{j}$_L$ and \gls{j}$_R$ deal with the complex eigenvectors.
+Thus, the overall effect of these matrices is a real-valued form of the 
+eigenvectors.
+\begin{align*}
+	\gls{a}^{[1]} &= (\gls{Y}^{[1]}\gls{p}\gls{j}_L)^T\gls{a}(\gls{X}^{[1]}\gls{p}\gls{j}_R) = diag\left[\gls{I}_p, \hat{\gls{I}}_{n-p}, \gls{I}_p,\tilde{\gls{I}}_{n-p}\right]\\
+	\gls{b}^{[1]} &= (\gls{Y}^{[1]}\gls{p}\gls{j}_L)^T\gls{b}(\gls{X}^{[1]}\gls{p}\gls{j}_R) = \begin{bmatrix}
+		\Re{\gls{L}_{\gls{ic}^+}^{-1}} & \gls{0} & \Im{\gls{L}_{\gls{ic}^+}^{-1}} & \gls{0}\\
+		\gls{0} & \mathbf{\Omega}^+ & \gls{0} & \gls{0} \\
+		\Im{\gls{L}_{\gls{ic}^+}^{-1}} & \gls{0} & -\Re{\gls{L}_{\gls{ic}^-}^{-1}} & \gls{0}\\
+		\gls{0} & \gls{0} & \gls{0} & \mathbf{\Omega}^- \\
+	\end{bmatrix}
+\end{align*}
+where $\mathbf{\Omega}^+ = \mathbf{L}^+\gls{L}_{\gls{it}^+}^{-1}\mathbf{R}^+$ and 
+$\mathbf{\Omega}^- = \mathbf{L}^-\gls{L}_{\gls{it}^-}^{-1}\mathbf{R}^-$.
+
+Next we eliminate the lower-right blocks of \gls{b}$^{[1]}$. For this, we select
+an elimination matrix \gls{F}:
+\begin{align*}
+	\gls{F} = \begin{bmatrix}
+		\mathbf{\Phi} & \gls{0} & \gls{I}_{p} & \gls{0} \\
+		\gls{0} & \mathbf{\Psi}^+ & \gls{0} & \gls{I}_{n-p} \\
+		\gls{I}_{p} & \gls{0} & \mathbf{\Phi} & \gls{0} \\
+		\gls{0} & \gls{I}_{n-p} & \gls{0} & \mathbf{\Psi}^-
+	\end{bmatrix}
+\end{align*}
+Due to the similar block structure of \gls{F} and \gls{b}$^{[1]}$, we can
+consider the blocks $\mathbf{\Phi}, \mathbf{\Psi}^+$ and $\mathbf{\Psi}^-$
+individually. To obtain the $k$th diagonal entry of $\mathbf{\Phi}$:
+\begin{equation}
+\begin{bmatrix}
+\phi_k & 1\\
+1 & \phi_k   
+\end{bmatrix}
+\begin{bmatrix}
+\alpha_k & -\beta_k\\
+-\beta_k & -\alpha_k   
+\end{bmatrix}
+\begin{bmatrix}
+\phi_k & 1\\
+1 & \phi_k   
+\end{bmatrix} = 
+\begin{bmatrix}
+\alpha_k\phi_k^2 - 2\beta_k\phi_k -\alpha_k  & -\beta_k - \beta_k\phi_k^2\\
+-\beta_k - \beta_k\phi_k^2 & \alpha_k - 2\beta_k\phi_k -\alpha_k\phi_k^2 
+\end{bmatrix}
+\end{equation}
+where the $k$th entry of $\gls{L}_{\gls{ic}^+}$ is $\alpha_k + \gls{i}\beta_k$.
+\footnote{This is a correction of equations (34) and (35) of \citet{Chu200896}.}
+To eliminate the lower right element,
+\begin{equation}
+\label{eqn:phi_sc}
+\phi_k = \frac{-\beta_k + \sqrt{\alpha_k^2 + \beta_k^2}}{\alpha_k}
+\end{equation}
+The square root term is nothing but the absolute value of the 
+eigenvalue in question. In terms of matrices:
+\begin{equation}
+%\Phi = (-\Im(\Lambda_{\mathfrak{C}^+}) + \sqrt{(\Re(\Lambda_{\mathfrak{C}^+}))^2+(\Im(\Lambda_{\mathfrak{C}^+}))^2)}(\Re(\Lambda_{\mathfrak{C}^+})^{-1}
+\mathbf{\Phi} = (-\Im(\gls{L}_{\mathfrak{C}^+}) + abs(\gls{L}_{\mathfrak{C}^+}))(\Re(\gls{L}_{\mathfrak{C}^+}))^{-1} \label{eqn:phi}
+\end{equation}
+Similarly, for $\mathbf{\Psi}^+$ and $\mathbf{\Psi}^-$, 
+\begin{align*}
+\begin{bmatrix}
+\psi_k^+ & 1\\
+1 & \psi_k^-   
+\end{bmatrix}
+\begin{bmatrix}
+\omega_k^+ & 0\\
+0 & \omega_k^-   
+\end{bmatrix}
+\begin{bmatrix}
+\psi_K^+ & 1\\
+1 & \psi_k^-   
+\end{bmatrix} &= 
+\begin{bmatrix}
+\omega_k^+(\psi_k^+)^2 + \omega_k^- & \omega_k^+\psi_k^+  + \omega_k^-\psi_k^-\\
+\omega_k^+\psi_k^+ +  \omega_k^-\psi_k^- & \omega_k^-(\psi_k^-)^2 + \omega_k^+ 
+\end{bmatrix}\\
+\therefore\omega_k^-(\psi_k^-)^2 + \omega_k^+ = 0 &\Rightarrow \psi_k^- = \pm\sqrt{-\frac{ \omega_k^+}{ \omega_k^-}}
+\end{align*}
+Considering the signs in $\hat{\gls{I}}_{n-p}$ and $\tilde{\gls{I}}_{n-p}$, we can 
+write the preceding equation in matrix form:
+\begin{subequations}
+\label{eqn:psi}
+\begin{align}
+	\mathbf{\Psi}^+ &= \sqrt{-\mathbf{\Omega}^+(\mathbf{\Omega}^-)^{-1}}\\
+	\mathbf{\Psi}^- &= -\hat{\gls{I}}_{n-p}\tilde{\gls{I}}_{n-p}\mathbf{\Psi}^+
+\end{align}
+\end{subequations}
+Having obtained \gls{F}, we only have to restore the Lancaster structure
+of \gls{b}. Now,
+\begin{align*}
+	\gls{a}^{[2]} &= (\gls{Y}^{[1]}\gls{p}\gls{j}_L\gls{F})^T\gls{a}(\gls{X}^{[1]}\gls{p}\gls{j}_R\gls{F}) = diag\left[\gls{a}^{[2]}_{11},\gls{a}^{[2]}_{22}\right]\\
+	\gls{b}^{[2]} &= (\gls{Y}^{[1]}\gls{p}\gls{j}_L\gls{F})^T\gls{b}(\gls{X}^{[1]}\gls{p}\gls{j}_R\gls{F}) = \begin{bmatrix}	
+	\gls{b}^{[2]}_{11} & \gls{b}^{[2]}_{12}\\
+	\gls{b}^{[2]}_{12} & \gls{0}
+	\end{bmatrix}
+\end{align*}
+To restore the structure, $\gls{a}^{[2]}_{22} = \gls{b}^{[2]}_{12}$. Now we
+employ the scaling matrix \gls{G} = $diag\left[\gls{I}_{n},\mathbf{\Theta}\right]$,
+\begin{align}
+\mathbf{\Theta}\gls{a}^{[2]}_{22}\mathbf{\Theta} = \gls{b}^{[2]}_{12}\mathbf{\Theta} = \mathbf{\Theta}\gls{b}^{[2]}_{12} \Rightarrow \mathbf{\Theta} = \gls{b}^{[2]}_{12}{\gls{a}^{[2]}_{22}}^{-1} \label{eqn:theta}
+\end{align}
+Thus we obtain the \glspl{spe} \gls{Pi}$_L$ and \gls{Pi}$_R$.
+\begin{subequations}
+\begin{align}
+\gls{Pi}_L = \gls{Y}^{[1]}\gls{p}\gls{j}_L\gls{F}\gls{G}\\
+\gls{Pi}_R = \gls{X}^{[1]}\gls{p}\gls{j}_R\gls{F}\gls{G}
+\end{align}
+\end{subequations}
+
+
+
+
+
+
+

@@ -1,0 +1,115 @@
+\documentclass[a4paper,12pt]{report}
+
+%\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[pagebackref=true]{hyperref}
+\usepackage{verbatim}
+%\usepackage{changepage}
+\usepackage[round]{natbib}
+\usepackage{a4wide}
+\usepackage[acronym,section]{glossaries}
+\usepackage{array,warpcol}
+\usepackage{program}
+%\usepackage{glossary-super}
+
+\hyphenpenalty=1000
+\widowpenalty=5000
+\clubpenalty=5000
+
+\hypersetup{
+	colorlinks=true,	
+	urlcolor=black,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\mat}[4]{\left[ \begin{array}{lr} #1& #2\\ #3& #4\end{array}\right]}
+\newcommand{\arr}[2]{\left[\begin{array}{c} #1\\ #2\end{array}\right]}
+
+\makeglossaries
+\include{glossary}
+\glossarystyle{tree} 
+\renewcommand{\glspostdescription}{.\bigskip}
+
+
+\begin{document}
+
+\begin{titlepage}
+%\begin{adjustwidth}{-1cm}{-1cm}
+\begin{center}
+
+\includegraphics[width=0.25\textwidth]{iitg_logo}\\[1.2cm]
+\textsc{\LARGE \mbox{Indian Institute of Technology Guwahati}}\\[0.7cm]
+\textsc{\Large Department of Mechanical Engineering}\\[1.2cm]
+\textsc{B.Tech. Project Report (Phase I) on}\\[1cm]
+% Title
+\HRule \\[0.6cm] 
+{ \LARGE \bfseries True Modal Control}\\[0.5cm]
+\HRule \\[1.5cm]
+
+\textsc{\large submitted in partial fulfilment of the requirements of \\the degree of Bachelor of Technology by}\\[1cm]
+
+% Author and supervisor
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+Alok \textsc{Singh},\\
+\quad{\small Reg. no.: 08010304 \textsc{and}}\\
+Murukesh \textsc{Mohanan},\\
+\quad{\small Reg. no.: 08010329}\\
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Guide:} \\
+Dr.~Karuna \textsc{Kalita}\\
+Assistant Professor,\\
+Dept. of Mechanical Engineering
+\end{flushright}
+\end{minipage}
+
+\vfill
+
+% Bottom of the page
+%{\large \today}
+
+\end{center}
+%\end{adjustwidth}
+\end{titlepage}
+
+\include{abstract}
+
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{roman}
+\tableofcontents
+%\chapter*{Glossary}
+\newpage
+\printglossary[title={List of Symbols},toctitle={List of Symbols}]
+\printglossary[type=\acronymtype] 
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\include{introduction}
+\include{literature}
+\include{total}
+\include{stable_filters}
+\include{conclusion}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\renewcommand*{\bibname}{References}
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\include{app1}
+\include{app2}
+
+\end{document}

@@ -1,0 +1,59 @@
+\chapter{Generating Random Numbers}
+\label{app:C}
+In Monte Carlo experiments, random numbers play a central role. Especially 
+when modelling real-world phenomena, the quality of random numbers play a 
+crucial rule in the reliability of the predictions. While our Monte Carlo 
+experiments do not show much evidence of being very dependant on quality 
+random number generators, nevertheless they cannot be neglected. So, in 
+this Appendix, a brief overview of the random number generation is 
+presented. Two major considerations in  random number generation is that 
+samples for a  number of distributions can be generated from given samples 
+of the uniform distribution, and that the most common naturally occurring 
+distribution is the normal or Gaussian distribution. Thus the problem can 
+be divided into two areas: 
+\begin{enumerate}
+\item Generating high quality uniform or normal random numbers, and
+\item Using these numbers to generate samples of the required distribution.
+\end{enumerate}
+True random numbers are based on measuring unpredictable physical 
+phenomena, like temperature variations of surroundings, atomic or 
+subatomic particle interactions like avalanche effects in diodes, etc. 
+These are expensive to obtain, and further are susceptible to both biases 
+in the measuring apparatus and any unknown factors which affect the 
+measured quantity and cause it to deviate from its natural distribution. 
+Such measurements are usually of the normal distribution.
+
+Usually, such random numbers are used to act as initial values or 
+\emph{seeds} of pseudorandom number generators, which are computer 
+programs that employ multiple mathematical operations to generate 
+seemingly unrelated numbers, which are treated as random. In reality these 
+numbers are of course not random, since the program itself is 
+deterministic. But, if they conform to a number of statistical properties, 
+they can be treated as random. The most common (and simplest) of such 
+generators are the Linear Congruential generators. However, LC generators 
+are not suited for use in Monte Carlo experiments, so they are used to 
+provide seeds to higher quality algorithms such as the Mersenne Twister, 
+the Blum-Blum-Schub or the lagged Fibonacci generators. Of these, the 
+Mersenne Twister algorithm offers a good mix of high quality and 
+computational speed, and is often the algorithm of choice. It is, for 
+example, the default generator used 
+\textsc{MATLAB} \textsuperscript{\textregistered} for generating the 
+uniform distribution.
+
+Once we have a high quality generator for the uniform distribution, say 
+the Mersenne Twister, one can then use a variety of algorithms to produce 
+samples of another distribution, such as the Normal, Expenential, Poisson, Gamma, \citep{Ahrens1993} etc. The algorithms 
+will not be described here. Those interested may consult the 
+aforementioned articles, and the vast literature on the subject.
+
+Another factor that must be considered is that some algorithms, such as 
+the Mersenne Twister or the PG or PT methods \citep{Ahrens1993} generate 
+integers. Samples from such generators must be mapped to $\mathbb{R}$ if 
+we need to use real numbers, for example during the Monte Carlo searches 
+presented here. A common method is to divide the generated integers by 
+some constant using floating point arithmetic. This is quite inefficient, 
+as only a small fraction ($\sim 7\%$) of the representable floating point 
+numbers can be generated this way, and subsequent transformation of these 
+values may not yield expected results \citep{Downey2007}. For example, 
+applying a log transformation to numbers from an uniform distribution does 
+not yield the expect exponential distribution.

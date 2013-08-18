@@ -1,0 +1,108 @@
+\documentclass[a4paper,12pt]{report}
+
+%\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{verbatim}
+%\usepackage{changepage}
+\usepackage[round]{natbib}
+\usepackage{a4wide}
+\usepackage{array,warpcol}
+\usepackage{program}
+\usepackage[pagebackref=true]{hyperref}
+\usepackage[acronym,section]{glossaries}
+%\usepackage{glossary-super}
+
+\hyphenpenalty=1000
+
+\hypersetup{
+	colorlinks=true,	
+	urlcolor=black,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+}
+\setcounter{tocdepth}{1}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\mat}[4]{\left[ \begin{array}{lr} #1& #2\\ #3& #4\end{array}\right]}
+\newcommand{\arr}[2]{\left[\begin{array}{c} #1\\ #2\end{array}\right]}
+
+\makeglossaries
+\include{los}
+\glossarystyle{tree} 
+\renewcommand{\glspostdescription}{.\bigskip}
+
+\bibliographystyle{abbrvnat}
+
+\begin{document}
+
+\begin{titlepage}
+%\begin{adjustwidth}{-1cm}{-1cm}
+\begin{center}
+\HRule \\[0.6cm] 
+{ \LARGE \bfseries True Modal Control}\\[0.5cm]
+\HRule \\[1.5cm]
+
+\textsc{A project peport submitted in partial fulfilment of the requirements of the degree of Bachelor of Technology by}\\[1cm]
+
+% Author and supervisor
+Alok \textsc{Singh} \quad{\small (Reg. no. 08010304), \textsc{and}}\\[0.3cm]
+Murukesh \textsc{Mohanan} \quad{\small (Reg. no. 08010329)}\\
+
+\vfill
+
+\includegraphics[width=0.25\textwidth]{iitg_logo}\\[1.2cm]
+\textsc{\LARGE \mbox{Indian Institute of Technology Guwahati}}\\[0.7cm]
+\textsc{\Large Department of Mechanical Engineering}\\[1.2cm]
+% Bottom of the page
+{\large April, 2012}
+
+\end{center}
+%\end{adjustwidth}
+\end{titlepage}
+
+\include{abstract}
+\chapter*{Acknowledgements}
+We would like to thank our guide, Dr Karuna Kalita, of the Dept. of Mechanical 
+Engineering in the Indian Institute of Technology Guwahati. Without his insight, 
+remarkable patience and good cheer, the project could not have been completed. 
+We would also like to the thank the various individuals whose research have 
+helped us along the way, in particular, Prof. Garvey, Dr Houlston, and Dr Jiffri 
+of the University of Nottingham, Prof. Chu of the North Carolina State University 
+and Dr del Buono of the University of Bari.
+\thispagestyle{empty}
+\cleardoublepage
+\setcounter{page}{1}
+\pagenumbering{roman}
+\tableofcontents
+%\chapter*{Glossary}
+\listoffigures
+\newpage
+\printglossary[title={List of Symbols},toctitle={List of Symbols}]
+\printglossary[type=\acronymtype] 
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\include{introduction}
+\include{literature}
+\include{total}
+\include{stable_filters}
+\include{monte_carlo}
+\include{conclusion}
+
+\cleardoublepage
+\phantomsection
+%\addcontentsline{toc}{chapter}{References}
+\renewcommand*{\bibname}{References}
+\bibliography{references}
+
+\appendix
+\include{app1}
+\include{app2}
+%\include{app3}
+
+\end{document}

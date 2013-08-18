@@ -1,0 +1,112 @@
+\chapter{Stable Filters}
+
+In this chapter we will know the meaning and use of stable filters. By structure preserving transformation we get diagonalized LAMs but it doesn't solve our generalized equation of motion problem, just to remind, we are trying to find out decoupled equation of motion of any dynamic system. With SPE, we got diagonalized LAMs using special transformation matrix as described in previous chapters, now here we will learn what additional steps are required to convert our generalized coupled equation of motion into decoupled form in order to easily solve it. As can be seen from figure \ref{fig:flow} below, it is the modal filters 
+that are used in the actual control system. Hence, their stability with respect to their eigenvalues 
+is of paramount importance when it comes to designing the controller.
+\begin{figure}[hb]
+\label{fig:flow}
+\includegraphics[scale=0.6]{flow}
+\caption{Modal Controller with diagonalizing filters}
+\end{figure}
+
+\section{Definition and necessity of stable filters}
+Any dynamic system can be expressed by \textbf{lumped parameters} as:
+\[
+\left[
+\begin{array}{lr}
+\mathbf{0} & \gls{k}_0\\
+\gls{k}_0 & \gls{c}_0
+\end{array}
+\right]
+\left[\begin{array}{c} \mathbf{q} \\ \dot{\mathbf{q}}\end{array}\right] - \left[\begin{array}{lr}\gls{k}_0 & 0\\0 & -\gls{m}_0\end{array}\right]
+\left[\begin{array}{c}\dot{\mathbf{q}}\\\ddot{\mathbf{q}}\end{array}\right] = \left[\begin{array}{c} \mathbf{0} \\ \mathbf{f}\end{array}\right]
+\]
+The Laplace transform of this equation gives: % \thispagestyle{empty}
+\[
+\left\{ 
+\mat{\gls{0}}{\gls{k}_0}{\gls{k}_0}{\gls{c}_0} - \gls{s} \mat{\gls{k}_0}{\gls{0}}{\gls{0}}{-\gls{m}_0}
+\right\}
+\left[ \begin{array}{c} \underline{\mathbf{q}} \\ \underline{\mathbf{q}}\gls{s} \end{array} \right] = \left[ \begin{array}{c} \mathbf{0} \\ \underline{\mathbf{f}} \end{array} \right]
+\]
+Or
+\[
+\left\{ 
+\mat{\gls{k}_0}{\gls{0}}{\gls{0}}{-\gls{m}_0} - \gls{s} \mat{-\gls{c}_0}{-\gls{m}_0}{-\gls{m}_0}{\gls{0}}
+\right\}
+\left[ \begin{array}{c} \underline{\mathbf{q}} \\ \underline{\mathbf{q}}\gls{s} \end{array} \right] = \left[ \begin{array}{c} \underline{\mathbf{f}} \\ \mathbf{0} \end{array} \right]
+\]
+We define the following:
+\[
+\left[\begin{array}{c}\mathbf{u}\\\mathbf{v}\end{array}\right] = \mat{\mathbf{P}_R}{\mathbf{Q}_R}{\mathbf{R}_R}{\mathbf{S}_R} \left[\begin{array}{c} \underline{\mathbf{q}} \\ \underline{\mathbf{q}}\gls{s}\end{array}\right]
+\]
+or
+\[
+\left[\begin{array}{c}\underline{\mathbf{q}} \\ \underline{\mathbf{q}}\gls{s} \end{array}\right] = \mat{\mathbf{W}_R}{\mathbf{X}_R}{\mathbf{Y}_R}{\mathbf{Z}_R} \left[\begin{array}{c}\mathbf{u}\\\mathbf{v}\end{array}\right]
+\]
+more,
+\[
+\left[\begin{array}{c}\mathbf{d}\\\mathbf{e}\end{array}\right] = {\mat{\mathbf{W}_L}{\mathbf{X}_L}{\mathbf{Y}_L}{\mathbf{Z}_L}}^T \left[\begin{array}{c}\mathbf{0}\\\underline{\mathbf{f}}\end{array}\right]
+\]
+\&
+\[
+\left[\begin{array}{c}\mathbf{h}\\\mathbf{j}\end{array}\right] = {\mat{\mathbf{W}_L}{\mathbf{X}_L}{\mathbf{Y}_L}{\mathbf{Z}_L}}^T \left[\begin{array}{c}\underline{\mathbf{f}}\\\mathbf{0}\end{array}\right]
+\]
+where $\mathbf{W}_R$ etc are obtained from transformation, now when we apply these conditions on our equation system obtained after Laplace transform, we get,
+\[
+\left\{
+\mat{\gls{k}_D}{\gls{0}}{\gls{0}}{-\gls{m}_D} - \gls{s} \mat{-\gls{c}_D}{-\gls{m}_D}{-\gls{m}_D}{\gls{0}}
+\right\} \left[\begin{array}{c}\mathbf{u}\\\mathbf{v}\end{array}\right] = \left[\begin{array}{c}\mathbf{h}\\\mathbf{j}\end{array}\right]
+\]
+
+Premulptiplying this equation with \[ \left[\begin{array}{lr}\gls{I} & \gls{s} \gls{I}\end{array}\right] \]
+we get,
+\[
+\left[\begin{array}{lr}\gls{k}_D & -s\gls{m}_D\end{array}\right]\left[\begin{array}{c}\mathbf{u}\\\mathbf{v}\end{array}\right] + \left[\begin{array}{lr}\gls{s}\gls{c}_D + s^2\gls{m}_D & s\gls{m}_D\end{array}\right]\left[\begin{array}{c}\mathbf{u}\\\mathbf{v}\end{array}\right] = \left[\mathbf{h} + \gls{s}\mathbf{j}\right]
+\]
+\thispagestyle{empty}
+which gives;
+\[
+\gls{k}_D \mathbf{u} + \gls{s}\gls{c}_D\mathbf{u} + \gls{s}^2 \gls{m}_D \mathbf{u} = \mathbf{h} + \gls{s}\mathbf{j}
+\]
+But since;
+\[
+\left[\begin{array}{c}\mathbf{h}\\\mathbf{j}\end{array}\right] = {\mat{\mathbf{W}_L}{\mathbf{X}_L}{\mathbf{Y}_L}{\mathbf{Z}_L}}^T \left[\begin{array}{c}\underline{\mathbf{f}}\\\gls{0}\end{array}\right]
+\]
+hence,
+\[\left[\begin{array}{lr}\gls{I} & s\gls{I}\end{array}\right]
+\left[\begin{array}{c}\mathbf{h}\\\mathbf{j}\end{array}\right] = \left[\begin{array}{lr}\gls{I} & s\gls{I}\end{array}\right]{\mat{\mathbf{W}_L}{\mathbf{X}_L}{\mathbf{Y}_L}{\mathbf{Z}_L}}^T \left[\begin{array}{c}\underline{\mathbf{f}}\\\gls{0}\end{array}\right]
+\]
+which gives;
+\[
+\mathbf{h} + s\mathbf{j} = ({\mathbf{W}_L}^T + s{\mathbf{X}_L}^T)\underline{\mathbf{f}}
+\]
+\& hence;
+\[(\gls{k}_D + s\gls{c}_D + s^2\gls{m}_D) (\mathbf{P}_R + s\mathbf{Q}_R) \underline{\mathbf{q}} = ({\mathbf{W}_L}^T + s{\mathbf{X}_L}^T) \underline{\mathbf{f}}\] 
+further more, 
+\[{({\mathbf{W}_L}^T + s{\mathbf{X}_L}^T)}^{-1}(\gls{k}_D + s\gls{c}_D + s^2\gls{m}_D) (\mathbf{P}_R + s\mathbf{Q}_R) \underline{\mathbf{q}} = (\gls{k}_0 + s\gls{c}_0 + s^2\gls{m}_0) \underline{\mathbf{q}}\] 
+which implies, 
+\[(\gls{k}_D + s\gls{c}_D + s^2\gls{m}_D) (\mathbf{P}_R + s\mathbf{Q}_R) = ({\mathbf{W}_L}^T + s{\mathbf{X}_L}^T)(\gls{k}_0 + s\gls{c}_0 + s^2\gls{m}_0)\]
+assuming, $\mathbf{P}_R$ \& $\mathbf{Q}_R$ are represented by $\mathbf{V}_0$ \& $\mathbf{V}_1$ respectively, similarly ${\mathbf{W}_L}^T$ \& ${\mathbf{X}_L}^T$ are represented by $\mathbf{U}_0$ \& $\mathbf{U}_1$ respectively.Then,
+
+\[(\gls{k}_D + s\gls{c}_D + s^2\gls{m}_D)(\mathbf{V}_0 + s\mathbf{V}_1) = (\mathbf{U}_0 + s\mathbf{U}_1)(\gls{k}_0 + s\gls{c}_0 + s^2\gls{m}_0)\] where, ($\mathbf{U}_0$ + s$\mathbf{U}_1$) \& ($\mathbf{V}_0$ + s$\mathbf{V}_1$) are the filters, \& from this proof it is clear that these filters are obtained from \glsentryfirstplural{spe}, which are not unique \& since we need to find stable filters, so we need to check whether the poles of obtained filters are stable or not to check their stability.
+
+\section{Automorphic SPE}
+Our four $n\times n$ matrices $\mathbf{P}_L, \mathbf{Q}_L,\mathbf{R}_L,\mathbf{S}_L$ can be expressed by two independent $n\times n$ matrices $\mathbf{F}_L,\mathbf{G}_L$, as there is dependencies among blocks of transformation matrix. the representation can be expressed as follows:
+\[
+\mat{\mathbf{P}_L}{\mathbf{Q}_L}{\mathbf{R}_L}{\mathbf{S}_L} = \mat{(\mathbf{F}_L - \frac{1}{2}\mathbf{G}_L \gls{c}_D)}{-\mathbf{G}_L \gls{m}_D}{\mathbf{G}_L \gls{k}_D}{(\mathbf{F}_L + \frac{1}{2}\mathbf{G}_L \gls{c}_D)}
+\]
+From symmetry one can also show that they can also be written by two independent matrices $\mathbf{F}_R$ and $\mathbf{G}_R$ as follows,
+\[
+{\mat{\mathbf{P}_R}{\mathbf{Q}_R}{\mathbf{R}_R}{\mathbf{S}_R}}^{-1} = \mat{(\mathbf{F}_R - \frac{1}{2}\mathbf{G}_R \gls{c}_D)}{-\mathbf{G}_R \gls{m}_D}{\mathbf{G}_R \gls{k}_D}{(\mathbf{F}_R + \frac{1}{2}\mathbf{G}_R \gls{c}_D)}
+\]
+These matrices must obey following law to generate a valid \gls{spe},
+\[\mathbf{F}_L {\mathbf{G}_R}^{T} + \mathbf{G}_L {\mathbf{F}_R}^T = \gls{0}\]
+Now let us show this for single \gls{dof} system, than the three relations will generate following equations,
+\[{\mat{(f + \frac{1}{2}gd)}{gm}{-gk}{(f - \frac{1}{2}gd)}}^T\mat{0}{k}{k}{d}\mat{(f - \frac{1}{2}gd)}{-gm}{gk}{(f + \frac{1}{2}gd)} =\mat{{0}}{k}{k}{d}\]
+\[{\mat{(f + \frac{1}{2}gd)}{gm}{-gk}{(f - \frac{1}{2}gd)}}^T\mat{k}{{0}}{{0}}{-m}\mat{(f - \frac{1}{2}gd)}{-gm}{gk}{(f + \frac{1}{2}gd)} =\mat{k}{0}{{0}}{-m}\]
+\[{\mat{(f + \frac{1}{2}gd)}{gm}{-gk}{(f - \frac{1}{2}gd)}}^T\mat{d}{m}{m}{{0}}\mat{(f - \frac{1}{2}gd)}{-gm}{gk}{(f + \frac{1}{2}gd)} =\mat{d}{m}{m}{0}\]
+where $m, k$ and $d$ are mass, stiffness and damping of single \gls{dof} system, now in above equations $f$, represents $\mathbf{F}_L$ and $\mathbf{F}_R$ both and similarly, $g$, represents $\mathbf{G}_L$ and $\mathbf{G}_R$. Now $g$ and $f$ for multi-\gls{dof} system can be found using following equations,
+\[\mat{(f + \frac{1}{2}gd)}{gm}{-gk}{(f - \frac{1}{2}gd)}\mat{(f - \frac{1}{2}gd)}{-gm}{gk}{(f + \frac{1}{2}gd)} = \mat{1}{{0}}{0}{1}\]
+which can be expressed as,
+\[f^2 + g^2(km + \frac{1}{4}d^2) = 1\]
+from here it is clear that by considering these equations we are discarding one independent dimension, now we have only one independent dimension out of two., if $d^2 - 4km = 0$ then that dimension is also discarded, but if $d^2 - 4km > 0$, we can write $f$ as multiple of $\cosh{\theta}$ and $g$ can be represented by multiple of $\cosh{\theta}$, similarly if $d^2 - 4km < 0$, we can write $f$ as multiple of $\cos{\theta}$ and $g$ as a multiple of $\sin{\theta}$, which leaves us with only one independent variable $\theta$, So now, we are capable of finding the value of $\mathbf{F}_L$ and $\mathbf{G}_L$, which will generate our stable filters by modifying SPE to convert them automorphic form.\\Which imply that our general quadratic pencil is totally decoupled after using stable filters, so we can use any method such as, ODE45 etc. to solve these decoupled equations for every \gls{dof}.

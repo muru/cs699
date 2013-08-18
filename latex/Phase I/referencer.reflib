@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+<manage_target braces="false" utf8="false"></manage_target>
+<library_folder monitor="false"></library_folder>
+<taglist>
+</taglist>
+<doclist>
+  <doc>
+    <filename>file:///media/Downloads/Dropbox/Acads/Modal%20Control/Articles/Decoupling/CO_ORDINATE_TRANSFORMATIONS_FOR_SECOND_PART1.pdf</filename>
+    <relative_filename></relative_filename>
+    <key>COORDINATETR</key>
+    <notes></notes>
+    <tagged>-1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi>10.1006/jsvi.2002.5165</bib_doi>
+    <bib_title>CO_ORDINATE_TRANSFORMATIONS_FOR_SECOND_PART1</bib_title>
+    <bib_authors></bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2002</bib_year>
+  </doc>
+  <doc>
+    <filename>file:///media/Downloads/Dropbox/Acads/Modal%20Control/Articles/Decoupling/CO_ORDINATE_TRANSFORMATIONS_FOR_SECOND_PART2.pdf</filename>
+    <relative_filename></relative_filename>
+    <key>COORDINATETR-1</key>
+    <notes></notes>
+    <tagged>-1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi>10.1006/jsvi.2002.5166</bib_doi>
+    <bib_title>CO_ORDINATE_TRANSFORMATIONS_FOR_SECOND_PART2</bib_title>
+    <bib_authors></bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2002</bib_year>
+  </doc>
+  <doc>
+    <filename>file:///media/Downloads/Dropbox/Acads/Modal%20Control/Articles/Decoupling/IMAC_v01.pdf</filename>
+    <relative_filename></relative_filename>
+    <key>IMACv01</key>
+    <notes></notes>
+    <tagged>-1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi></bib_doi>
+    <bib_title>IMAC_v01</bib_title>
+    <bib_authors></bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2008</bib_year>
+  </doc>
+  <doc>
+    <filename>file:///media/Downloads/Dropbox/Acads/Modal%20Control/Articles/Decoupling/TotalDecoupling_Part1.pdf</filename>
+    <relative_filename></relative_filename>
+    <key>TotalDecouplin</key>
+    <notes></notes>
+    <tagged>-1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi>10.1016/j.jsv.2007.05.058</bib_doi>
+    <bib_title>TotalDecoupling_Part1</bib_title>
+    <bib_authors></bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2008</bib_year>
+  </doc>
+  <doc>
+    <filename>file:///media/Downloads/Dropbox/Acads/Modal%20Control/Articles/Decoupling/TotalDecoupling_Part2.pdf</filename>
+    <relative_filename></relative_filename>
+    <key>TotalDecouplin-1</key>
+    <notes></notes>
+    <tagged>-1</tagged>
+    <bib_type>Article</bib_type>
+    <bib_doi>10.1016/j.jsv.2007.05.052</bib_doi>
+    <bib_title>TotalDecoupling_Part2</bib_title>
+    <bib_authors></bib_authors>
+    <bib_journal></bib_journal>
+    <bib_volume></bib_volume>
+    <bib_number></bib_number>
+    <bib_pages></bib_pages>
+    <bib_year>2008</bib_year>
+  </doc>
+</doclist>
+</library>

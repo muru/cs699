@@ -1,0 +1,324 @@
+\newacronym{spe}{SPE}{Structure Preserving Equivalence}
+\newacronym[firstplural={Lancaster Augmented Matrices}]{lam}{LAM}{Lancaster Augmented Matrix}
+\newacronym[firstplural={Degrees of Freedom}]{dof}{DOF}{Degree of Freedom}
+\newacronym{imsc}{IMSC}{Independent Modal Space Control}
+\newacronym{mimsc}{MIMSC}{Modified Independent Modal Space Control}
+
+\newglossaryentry{matrix}
+{
+	name={{\Large Matrices\bigskip}}, 
+	description={\nopostdesc}
+}
+\newglossaryentry{scalar}
+{
+	name={{\Large Scalars\bigskip}}, 
+	description={\nopostdesc}
+}
+\newglossaryentry{vector}
+{
+	name={{\Large Vectors\bigskip}}, 
+	description={\nopostdesc}
+}
+\newglossaryentry{other}
+{
+	name={{\Large Other symbols\bigskip}}, 
+	description={\nopostdesc}
+}
+\newglossaryentry{oper}
+{
+	name={{\Large Operators\bigskip}}, 
+	description={\nopostdesc}
+}
+
+
+\newglossaryentry{m}
+{
+	description = {Mass matrix}, 
+	name = {\ensuremath{\mathbf{M}}},
+	parent=matrix
+}
+\newglossaryentry{md}
+{
+	description = {Diagonalized mass matrix}, 
+	name = {\ensuremath{\mathbf{M}_D}},
+	parent=matrix
+}
+\newglossaryentry{k}
+{
+	description = {Stiffness matrix}, 
+	name = {\ensuremath{\mathbf{K}}},
+	parent=matrix
+}
+\newglossaryentry{kd}
+{
+	description = {Diagonalized stiffness matrix}, 
+	name = {\ensuremath{\mathbf{K}_D}},
+	parent=matrix
+}
+\newglossaryentry{c}
+{
+	description = {Damping matrix}, 
+	name = {\ensuremath{\mathbf{C}}},
+	parent=matrix
+}
+\newglossaryentry{cd}
+{
+	description = {Diagonalized damping matrix}, 
+	name = {\ensuremath{\mathbf{C}_D}},
+	parent=matrix
+}
+
+
+\newglossaryentry{X}
+{
+	description = {Matrix composed of right eigenvectors}, 
+	name = {\ensuremath{\mathbf{X}}},
+	parent=matrix
+}
+\newglossaryentry{Y}
+{
+	description = {Matrix composed of left eigenvectors}, 
+	name = {\ensuremath{\mathbf{Y}}},
+	parent=matrix
+}
+\newglossaryentry{x}
+{
+	description = {Right eigenvector corresponding to eigenvalue \glsentrytext{l}}, 
+	name = {\ensuremath{\mathbf{x}}},
+	parent=vector
+}
+\newglossaryentry{y}
+{
+	description = {Left eigenvector corresponding to eigenvalue \glsentrytext{l}}, 
+	name = {\ensuremath{\mathbf{y}}},
+	parent=vector
+}
+\newglossaryentry{L}
+{
+	description = {Diagonal matrix comprising the eigenvalues}, 
+	name = {\ensuremath{\mathbf{\Lambda}}},
+	parent=matrix
+}
+\newglossaryentry{l}
+{
+	description = {Eigenvalue}, 
+	name = {\ensuremath{\lambda}},
+	parent=scalar
+}
+
+
+\newglossaryentry{I}
+{
+	description = {Identity matrix of size  \ensuremath{n}, \glsentrytext{I}\ensuremath{_i} is the identity matrix of size \ensuremath{i}}, 
+	name = {\ensuremath{\mathbf{I}}},
+	parent=matrix
+}
+\newglossaryentry{0}
+{
+	description = {Null matrix}, 
+	name = {\ensuremath{\mathbf{0}}},
+	parent=matrix
+}
+
+
+\newglossaryentry{r}
+{
+	description = {Vector of physical variables of the system, such as displacements}, 
+	name = {\ensuremath{\mathbf{r}}},
+	parent=vector
+}
+\newglossaryentry{f}
+{
+	description = {Vector of physical forces of the system}, 
+	name = {\ensuremath{\mathbf{f}}},
+	parent=vector
+}
+
+
+\newglossaryentry{i}
+{
+	description = {Imaginary unit}, 
+	name = {\ensuremath{\iota}},
+	parent=scalar
+}
+\newglossaryentry{s}
+{
+	description = {Laplace complex frequency}, 
+	name = {\ensuremath{s}},
+	parent=scalar
+}
+
+
+\newglossaryentry{R}
+{
+	description = {The set of real-valued \ensuremath{n}-by-\ensuremath{n} matrices}, 
+	name = {\ensuremath{\mathbb{R}^{n\times n}}},
+	parent=other
+}
+\newglossaryentry{C}
+{
+	description = {The set of complex-valued \ensuremath{n}-by-\ensuremath{n} matrices}, 
+	name = {\ensuremath{\mathbb{C}^{n\times n}}},
+	parent=other
+}
+\newglossaryentry{cl}
+{
+	description = {Clifford Algebra over \glsentrytext{C}}, 
+	name = {\ensuremath{\mathcal{C}\ell_2}},
+	parent=other
+}
+
+
+\newglossaryentry{lp}
+{
+	description = {Linear matrix pencil}, 
+	name = {\ensuremath{L(\lambda)}},
+	parent=other
+}
+\newglossaryentry{qp}
+{
+	description = {Quadratic matrix pencil}, 
+	name = {\ensuremath{Q(\lambda)}},
+	parent=other
+}
+
+
+\newglossaryentry{a}
+{
+	description = {\glsentrytext{lam} comrising \glsentrytext{k} and \glsentrytext{m}}, 
+	name = {\ensuremath{\mathbf{A}}},
+	parent=matrix
+}
+\newglossaryentry{b}
+{
+	description = {\glsentrytext{lam} comrising \glsentrytext{c} and \glsentrytext{m}}, 
+	name = {\ensuremath{\mathbf{B}}},
+	parent=matrix
+}
+\newglossaryentry{g}
+{
+	description = {Diagonal matrix used in decoupling}, 
+	name = {\ensuremath{\mathbf{\gamma}}},
+	parent=matrix
+}
+\newglossaryentry{j}
+{
+	description = {Realization matrix}, 
+	name = {\ensuremath{\mathbf{J}}},
+	parent=matrix
+}
+\newglossaryentry{p}
+{
+	description = {Permutation matrix}, 
+	name = {\ensuremath{\mathbf{P}}},
+	parent=matrix
+}
+\newglossaryentry{F}
+{
+	description = {Elimination matrix}, 
+	name = {\ensuremath{\mathbf{F}}},
+	parent=matrix
+}
+\newglossaryentry{G}
+{
+	description = {Scaling matrix}, 
+	name = {\ensuremath{\mathbf{\Gamma}}},
+	parent=matrix
+}
+\newglossaryentry{Pi}
+{
+	description = {Diagonalizing \glsentrytext{spe}}, 
+	name = {\ensuremath{\mathbf{\Pi}}},
+	parent=matrix
+}
+
+
+\newglossaryentry{ic}
+{
+	description = {Index set of complex eigenvectors, 
+	\glsentrytext{ic}\ensuremath{^{+(-)}} is the index set of complex eigenvectors with 
+	positive (negative) imaginary parts. When used as a subscript to a matrix, refers 
+	to the submatrix formed from the corresponding index set}, 
+	name = {\ensuremath{\mathfrak{C}}},
+	parent=vector
+}
+\newglossaryentry{ir}
+{
+	description = {Index set of real eigenvectors,
+	When used as a subscript to a matrix, refers to the submatrix formed from 
+	the corresponding index set}, 
+	name = {\ensuremath{\mathfrak{R}}},
+	parent=vector
+}
+\newglossaryentry{ii}
+{
+	description = {Index set of purely imaginary eigenvectors, 
+	When used as a subscript to a matrix, refers to the submatrix formed from
+	the corresponding index set}, 
+	name = {\ensuremath{\mathfrak{I}}},
+	parent=vector
+}
+\newglossaryentry{it}
+{
+	description = {Index set of real eigenvalues, after classification.
+	\glsentrytext{it}\ensuremath{^{+(-)}} is the index set formed from the first 
+	(second) of the index pairs.
+	When used as a subscript to a matrix, refers to the submatrix formed from
+	the corresponding index set}, 
+	name = {\ensuremath{\mathfrak{T}}},
+	parent=vector
+}
+
+\newglossaryentry{re}
+{
+	description = {Real part of a complex number or matrix}, 
+	name = {\ensuremath{\Re}},
+	parent=oper
+}
+\newglossaryentry{im}
+{
+	description = {Imaginary part of a complex number or matrix}, 
+	name = {\ensuremath{\Im}},
+	parent=oper
+}
+
+\newglossaryentry{det}
+{
+	description = {Determinant of a matrix, Absolute value of a scalar}, 
+	name = {\ensuremath{\vert\cdot\vert}},
+	parent=oper
+}
+\newglossaryentry{trans}
+{
+	description = {Transpose of a matrix}, 
+	name = {\ensuremath{\left[\cdot\right]^T}},
+	text = {\ensuremath{^T}},
+	parent=oper
+}
+\newglossaryentry{ctrans}
+{
+	description = {Complex-conjugate or Hermitian transpose of a matrix}, 
+	name = {\ensuremath{\left[\cdot\right]^*}},
+	text = {\ensuremath{^*}},
+	parent=oper
+}
+\newglossaryentry{pinv}
+{
+	description = {Moore-Penrose pseudoinverse of a matrix}, 
+	name = {\ensuremath{\left[\cdot\right]^\dagger}},
+	text = {\ensuremath{\dagger}},	
+	parent=oper
+}
+\newglossaryentry{dot}
+{
+	description = {First derivative w.r.t. time}, 
+	name = {\ensuremath{\dot{u}}},
+	parent=oper
+}
+\newglossaryentry{ddot}
+{
+	description = {Second derivative w.r.t. time}, 
+	name = {\ensuremath{\ddot{v}}},
+	parent=oper
+}
+
