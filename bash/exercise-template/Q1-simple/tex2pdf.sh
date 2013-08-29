@@ -4,4 +4,11 @@
 # the current/working directory.  And it should tar-gzip the entire
 # current directory (from the current directory) to a tgz file called
 # paper.tgz.  It should then move the paper.tgz file to /tmp.
+latex paper.tex
+bibtex paper
+latex paper.tex
+latex paper.tex
+
+tar -cvzf paper.tgz *
+mv paper.tgz /tmp
 
