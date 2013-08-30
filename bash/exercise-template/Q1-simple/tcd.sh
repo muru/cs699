@@ -21,3 +21,29 @@
 # If the time window does not match any of the lab timings, then the
 # script should not change directory
 
+usage="Usage: $0 DDD HH"
+
+die ()
+{
+	echo "$@" 1>&2;
+	exit -1;
+}
+
+[ $# -ne 2 ] && die $usage
+
+declare -A DIRS
+DIRS["MON"]="CS599"
+DIRS["WED"]="CS699"
+DIRS["FRI"]="CS799"
+
+case $1 in 
+	MON|WED|FRI) TARGETDIR=${DIRS["$1"]}
+		;;
+	*) die "Not changing directory."
+		;;
+esac
+
+if [ $2 -ge 14 -a $2 -le 17 ] ; then
+	cd $TARGETDIR && $SHELL
+	#echo $PWD
+fi
