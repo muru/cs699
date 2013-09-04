@@ -44,6 +44,6 @@ case $1 in
 esac
 
 if [ $2 -ge 14 -a $2 -le 17 ] ; then
-	cd $TARGETDIR && $SHELL
-	#echo $PWD
+	cd $TARGETDIR
+	pwd
 fi
