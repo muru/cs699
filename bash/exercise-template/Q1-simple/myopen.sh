@@ -22,9 +22,9 @@ die ()
 FILE_TYPE=`echo ${1##*.} | tr 'A-Z' 'a-z'`
 
 case "$FILE_TYPE" in
-	txt|sh) APP='emacs'
+	txt) APP='emacs'
 		;;
-	pdf|epub|ps) APP='evince'
+	pdf) APP='evince'
 		;;
 	html) APP='firefox'
 		;;
