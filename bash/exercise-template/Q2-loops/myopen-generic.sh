@@ -20,3 +20,19 @@
 
 # The configuration file myopen.cfg can be assumed to be in the HOME
 # directory (not the current working directory).
+
+CONFIG="$HOME/myopen.cfg"
+
+[[ $# -lt 1 ]] && exit 1
+[[ ! -f $CONFIG ]] && exit 2
+
+FILE="$1"
+EXT="${FILE##*.}"
+
+HANDLER=`grep -Ei "^$EXT:" "$CONFIG"  | cut -d":" -f2`
+[[ -z $HANDLER ]] && exit 3
+
+[[ -x $HANDLER || -x "`which $HANDLER`" ]] || exit 4
+
+exec $HANDLER $FILE
+

@@ -12,9 +12,9 @@ die ()
 	exit -1;
 }
 
-[ $# -lt 1 ] && die "Usage: $0 <FILENAME>"
+[[ $# -lt 1 ]] && die "Usage: $0 <FILENAME>"
 
-TEXFILE=$1
+TEXFILE"=$1"
 FILE=`basename $1 .tex`
 latex $TEXFILE
 bibtex $FILE

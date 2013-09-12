@@ -11,3 +11,11 @@
 
 # Hint: You will have to use the "identify" program with the "verbose"
 # option, and look for the DateTimeOriginal exif image property.
+
+[[ $# -lt 1 ]] && exit 1
+
+for FILE
+do
+	DATE="`identify -verbose $FILE | grep -i DateTimeOriginal | sed 's/.*exif:DateTimeOriginal: *//'`"
+	echo $FILE $DATE
+done

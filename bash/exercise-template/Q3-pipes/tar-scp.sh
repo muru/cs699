@@ -7,3 +7,5 @@
 
 # Hint: you can execute an command on a remote machine using ssh.  For
 # example, try "ssh <machine> ls".
+
+[[ -d "$1" ]] && tar -czf - "$1" | ssh mars "cat > ${1%/}.tar.gz" || echo "cat > ${1%/}.tar.gz"

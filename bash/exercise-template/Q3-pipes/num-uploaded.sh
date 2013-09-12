@@ -11,3 +11,7 @@
 
 # Additional exercise (no HP): there are at least two ways to do this,
 # find them
+find -mindepth 2 -maxdepth 2 -name 'uploaded-forupload.tgz' | wc -l
+# ls -1 */uploaded-forupload.tgz | wc -l
+# ls -1R | grep -c uploaded-forupload.tgz | wc -l
+# ls -1 */* | grep -c uploaded-forupload.tgz

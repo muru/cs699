@@ -13,13 +13,13 @@ die ()
 	exit -1;
 }
 
-[ $# -lt 1 ] && die "Usage: $0 <FILENAME>"
+[[ $# -lt 1 ]] && die "Usage: $0 <FILENAME>"
 
-TEXFILE=$1
-FILE=`basename $1 .tex`
-latex $TEXFILE
-bibtex $FILE
-latex $TEXFILE
+TEXFILE="$1"
+FILE=`basename "$1" .tex`
+pdflatex "$TEXFILE"
+bibtex "$FILE"
+pdflatex "$TEXFILE"
 # Why use if ... then .. fi when you can chain the commands?
 # (Yes, there're reasons why, but none relevant to the current level.)
-latex $TEXFILE && tar -cvzf paper.tgz * && mv paper.tgz 
+pdflatex "$TEXFILE" && tar -cvzf paper.tgz * && mv paper.tgz 

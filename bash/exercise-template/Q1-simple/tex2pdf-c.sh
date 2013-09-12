@@ -22,11 +22,11 @@ TEXFILE="$1"
 FILE="`basename $1 .tex`"
 TARGET_DIR="`dirname $TEXFILE`"
 
-cd TARGET_DIR
-latex $TEXFILE
-bibtex $FILE
-latex $TEXFILE
-if latex $TEXFILE; then
+cd $TARGET_DIR
+latex "$TEXFILE"
+bibtex "$FILE"
+latex "$TEXFILE"
+if latex "$TEXFILE"; then
 	DIRNAME="`basename $PWD`"
 	cd ..
 	tar -cvzf "$DIRNAME.tgz" "$DIRNAME" && mv "$DIRNAME.tgz" /tmp

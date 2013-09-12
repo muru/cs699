@@ -15,9 +15,9 @@ die ()
 	exit -1;
 }
 
-[ $# -ne 1 ] && die $usage
+[[ $# -ne 1 ]] && die $usage
 
-[ `expr index '.' "$1"` -eq 0 ] && die "$1 doesn't have a valid extension."
+[[ `expr index '.' "$1"` -eq 0 ]] && die "$1 doesn't have a valid extension."
 
 FILE_TYPE=`echo ${1##*.} | tr 'A-Z' 'a-z'`
 
@@ -33,4 +33,4 @@ case "$FILE_TYPE" in
 		;;
 esac
 
-exec APP $1
+exec $APP "$1"

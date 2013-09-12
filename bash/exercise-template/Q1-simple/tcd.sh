@@ -29,21 +29,21 @@ die ()
 	exit -1;
 }
 
-[ $# -ne 2 ] && die $usage
+[[ $# -ne 2 ]] && die $usage
 
 declare -A DIRS
 DIRS["MON"]="CS599"
 DIRS["WED"]="CS699"
 DIRS["FRI"]="CS799"
 
-case $1 in 
+case "$1" in 
 	MON|WED|FRI) TARGETDIR=${DIRS["$1"]}
 		;;
 	*) die "Not changing directory."
 		;;
 esac
 
-if [ $2 -ge 14 -a $2 -le 17 ] ; then
+if [[ ($2 -ge 14) && ($2 -le 17) ]] ; then
 	cd $TARGETDIR
 	pwd
 fi
