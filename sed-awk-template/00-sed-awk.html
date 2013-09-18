@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Exercises in sed, awk</title>
+<style>
+ol.a
+{
+list-style-type:lower-alpha;
+}
+h2
+{
+color:red;
+}
+h3 {color:blue;}
+table {border:solid;}
+td {border:solid;}
+.em { color:red; font-weight:bold }
+</style>
+</head>
+
+<body>
+<h2>Exercises in sed, awk</h2>
+
+<p>Some of the exercises below are <span class="em">optional</span>
+carrying <span class="em">house points</span>.  You need not have to
+submit these as part of your mandatory exercises.  The house points
+for these optional exercises are <span class="em">counted once per
+house</span>, and will count against the name of the student
+submitting the earliest.  Note that you have to submit all exercises
+at once: so it will be better for your house if different members
+submit different optional parts.</p>
+
+<p>Of course I encourage everyone to try all the exercises at leisure,
+or at least learn the solutions from colleagues, after the submission
+deadline.</p>
+
+<h3>File templates</h3>
+
+<p>For each exercise, you are given a file template.  Edit this
+template for your solution.</p>
+
+<h3>Submission instructions</h3>
+
+<p>You are given the script prepare-upload.sh which will do the
+obvious.  Upload the tgz file resulting from this to shadowfax as your
+submission.</p>
+
+<ol>
+        <li><b>wheels-on-the-bus.awk</b> Write an awk script to
+  generate the "Wheels on the Bus" rhyme as below.  You can assume an
+  appropriate set of command-line arguments when the awk script is
+  invoked.
+	    <pre>
+Input: a file with the following format
+wheels:round
+wipers:swish
+horn:beep
+money:clink
+
+Output:
+The wheels on the bus go round, round, round,
+round, round, round,
+round, round, round.
+The wheels on the bus go round, round, round,
+all through the town.
+
+The wipers on the bus go swish, swish, swish;
+swish, swish, swish;
+swish, swish, swish.
+The wipers on the bus go swish, swish, swish,
+all through the town.
+
+The horn on the bus goes beep, beep, beep;
+beep, beep, beep;
+beep, beep, beep.
+The horn on the bus goes beep, beep, beep,
+all through the town..
+
+The money on the bus goes, clink, clink, clink;
+clink, clink, clink;
+clink, clink, clink.
+The money on the bus goes, clink, clink, clink,
+all through the town.
+	    </pre>
+	</li>
+	<li><b>wheels-on-the-bus-a.awk</b> Modify the script (if
+	    necessary) so that it works when invoked as:
+	    <pre>
+awk -f wheels-on-the-bus-a.awk "input-file"
+	    </pre>
+	</li>
+	<li><b>wheels-on-the-bus-b.awk</b> Further modify the awk
+	    script so that it prints the following additional line at
+	    the end of the poem:
+	    <pre>
+-- Anonymous
+	    </pre>
+	</li>
+	<li><b>count-lines.awk</b>: Write an awk command to count the
+	    number of lines in a file. Check your output against that
+	    produced by using "wc -l".
+	</li>
+	<li><b>code-lines.awk</b>: This awk script takes a bash
+	    script as an input file, and prints as output, only those
+	    lines of the bash script which do not start with the '#'
+	    character (this is a subset of comment lines).
+	</li>
+	<li><span class="em">Optional [5HP]:</span>
+	    <b>code-lines-a.awk</b>: Modify the above awk script so
+	    that it prints only lines with bash code: it ignores
+	    comments (note that a comment line may begin with spaces
+	    or tabs too), it also ignores lines with only space or tab
+	    characters, as well as empty lines.
+	</li>
+	<li><b>code-lines.sed</b> Write a sed script to match the
+	    functionality of code-lines.awk
+	</li>
+	<li><span class="em">Optional [2HP]:</span>
+	    <b>code-lines-a.sed</b> Write a sed script to match the
+	    functionality of code-lines-a.awk
+	</li>
+	<li><b>html-body.sed</b> Write a sed script to take a HTML
+	    file as input and print only the HTML body as output.  You
+	    can assume that the 'body' tags appear in a single line by
+	    themselves.
+	</li>
+	<li><span class="em">Optional [10HP]:</span>
+	    <b>count-words-html.sh</b> Write a single line bash
+	    command, using one or more sed commands as well as any
+	    other necessary commands (piped
+	    through one another as necessary), to count the number of
+	    words in the body of a HTML document given as command-line
+	    input to the bash script.
+	</li>
+	<li><span class="em">Optional [2HP]:</span>
+	    <b>count-words-html-a.sh</b> Now modify the above script
+	    so that it takes the HTML document as stdin input.  Your
+	    script must still be single line.
+	</li>
+</ol>

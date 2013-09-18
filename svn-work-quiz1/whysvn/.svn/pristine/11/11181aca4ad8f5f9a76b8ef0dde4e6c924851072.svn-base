@@ -1,0 +1,19 @@
+\documentclass{article}
+
+\title{CS699 Autumn 2013 Quiz-1 (The Mirror)}
+\author{Murukesh Mohanan\\133059001}
+
+\begin{document}
+\maketitle
+In this quiz, you will be generating, using latex, a PDF file which looks
+similar to this PDF file having the questions. You will also be storing all your
+answers in an svn repository you created for the quiz.
+
+\begin{enumerate}
+	\item Question-1: 2 marks
+	\begin{itemize}
+		\item Create a local svn repository (which will be accessed using ”file://”)
+		within the directory “svn-repo-quiz1”.
+	\end{itemize}
+\end{enumerate}
+\end{document}
