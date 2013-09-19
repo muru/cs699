@@ -42,7 +42,11 @@ get_gnu_script () {
 	set xlabel "$XLABEL"
 	plot 'thrpt-data.txt' using (\$1*$MULT):2 title "$TITLE"
 EOF
+# The EOF above is the terminator for a HEREDOC and has to be on a
+# separate line by itself, and entirely by itself. Not even tabs or spaces 
+# are allowed. Hence it isn't indented.
 }
+
 ########## END ########## DO NOT EDIT THIS LINE OR LINES BELOW THIS
 
 # You are supposed to provide the definition of a bash function called
