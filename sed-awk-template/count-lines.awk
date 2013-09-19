@@ -1,2 +1,2 @@
 #! /usr/bin/awk -f
-END {print NR FILENAME}
+END {print NR,FILENAME}
