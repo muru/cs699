@@ -1,0 +1,231 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{multicol}
+
+\title{CS699 Autumn 2013 Quiz-1 (The Mirror)}
+\author{Murukesh Mohanan\\133059001}
+
+\begin{document}
+\maketitle
+In this quiz, you will be generating, using latex, a PDF file which looks
+similar to this PDF file having the questions. You will also be storing all your
+answers in an svn repository you created for the quiz.
+
+\begin{enumerate}
+	\item \textbf{Question-1: 2 marks}
+	\begin{itemize}
+		\item Create a local svn repository (which will be accessed using ``file://'')
+		within the directory “svn-repo-quiz1”.
+	\end{itemize}
+	\item \textbf{Question-2: 1 mark}
+	\item \textbf{Question-3: 1 mark}\\
+		Write the following equation in Latex.\\
+		$ e^x = \sum^\infty_{i=0} \frac{x^2}{i!} $
+	\item \textbf{Question-4: 2+0.5 marks}\\
+	Plot the following graph using gnuplot by editing the file “cdf-plot.gnu”.
+Embed it in latex as eps or pdf; the exact position of the figure is not
+important. The relevant data is given in files “a1.csv” and “a2.csv”
+\begin{figure}
+	\includegraphics{cdf-plot.eps}
+\caption{CDF of the number of retransmissions}
+\label{fig:cdf}
+\end{figure}
+\begin{figure}
+\centering
+	\includegraphics[clip=true,trim=1cm 2.5cm 1cm 2.5cm,scale=1.5]{butterfly.eps}
+\caption{Depiction of a symmetric network graph}
+\label{fig:butterfly}
+\end{figure}
+\item \textbf{Question-6: 1 mark}\\
+	Refer to the above graph and figure using Latex cross-reference in the
+	following sentence.
+	"Figure \ref{fig:cdf} is a CDF plot while Figure \ref{fig:butterfly} is a butterfly."
+\end{enumerate}
+\section*{Submission Instructions}
+\begin{enumerate}
+		\item Commit to the svn repository from the working directory
+		\item From within the relevant directory, run ``bash prepare-upload.sh''
+		\item Upload the file forupload.tgz created
+\end{enumerate}
+\newpage
+\begin{multicols}{2}
+This is a two column page. This is
+a two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two column
+page. This is a two column page.This is a two column page. This is
+a two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two column
+page. This is a two column page.This is a two column page. This is
+a two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two col-
+umn page. This is a two column page.
+This is a two column page. This is a
+two column page. This is a two column
+page. This is a two column page.
+\end{multicols}
+\end{document}
