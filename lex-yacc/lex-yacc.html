@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Lex and Yacc Exercises</title>
+<style>
+ol.a
+{
+list-style-type:lower-alpha;
+}
+h2
+{
+color:red;
+}
+h3 {color:blue;}
+table {border:solid;}
+td {border:solid;}
+.em { color:red; font-weight:bold }
+</style>
+</head>
+
+<body>
+<h2>Lex and Yacc Exercises</h2>
+
+<p>For each of the exercises below, you should use the file names as
+given in the solution template.</p>
+
+<p>House points for the optional questions are given once per house,
+to the student who submits the earliest.</p>
+
+<p>Some of the solutions may be available online, even in the
+tutorials provided as references.  But you are advised to code them
+from scratch (no cut-paste) for understanding.  Any cut-paste will be
+detrimental to your learning and will affect your performance in exams
+for sure.</p>
+
+<ol>
+  <li>Toy exercises to get warmed up
+      <ol class="a">
+	<li><b>count-lines.l</b> Write a lex file to count the number of lines in the
+  input.
+	</li>
+	<li><b>count-lwc.l</b>Write a lex file to count the number of lines, words, and
+  characters in the input.  A word is contiguous string of
+  alphanumeric characters (alphabets and numbers only).  Note that
+  this definition is different from that used by the 'wc' program.
+	</li>
+	<li><b>count-num.l</b> Write a lex file to count the number of numbers appearing
+  in the input.  Count the number of integers (without a decimal)
+  separately from the number of floating point numbers (with a
+  decimal, and at least one digit on either side of the decimal).
+	</li>
+      </ol>
+      <i>What you learn:</i> basic lex syntax, regular expressions in
+  lex, defining symbols for regular expressions, compiling and running
+  </li>
+  <li><b>calc.l, calc.y</b> Write the lex file and the yacc grammar for an expression
+  calculator.  You need to deal with only '+' and only
+  integers.<br />
+      <i>What you learn:</i> yacc syntax, using lex and yacc together
+  </li>
+  <li><b>calc.l, calc.y</b> (Overwrite previous files) Enhance the above by adding support for '-' (the binary
+  minus).<br />
+      <i>What you learn:</i> left associativity of '-'
+  </li>
+  <li><b>calc.l, calc.y</b> (Overwrite previous files) Enhance the above by adding support for enclosing expressions in
+  parentheses '(' and ')'.<br />
+      <i>What you learn:</i> your first real context free grammar
+  specification in yacc
+  </li>
+  <li><b>calc.l, calc.y</b> (Overwrite previous files) Enhance the above by adding support for '*' and '/'.<br />
+      <i>What you learn:</i> operator precedence by order of
+  specification in yacc
+  </li>
+  <li><b>text-cleanup.l</b> Implement the text cleanup solution in the tutorial by Victor
+  Eijkhout.<br />
+      <i>What you learn:</i> left states and right states in lex
+  parsing
+  </li>
+  <li><span class="em">Optional [5HP]:</span> <b>calc.l, calc.y</b> (Overwrite previous files) Add support for simple
+  decimal representation floating point numbers in your calculator.
+      <br />
+      <i>What you learn:</i> making yylval a union of possible types.
+  </li>
+  <li><span class="em">Optional [5HP]:</span> <b>calc.l, calc.y</b> (Overwrite previous files) Add support for
+  identifier based variables in your calculator, and assignment
+  statements for and using variables.
+      <br />
+      <i>What you learn:</i> making yylval a union of possible types,
+  maintaining a symbol table.
+  </li>
+  <li><span class="em">Optional [5HP]:</span> <b>ex1.l, ex1.y</b> Exercise-1 from <a
+  href="http://people.cs.uchicago.edu/~borja/cmsc16200/labs/CMSC16200_WIN07_Lab6.pdf">here</a>.<br
+  />
+      <i>What you learn:</i> specifying a grammar, parsing a configuration file using lex/yacc
+  </li>
+  <li><span class="em">Optional [3HP]:</span> <b>ex2.l, ex2.y</b> Exercise-2 from the same location.<br />
+      <i>What you learn:</i> reading someone else's lex/yacc code
+  </li>
+  <li><span class="em">Optional [5HP]:</span> <b>ex3.l, ex3.y</b> Exercise-3 from the same location.<br />
+      <i>What you learn:</i> integrating parsed configuration
+  parameters into the main program
+  </li>
+  <li><span class="em">Optional [10HP]:</span> <b>ex4.l, ex4.y</b> Exercise-4 from the same location.<br />
+      <i>What you learn:</i> maintaining a symbol table as you parse
+  an input file
+  </li>
+</ol>
+
+<hr />
+<address>Bhaskaran Raman</address>
+<!-- hhmts start -->
+Last modified: Sat Oct  5 19:15:30 IST 2013
+<!-- hhmts end -->
+</body> </html>

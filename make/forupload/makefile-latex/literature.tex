@@ -1,0 +1,328 @@
+\begin{multicols}{2}
+\section{LitRev}
+%\chapter{Literature Review}
+\label{chap:lit_rev}
+Theories on Modal Control have been around for around half a century, initially 
+suggested by \citet{Rosen1962}. \citet{Simon1968316} expanded on this work. 
+Modal control theories emerged independently in two fields - chemical engineering,
+and structural dynamics. The concepts which evolved in structural engineering 
+were formulated into \gls{imsc} by Prof Meirovitch and his team in the 1980s, and 
+this work has been summarized in \citet{meirovitch1990dynamics}.
+
+\section{Independent Modal Space Control}
+\label{sec:lit_imsc}
+In \gls{imsc}, one decouples the equations \eqref{eqn:basic} by unitary 
+similarity transforms. In the event that \gls{c} is not diagonalized,
+we ignore the off-diagonal terms. Further, the control forces are only applied 
+to the lower modes, since the higher modes are difficult to physically monitor 
+or control. Thus, IMSC is most effective in situations where only a few critical 
+modes need be studied and controlled. However, this strategy exposes itself by 
+two grievous flaws in the general case. Firstly, when the off-diagonal terms are 
+of comparable magnitude to the diagonal terms, ignoring them is a very poor 
+approximation. In rotating systems, for example, the skew-symmetry of the 
+damping matrix is due to the gyroscopic nature of the system, and ignoring
+off-diagonal terms here is ignoring the gyroscopic effects themselves -- and
+the very essence of the problem. It may happen that the decoupled equations 
+thus obtained have quite different eigenvalues from the original. There is 
+also the problem of deciding how many modes one must model, how many to leave 
+unmodelled, and how many of the modelled modes be controlled. This question is 
+further complicated by the different needs of open and closed loop control 
+systems. What may be satisfactory for one may not be so for the other.
+
+Secondly, trying to control only the lower modes raises the problem of spill-over.
+Spill-over refers to applying a control law designed around a limited
+model of a system, to the entire system and inadvertently exciting that part of the
+model discarded (called residual modes in a modal model of a structure). Since the 
+higher modes are not in the model, the effect will be different from that predicted
+by the control design. In some cases, the modal control forces may significantly 
+increase the contributions of uncontrolled modes to the vibration of the system, 
+especially in cases like flexible structures, in which the contributions of its 
+higher modes cannot be ignored. Thus while using a modal model one must be careful
+not to excite the unused modes with the control system designed to improve the 
+structure's response. Otherwise, control energy will `spill over' into the residual 
+modes and excite these modes, spoiling the response and desired performance is not 
+achieved. 
+
+As mentioned earlier, IMSC converts the $n$-DOF second-order system to a $2n$-DOF
+first-order system. That is, the system is linearised. Useful characteristics of 
+the system matrices such as symmetry and definiteness are lost. A \gls{mimsc} 
+theory as presented by \citet{Fang2003421} seeks to address shortcomings of 
+\gls{imsc}, such as spill over.
+\end{multicols}
+\section{\glsentryfirstplural{spe}}
+\label{sec:SPT}
+The quadratic pencil \eqref{eqn:quadratic_pencil} can be linearized to different forms.
+\marginnote{Undefined references are to sections that I couldn't be bothered to copy.}
+Consider the following matrices, called \glspl{lam}:
+\begin{equation}
+	\label{eqn:lam}
+	\gls{a} = \begin{bmatrix}
+	\gls{k} & \gls{0}\\
+	\gls{0} & -\gls{m}
+	\end{bmatrix} 
+	\quad\mathbf{B} = \begin{bmatrix}
+	\gls{c} & \gls{m}\\
+	\gls{m} & \gls{0}
+	\end{bmatrix}  
+	\quad\mathbf{D} = \begin{bmatrix}
+	\gls{0} & \gls{k}\\
+	\gls{k} & \gls{c}
+	\end{bmatrix}
+\end{equation}
+and the \emph{companion matrices}, often seen in the state-space form of system equations:
+\begin{equation}
+	\gls{c}_R = \begin{bmatrix}
+	\gls{0} & \gls{I}\\
+	\mathbf{-M}^{-1}\gls{k} & \mathbf{-M}^{-1}\gls{c}
+	\end{bmatrix} 
+	\qquad \gls{c}_L = \begin{bmatrix}
+	\gls{0} & \gls{k}\gls{m}^{-1}\\
+	\gls{I} & \gls{c}\gls{m}^{-1}
+	\end{bmatrix}
+\end{equation}
+If we let $\mathbf{p} = \mathbf{\dot{r}}$ and $\mathbf{P} = \mathbf{\dot{f}}$, 
+then we can write equation \eqref{eqn:basic} in any of the following state-space 
+forms:
+\begin{align}
+\label{eqn:stsp_g}
+	\mathbf{D}
+	\begin{bmatrix}
+		\mathbf{r}\\
+		\mathbf{p}
+	\end{bmatrix} - \gls{a}
+	\begin{bmatrix}
+		\mathbf{\dot{r}}\\
+		\mathbf{\dot{p}}
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\gls{0}\\
+		\gls{I}
+	\end{bmatrix}\mathbf{f}\\
+	\gls{a}
+	\begin{bmatrix}
+		\mathbf{r}\\
+		\mathbf{p}
+	\end{bmatrix} + \mathbf{B}
+	\begin{bmatrix}
+		\mathbf{\dot{r}}\\
+		\mathbf{\dot{p}}
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\gls{I}\\
+		\gls{0}
+	\end{bmatrix}\mathbf{f}\\
+	\mathbf{D}
+	\begin{bmatrix}
+		\mathbf{r}\\
+		\mathbf{p}
+	\end{bmatrix} + \mathbf{B}\begin{bmatrix}
+		\mathbf{\dot{r}}\\
+		\mathbf{\dot{p}}
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\mathbf{P}\\
+		\mathbf{f}
+	\end{bmatrix}
+\end{align}
+Now, two non-singular matrices $T_L$ and $T_R \in \mathbb{C}^{2n \times 2n},$ 
+can be considered to be \glspl{spe}\footnote{As 
+used by \citet{GARVEY2002885,GARVEY2002911}, there is a restriction on the 
+above definition: that $\gls{m}_0$ not be singular. We shall modify this 
+restriction: $\gls{m}_0 \neq \gls{0}$. The reason shall be apparent later.},
+if the isospectral transforms $\gls{a}_0 = \mathbf{T}_L\mathbf{A_0T}_R, 
+\mathbf{B}_0 = \mathbf{T}_L\mathbf{B_0T}_R$ and $\mathbf{D}_0 =
+\mathbf{T}_L\mathbf{D_0T}_R$, retain their block-structure, that is, if
+\begin{align}
+	\mathbf{A_0} = \begin{bmatrix}
+	\gls{k}_0 & \gls{0}\\
+	\gls{0} & -\gls{m}_0
+	\end{bmatrix} \quad
+	\mathbf{B_0} = \begin{bmatrix}
+	\gls{c}_0 & \gls{m}_0\\
+	\gls{m}_0 & \gls{0}
+	\end{bmatrix}\quad
+	\mathbf{D}_0 = \begin{bmatrix}
+	\gls{0} & \gls{k}_0\\
+	\gls{k}_0 & \gls{c}_0
+	\end{bmatrix}
+\end{align}
+Utilisation of the \glspl{spe} permits the diagonalization of the system mass, 
+damping and stiffness matrices for non-classically damped systems, as shown by 
+\citet{GARVEY2002885,GARVEY2002911}. A modal control method is presented by 
+\citet{Houlston2007}, which exploits this diagonalization. The method 
+introduces independent modal control in which a separate modal controller is 
+designed in modal space for each individual mode or pair of modes. The theory 
+of decoupling used is presented in a concise form in \citet{Friswell2001}. We 
+shall present the basic equations here. 
+
+Except for defective systems, it is possible to find matrices
+$\mathbf{W}_L,$ $\mathbf{X}_{L},$ $\mathbf{Y}_{L},$ $\mathbf{Z}_L$ and $\mathbf{W}_R,$ 
+$\mathbf{X}_R, $ $\mathbf{Y}_R, $ $\mathbf{Z}_R$ in \gls{R}
+such that
+\begin{align}
+	\begin{bmatrix}
+		\mathbf{W}_L & \mathbf{X}_{L}\\
+		\mathbf{Y}_{L} & \mathbf{Z}_L
+	\end{bmatrix}^T
+	\begin{bmatrix}
+		\gls{0} & \phantom{-}\gls{k}\\
+		\gls{k} & \phantom{-}\gls{c}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{W}_R & \mathbf{X}_R\\
+		\mathbf{Y}_R & \mathbf{Z}_R
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\gls{0} & \mathbf{\Omega}^2\\
+		\mathbf{\Omega}^2 & (2\mathbf{\zeta\Omega})
+	\end{bmatrix}\\	
+	\begin{bmatrix}
+		\mathbf{W}_L & \mathbf{X}_L\\
+		\mathbf{Y}_L & \mathbf{Z}_L
+	\end{bmatrix}^T
+	\begin{bmatrix}
+		\gls{k} & \phantom{-}\gls{0}\\
+		\gls{0} & -\gls{m}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{W}_R & \mathbf{X}_R\\
+		\mathbf{Y}_R & \mathbf{Z}_R
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\mathbf{\Omega}^2 & \gls{0} \\
+		\gls{0}  & -\gls{I} 
+	\end{bmatrix}\\	
+	\begin{bmatrix}
+		\mathbf{W}_L & \mathbf{X}_{L}\\
+		\mathbf{Y}_L & \mathbf{Z}_L
+	\end{bmatrix}^T
+	\begin{bmatrix}
+		\gls{c} & \phantom{-}\gls{m}\\
+		\gls{m} & \phantom{-}\gls{0}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{W}_R & \mathbf{X}_R\\
+		\mathbf{Y}_R & \mathbf{Z}_R
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		(2\mathbf{\zeta\Omega}) & \gls{I}\\
+		\gls{I} & \gls{0}
+	\end{bmatrix}	
+\end{align}
+where, both $\mathbf{\Omega}^2$ and $2\mathbf{\zeta\Omega}$ are real-valued
+and diagonal. Now,
+\begin{align}
+\mathbf{Y}_{L} = -\mathbf{X}_{L}\mathbf{\Omega}^2, \quad
+\mathbf{W}_L = \mathbf{Z}_L + \mathbf{X}_{L}(2\mathbf{\zeta\Omega})
+\end{align}
+A similar relation holds for the right matrices. Consider the eigenvalue 
+problem obtained from the first of the state-space forms in \eqref{eqn:stsp_g}. 
+Let \gls{X} be the matrix composed of right eigenvectors and \gls{Y}
+be the matrix composed of left eigenvectors. Considering a block structure
+using matrices similar to $\mathbf{W}_L,$ $\mathbf{X}_L,$ $\mathbf{Y}_L,$, etc.,
+let $\mathbf{\Phi}_{L1},$ $\mathbf{\Phi}_{L2},$ $\mathbf{\Theta}_{L2},
+$ $\mathbf{\Theta}_{L2}$ form the block structure of \gls{X}, with a similar
+structure for \gls{Y}. Then, rewriting \eqref{eqn:MK_diag} using the block
+structure:
+\begin{align}
+\label{eqn:stsp_eig}
+	\begin{bmatrix}
+		\mathbf{\Phi}_{L1} & \mathbf{\Phi}_{L2}\\
+		\mathbf{\Theta}_{L1} & \mathbf{\Theta}_{L2}
+	\end{bmatrix}^T
+	\begin{bmatrix}
+		\gls{0} & \phantom{-}\gls{k}\\
+		\gls{k} & \phantom{-}\gls{c}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{\Phi}_{R1} & \mathbf{\Phi}_{R2}\\
+		\mathbf{\Theta}_{R1} & \mathbf{\Theta}_{R2}
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\gls{L}_1 & \gls{0}\\
+		\gls{0} & \gls{L}_2
+	\end{bmatrix}\\	
+	\begin{bmatrix}
+		\mathbf{\Phi}_{L1} & \mathbf{\Phi}_{L2}\\
+		\mathbf{\Theta}_{L1} & \mathbf{\Theta}_{L2}
+	\end{bmatrix}^T
+	\begin{bmatrix}
+		\gls{k} & \phantom{-}\gls{0}\\
+		\gls{0} & -\gls{m}
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{\Phi}_{R1} & \mathbf{\Phi}_{R2}\\
+		\mathbf{\Theta}_{R1} & \mathbf{\Theta}_{R2}
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\gls{I} & \gls{0} \\
+		\gls{0}  & \gls{I} 
+	\end{bmatrix}
+\end{align}
+Of the $2n$ eigenvalues obtained, counting multiplicity, let $2p \leq 2n$
+be the number of complex eigenvalues with $2q$ real eigenvalues. The matrix 
+which we now define will also be used later, since a modified version plays 
+the same role in the theory presented by \citet{Chu200896}.
+\begin{align}
+	\mathbf{J} &= \begin{bmatrix}
+	\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{-\iota}{\sqrt{2}}\gls{I}_p & \gls{0} \\
+	\gls{0} & \gls{I}_q & \gls{0} & \gls{0} \\
+	\frac{1}{\sqrt{2}}\gls{I}_p & \gls{0} & \frac{\iota}{\sqrt{2}}\gls{I}_p & \gls{0} \\
+	\gls{0} & \gls{0} & \gls{0} & \iota\gls{I}_q \\
+	\end{bmatrix}\\
+\mathbf{J}^T\mathbf{\Lambda}\mathbf{J} &= \begin{bmatrix}
+		\mathbf{\Lambda}_x & \mathbf{\Lambda}_y\\
+		\mathbf{\Lambda}_y & \mathbf{\Lambda}_z
+	\end{bmatrix}
+\end{align}
+Now select a diagonal matrix \gls{g} $\in$ \gls{C}, such that
+\begin{align}
+	\begin{bmatrix}
+		\cosh{\gls{g}} & \sinh{\gls{g}}\\
+		\sinh{\gls{g}} & \cosh{\gls{g}}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{\Lambda}_x & \mathbf{\Lambda}_y\\
+		\mathbf{\Lambda}_y & \mathbf{\Lambda}_z
+	\end{bmatrix}
+	\begin{bmatrix}
+		\cosh{\gls{g}} & \sinh{\gls{g}}\\
+		\sinh{\gls{g}} & \cosh{\gls{g}}\\
+	\end{bmatrix} = 
+	\begin{bmatrix}
+		\gls{0} & \mathbf{\Omega}^2\\
+		\mathbf{\Omega}^2 & (2\mathbf{\zeta\Omega})
+	\end{bmatrix}
+\end{align}
+Then the following relation (with its equivalent for the right eigenvectors) 
+give us the required diagonalizing \glspl{spe}:
+\begin{align}
+	\begin{bmatrix}
+		\mathbf{W}_L & \mathbf{X}_L\\
+		\mathbf{Y}_L & \mathbf{Z}_L
+	\end{bmatrix} &= 
+	\begin{bmatrix}
+		\mathbf{\Phi}_{L1} & \mathbf{\Phi}_{L2}\\
+		\mathbf{\Theta}_{L1} & \mathbf{\Theta}_{L2}
+	\end{bmatrix}\mathbf{J}
+	\begin{bmatrix}
+		\cosh{\gls{g}} & \sinh{\gls{g}}\\
+		\sinh{\gls{g}} & \cosh{\gls{g}}\\
+	\end{bmatrix}
+	\begin{bmatrix}
+		\mathbf{\Omega} & \gls{0} \\
+		\gls{0}  & \gls{I} 
+	\end{bmatrix}
+\end{align}
+
+There are two points to consider in this rather straightforward relation.
+First is obtaining an appropriate \gls{g}, which is where the bulk of the 
+computation lies. Secondly, there is no simple way whereby this method 
+could be adapted for systems with eigenvalue zero. \citet{Chu200896}
+derived a modified version of this relation, which, as we shall show in the
+next chapter, is relatively easily adapted for this case. The transformation 
+derived above is not unique, and can be arrived via a different route, albeit 
+sharing a few steps. Another route to decoupling transformations is also 
+discussed in \citet{Friswell2001}, which uses Clifford algebra, specifically,
+\gls{cl}. We shall not discuss this method, since Clifford algebras are 
+beyond the scope of this work.

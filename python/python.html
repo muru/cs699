@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Python Exercises</title>
+<style>
+ol.a
+{
+list-style-type:lower-alpha;
+}
+h2
+{
+color:red;
+}
+h3 {color:blue;}
+table {border:solid;}
+td {border:solid;}
+.em { color:red; font-weight:bold }
+</style>
+</head>
+
+<body>
+<h2>Python Exercises</h2>
+
+<p>Python is excellent for text processing and functional programming,
+as we'll find out in the course of these exercises.  Many exercises
+will use the following (imagined) context.</p>
+
+<p><b>The Job Interview</b></p>
+
+<p>Anaconda Systems was one of the companies which came for placement
+to IITB.  Their selection process included five written tests followed
+by an interview.  The written tests had up to 5 marks each.  Students
+could decide not to attempt a written test, since if they get the
+written test totally wrong, they may get negative marks.</p>
+
+<p>The file marks.ods gives the spreadsheet of marks obtained by each
+of the candidates who appeared for selection.  There are some heading
+rows in the spreadsheet.  The first row before the actual data in the
+spreadsheet gives the column names which stand for the various written
+tests.  In the cells, a "NA" means that the candidate did not attempt
+that particular written test (for fear of getting negative marks).
+The column named "Sel" tells whether the candidate was finally
+selected after the interview: this is a binary value (1=selected,
+0=not selected).</p>
+
+<p>A non-python exercise for you is to first convert this open-office
+spreadsheet into a csv (comma-separated value) text file called
+marks.csv.</p>
+
+<ol>
+  <li>Write a python script to read the csv file and print the total
+  number of candidates who appeared for selection.  You must look for
+  a number as the first entry in a row, and count such rows to arrive
+  at the answer.  Your program should take exactly one command-line
+  argument, the input csv file.  If the wrong number of arguments are
+  given, the program should exit after printing the correct usage.<br />
+      What you are expected to learn: command-line arguments,
+  functions, if-then-else, loops, the csv module, regular expression
+  matching
+  </li>
+  <li>Modify the above program to store the main data (i.e. excluding
+  the header rows) as a list of lists (2D array).  And then print the
+  number of candidates by using "len".<br />
+      What you are expected to learn: lists, list-of-lists, the len
+  function
+  </li>
+  <li>Modify the above program to make a list of only the final
+  selection (i.e. extract that column of 1's and 0's).  Use map on the list of lists to achieve this.  Then
+  print the total number of selected candidates using
+  the "sum" function on this list.<br />
+      What you are expected to learn: using map on a list
+  </li>
+  <li>Modify the above program to make another 2D matrix.  This should
+  consist of the rows corresponding to only the selected candidates.
+  Use the filter function to achieve this.  Then print the total
+  number of selected candidates by using "len" on this 2D matrix.<br />
+      What you are expected to learn: using filter on a list
+  </li>
+  <li>Now add to the above program to make a "dictionary" or a
+  "hashtable" which maps the column name to the column index.  To
+  construct this index, you have to use the header row, which you can
+  identify in the program as having "SNo" as the first column
+  value.  The program should then loop through the dictionary to
+  print the column index of each column name.<br />
+      What you are expected to learn: constructing and looping through
+  dictionary or hashtable structures in python
+  </li>
+  <li>Modify the above program to store an extra column in each row,
+  which is the total marks obtained by the candidate (count "NA" as 0
+  marks).  Then sort the list-of-lists by the total marks obtained by
+  each candidate.  Print this sorted list onto a new file.<br />
+      What you are expected to learn: sorting a list using the "sort"
+  command, and using a lambda function to specify the key
+  </li>
+  <li>Add to the above program to create two separate 2D matrices: one
+  with the top 20% of candidates (by total marks), and another with
+  the bottom 40% of candidates (by total marks).  You can create these
+  as sub-lists of the above sorted matrix.  For convenience, call the
+  3 matrices as OverallM, top20pM, and bot40pM respectively.<br />
+      What you are expected to learn: quick ways to make sub-lists
+  from lists
+  </li>
+  <li><span class="em">Optional [3HP]:</span> Ignoring the columns with names "SNo" and "Sel", the remaining
+  columns represent the various written test scores.  For each written
+  test, compute the number of candidates who attempted the test.  Also
+  compute the number of candidates who attempted the test, from among
+  the top 10% of candidates, and among the bottom 40% of the
+  candidates.  Use a "map" over OverallM, top20pM, bot40pM to achieve
+  this.<br />
+      What you are expected to learn: looping through dictionary,
+  writing appropriate function for map
+  </li>
+  <li><span class="em">Optional [5HP]:</span> We now want to compute the correlation between the total marks
+  and the final selection (post interview).
+      <ol class="a">
+	<li>First read up and refresh your memory on what correlation
+  means.  In this process, you'll also read up on average, variance,
+  standard deviation, and covariance.
+	</li>
+	<li>Write the following functions: average, variance, standard
+  deviation, covariance, correlation.  Write these functions in the
+  above order.  The first three will take one list as argument, while
+  the last two will take two lists as argument.  Use list
+  comprehensions in writing the functions (you can write each function
+  in not more than 2 lines).  Use "zip" for writing the covariance
+  function.<br />
+	    What you are expected to learn: list comprehensions, zip
+  function
+	</li>
+	<li>Now use the correlation function, with the appropriately
+  constructed lists as arguments, to compute the correlation between
+  the total marks and the final selection of the candidate
+	</li>
+      </ol>
+  </li>
+</ol>
+
+<hr />
+<address>Bhaskaran Raman</address>
+<!-- hhmts start -->
+Last modified: Wed Oct  9 10:42:53 IST 2013
+<!-- hhmts end -->
+</body> </html>

@@ -37,7 +37,7 @@ get_gnu_script () {
 	XLABEL="${X_LABEL=Time}"
 	[[ $TIME_UNIT == 'ms' ]] && MULT=1000 || MULT=1
 	cat <<EOF
-	set term eps
+	set term postscript eps
 	set output "thrpt-plot.eps"
 	set xlabel "$XLABEL"
 	plot 'thrpt-data.txt' using (\$1*$MULT):2 title "$TITLE"

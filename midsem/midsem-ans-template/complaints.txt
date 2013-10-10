@@ -1,0 +1,30 @@
+Enter the text of your complaints below, only in the space provided.
+Be brief.
+
+Also, for each complaint, provide a revised/correct script, which is a
+minimal modification of your original script.  I will manually check
+each modification against your original submission, and permit only
+those which involve 'minor' changes (e.g. forgot a semicolon, used a
+gnuplot command which works only in newer versions).
+
+------------ Question-1: Indentation complaints ------------
+Write the text of your complaint below, not more than 5 lines
+
+------------ Question-2: tabulate-marks.sh complaints ------------
+Write the text of your complaint below, not more than 5 lines
+
+------------ Question-3: cpnew.sh complaints ------------
+Write the text of your complaint below, not more than 5 lines
+
+------------ Question-4: iitb-papers.sh complaints ------------
+Write the text of your complaint below, not more than 5 lines
+
+------------ Question-5: genplot.sh complaints ------------
+Write the text of your complaint below, not more than 5 lines
+Version error, fixed by changing 'set term eps' to 'set term postscript eps'.
+Presumably the other error happens when gnuplot didn't exit 
+successfully, so I haven't changed anything for that.
+
+------------ Question-6: zrn.sh complaints ------------
+Write the text of your complaint below, not more than 5 lines
+

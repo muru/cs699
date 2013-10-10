@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[round]{natbib}
+\usepackage{marginnote}
+\usepackage{array,warpcol}
+\usepackage[acronym,section]{glossaries}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+
+\usepackage[pagebackref=true]{hyperref}
+
+\makeglossaries
+\include{los}
+\glossarystyle{tree} 
+\renewcommand{\glspostdescription}{.\bigskip}
+\bibliographystyle{abbrvnat}
+\title{Why, Oh! Why?}
+\author{Murukesh Mohanan\\133059001}
+
+\begin{document}
+\begin{abstract}
+This project aims to implement True Modal Control, whereby every 
+controllable mode of a dynamic system will be modelled and controlled 
+independently. Dynamic systems can be represented by spring-mass-viscous-damper system  via the Lumped Parameter strategy, but we would have to 
+decouple the equations so obtained to obtain the individual modes.
+Decoupling classically damped systems is easily done, however not much has 
+been done in the case of non-classical damping. We aim to make our method as 
+general as possible, so we shall focus on general damping in this project. 
+\marginnote{Nearly everything is lifted from my BTP report.}
+There have been recent advances in this field by 
+\citet{GARVEY2002885,GARVEY2002911} and \citet{Chu200896,Chu2008112}. We 
+shall review these advances, and build upon them, principally on the work of 
+\citet{Chu200896}.
+\end{abstract}
+\maketitle
+\tableofcontents
+\listoffigures
+\newpage
+\section{Eternal damnation}
+Insert random metaphysical stuff here.
+\section{Non-eternal damnation}
+Insert non-random metaphysical stuuf here.
+\subsection{Non-eternal non-damnation}
+Insert non-random non-metaphysical stuff here.
+
+\paragraph{Contact Bertrand Russell.}
+If not, then please submit your geek card and proceed to Processing.
+Something's wrong with atl. Abandon latex plugins, ye who enter vim!
+\footnote{Why is :MakeLatex using Python? And more python errors \
+	when downloaded from the site.}
+
+\begin{enumerate}
+\label{list:class}
+\item For $j = 1, \dots, \rho$,
+\begin{align}
+\left\lbrace \mathrm{r}_j, \mathrm{i}_j\right\rbrace \in \mathbf{C}_a 
+&\Leftrightarrow \gls{l}_{\mathrm{r}_j}\gls{l}_{\mathrm{i}_j} > 0\\
+\left\lbrace \mathrm{r}_j, \mathrm{i}_j\right\rbrace \in \mathbf{C}_f 
+&\Leftrightarrow \gls{l}_{\mathrm{r}_j}\gls{l}_{\mathrm{i}_j} < 0
+\end{align}
+\item For $j = 1, \dots, (n(\gls{ir}) - \rho)/2$,
+\begin{align}
+\left\lbrace \mathrm{r}_{\rho+2j-1}, \mathrm{r}_{\rho+2j}\right\rbrace \in \mathbf{C}_b
+&\Leftrightarrow \gls{l}_{\mathrm{r}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} < 0\\
+\left\lbrace \mathrm{r}_{\rho+2j-1}, \mathrm{r}_{\rho+2j}\right\rbrace \in \mathbf{C}_d
+&\Leftrightarrow \gls{l}_{\mathrm{r}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} > 0
+\end{align}
+\item For $j = 1, \dots, (n(\gls{ii}) - \rho)/2$,
+\begin{align}
+\left\lbrace \mathrm{i}_{\rho+2j-1}, \mathrm{i}_{\rho+2j}\right\rbrace \in \mathbf{C}_c
+&\Leftrightarrow \gls{l}_{\mathrm{i}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} < 0\\
+\left\lbrace \mathrm{i}_{\rho+2j-1}, \mathrm{r}_{\rho+2j}\right\rbrace \in \mathbf{C}_e
+&\Leftrightarrow \gls{l}_{\mathrm{i}_{\rho+2j-1}}\gls{l}_{\mathrm{i}_{\rho+2j-1}} > 0
+\end{align}
+\end{enumerate}
+
+\include{literature}
+\section{Dunno.}
+\begin{itemize}
+	\item Movement of armies:
+	\begin{itemize}
+		\item Over land:	Slower, delicate units such as siege weapons and 
+		monks need to be protected. Exploit the speed of mounted units to 
+		ward off attacks on the main army.
+		\item Over sea:	Transport ships have limited capacity and units 
+		in ships cannot defend themselves. If the enemy is across a body 
+		of water, one must set up a base on enemy territory. 
+	\end{itemize}
+	\item Replenishment of armies after battles and skirmishes:
+	\begin{itemize}
+		\item Maintaining a level of resources, to allow for 
+		quick replenishment.
+		\item Ensuring proper timing of arrival of reinforcements.
+	\end{itemize}
+	\item Retreating under fire while minimizing losses.
+\end{itemize}
+\section{The table that you requested, milord.}
+I hope milord is pleased with my offering.\footnote{Lifted from \href{http://en.wikibooks.org/wiki/LaTeX/Tables}{Wikibooks.}}
+
+\begin{tabular}{ | l | l | l | p{5cm} |}
+    \hline
+    Day & Min Temp & Max Temp & Summary \\ \hline
+    Monday & 11C & 22C & A clear day with lots of sunshine.  
+    However, the strong breeze will bring down the temperatures. \\ \hline
+    Tuesday & 9C & 19C & Cloudy with rain, across many northern regions. Clear spells
+    across most of Scotland and Northern Ireland,
+    but rain reaching the far northwest. \\ \hline
+    Wednesday & 10C & 21C & Rain will still linger for the morning.
+    Conditions will improve by early afternoon and continue
+    throughout the evening. \\
+    \hline
+\end{tabular}
+
+\include{stable_filtes}
+
+\newpage
+\bibliography{references}
+\printglossary[title={List of Symbols},toctitle={List of Symbols}]
+\printglossary[type=\acronymtype] 
+\end{document}
