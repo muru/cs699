@@ -1,0 +1,6 @@
+# ./trace-analysis.py anonP1.csv
+990
+# ./trace-analysis.py anonP2.csv
+1257
+# ./trace-analysis.py anonP3.csv
+834

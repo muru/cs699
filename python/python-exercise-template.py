@@ -3,13 +3,12 @@
 import sys
 import csv
 import re
-import itertools
 import math
 
 def add_sum_marks(row):
 	num_row = [int(x) if x.isdigit() else 0 for x in row]
-	row.append(sum(num_row[1:-1]))
-	return row
+	# row.append(sum(num_row[1:-1]))
+	return sum(num_row[1:-1])
 
 def add_test_num(row, index, test_count):
 	if row[index].isdigit():
@@ -19,8 +18,8 @@ def avg(X):
 	return math.fsum(X) / len(X)
 
 def variance(X):
-	X2 = [x*x for x in X]
-	return avg(X2) - avg(X)
+	X2 = [x**2 for x in X]
+	return avg(X2) - (avg(X)**2)
 
 def std_dev(X):
 	return math.sqrt(variance(X))
@@ -36,48 +35,47 @@ if len(sys.argv) != 2:
 	print('Usage: ' + sys.argv[0] + ' <CSVFILE>')
 	quit(-1)
 
+# Ex 1/2
 with open(sys.argv[1]) as csvfile:
 	csvreader	= csv.reader(csvfile)
 	data		= list(csvreader)  #[row for row in csvreader]
-# Ex 1/2
 	number		= re.compile('^\d+$')
 	header		= [row for row in data if not re.match(number, row[0])]
-	titles		= [row for row in header if 'Sno' in row][0]
-	candidates	= [row for row in data if re.match(number, row[0])]
-	print(len(candidates))
+	labels		= [row for row in header if 'Sno' in row][0]
+	candidates	= [row + [ add_sum_marks(row) ] for row in data if re.match(number, row[0])]
+	num_cand	= len(candidates)
+	print(num_cand)
 # Ex 3/4
 	selection	= list(filter(lambda row: int(row[-1]) == 1, candidates))
 	print(len(selection))
 # Ex 5
-	headerindex =  {v:i for i, v in enumerate(titles)}
-	for label, index in headerindex.items():
+	labelindices =  {v:i for i, v in enumerate(labels)}
+	for label, index in labelindices.items():
 		print(label, index)
 # Ex 6
-	cand_extra	= list(map(add_sum_marks, candidates))
-	cand_extra.sort(key = lambda row: row[-1], reverse = True)
 	outfile		= open('mmarks.csv','w')
 	csvwriter	= csv.writer(outfile,quoting=csv.QUOTE_ALL)
-	csvwriter.writerows(cand_extra)
+	candidates.sort(key = lambda row: row[-1], reverse = True)
+	csvwriter.writerows(candidates)
 # Ex 7
-	OverallM	= cand_extra[:]
-	top20pM		= OverallM[:len(OverallM)//5]
-	bot40pM		= OverallM[3*len(OverallM)//5:]
+	OverallM	= candidates[:]
+	top20pM		= OverallM[:num_cand//5]
+	bot40pM		= OverallM[3*num_cand//5:]
 	matrices	= {'OverallM': OverallM, 'top20pM': top20pM, 'bot40pM': bot40pM}
 	print(top20pM)
 	print(bot40pM)
 # Ex 8
-	#test_counts = {'OverallM' : [0]*len(titles), 'top20pM' : [0]*len(titles), 'bot40pM' : [0]*len(titles)}
-	test_counts = {group: ([0]*len(titles))[:] for group in matrices}
-	for label in headerindex:
+	test_counts = {group: ([0]*len(labels))[:] for group in matrices}
+	for label in labelindices:
 		if label not in ['Sno','Sel']:
 			for group in matrices:
 				for entry in matrices[group]:
-					add_test_num(entry, headerindex[label], test_counts[group])
+					add_test_num(entry, labelindices[label], test_counts[group])
 	print(test_counts)
 # Ex 9
-	total_marks = [entry[-1] for entry in cand_extra]
-	is_selected = [entry[-1] for entry in candidates]
-	print(correlation(total_marks, is_selected))
+	total_marks = [entry[-1] for entry in candidates]
+	is_selected = [int(entry[-2]) for entry in candidates]
+	print(covariance(total_marks, is_selected))
 
 # 7.
 #	OverallM = candidates[:]
@@ -92,11 +90,14 @@ with open(sys.argv[1]) as csvfile:
 #	outfile = open('mmarks.csv','w')
 #	csvwriter = csv.writer(outfile)
 #	csvwriter.writerows(candidates)
+# --
+#	cand_extra	= list(map(add_sum_marks, candidates))
+#	cand_extra.sort(key = lambda row: row[-1], reverse = True)
 
 # 5.
 #	header = filter(lambda row: 'Sno' in row, csvreader)
-#	headerindex =  {v:i for i, v in enumerate(header[0])}
-#	for headerentry, index in headerindex.items():
+#	labelindices =  {v:i for i, v in enumerate(header[0])}
+#	for headerentry, index in labelindices.items():
 #		print(headerentry, index)
 
 # 4.
