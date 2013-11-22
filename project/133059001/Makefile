@@ -12,7 +12,7 @@ SRCDIR = src
 BINDIR = bin
 OBJDIR = obj
 INCDIR = inc
-DATADIRS = logs outputFiles flows mobility store_cap tests archives
+DATADIRS = logs outputFiles flows mobility store_cap tests archives doc
 
 CFLAGS += -I $(INCDIR)
 

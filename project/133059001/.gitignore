@@ -14,4 +14,7 @@ recordFlow.txt
 networkGraph.txt
 cscope*
 temp.dump
-
+doc/*.aux
+doc/*.log
+doc/*.out
+doc/*.synctex.gz

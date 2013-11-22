@@ -1,4 +1,5 @@
-\documentclass{article}
+\documentclass[a4]{article}
+\usepackage{a4wide}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -9,9 +10,47 @@
 
 \usepackage[pagebackref=true]{hyperref}
 
+\begin{document}
 \title{LO3 MAC Simulator}
 \author{Murukesh Mohanan\\133059001}
+\section{Introduction}
+The code is reasonably organized: you can find the source files in src/, 
+header files in inc/, object files and binaries in obj/ and bin/ 
+respectively, and so on. Files related to this report are present in doc/.
+Simulation results for the most recent run are in tests/ and archived
+reults in archives/. 
+Compiling is simple:
+\begin{itemize}
+	\item To compile the normal binary, do \\
+		make [norm]  
+		This creates bin/lo3mac, which relies on a pre-created recordFlow.txt.
+		To run it, do: \\
+		bin/lo3mac $\langle$error rate$\rangle$ <sim duration$\rangle$
+	\item To compile the generator binary, do \\
+		make gen
+		This creates bin/gen\_lo3mac, which generates recordFlow.txt for future use.
+		To run it do: \\
+		bin/gen\_lo3mac $\langle$error rate$\rangle$ $\langle$sim duration$\rangle$ $\langle$call interval$\rangle$ $\langle$call duration$\rangle$ $\langle$stored voice duration$\rangle$
+\end{itemize}
+Please refer to Table \ref{table:params} for details on these parameters.
 
-\begin{document}
+\begin[t]{table}
+\centering
+\begin{tabular}{|l|r|l|}
+	\hline
+	Parameter & Range & Unit \\ \hline
+	Error Rate & $[0, 1)$ & (probability) \\
+	Simulation Duration & $(0, \infty$) & hours \\
+	Inter-Call DUration & $[0, 3)$ & hours \\
+	Call Duration & $[0, 4)$ & minutes \\
+	Stored Voice Duration & $[0, 4)$ & minutes \\ \hline
+\end{tabular}
+\caption{Description of simulator parameters.}
+\label{table:params}
+\end{table}
+
+
+
+
 \end{document}
 
