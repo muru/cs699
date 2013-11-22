@@ -1,0 +1,10 @@
+bin/*
+flows/*
+logs/*
+outputFiles/*
+recordFlow.txt
+networkGraph.txt
+tests/*
+cscope*
+temp.dump
+inc/*bak
