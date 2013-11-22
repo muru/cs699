@@ -15,7 +15,7 @@ sed 's/[^0-9]*//'`
 OUT=$1
 shift
 
-echo $@ $FLOW_DATA >$OUT
+echo $@ $FLOW_DATA >>$OUT
 
 for flow in flows/flow*
 do

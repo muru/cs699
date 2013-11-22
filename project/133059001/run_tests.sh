@@ -30,25 +30,26 @@ function single_sim()
 function run_sim()
 {
 	WORKDIR=$TESTDIR/$1/$2
-	ARCHDIR=$WORKDIR/$PID-$1-$2
 	mkdir -p $WORKDIR
 	cp $CONF $COORDS $WORKDIR/
 
 	cd $WORKDIR
-	mkdir -p $DATADIRS
+	ARCHDIR=$PID-$1-$2
+	mkdir -p $DATADIRS $ARCHDIR
 		
 	single_sim $GENBIN $1 $2 
 	mkdir -p $ARCHDIR/run0
 	cp -R $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg $ARCHDIR/run0
 	
-	for i in `seq 1 3`
+	for i in `seq 1 1`
 	do
 		single_sim $BIN $1 $2
 		mkdir -p $ARCHDIR/run$i
 		cp -R $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg $ARCHDIR/run$i
 	done
 	echo "tar -czf $ARCHIVES/$PID-$1-$2.tgz $ARCHDIR"
-	tar -czf $ARCHIVES/$PID-$1-$2.tgz $ARCHDIR
+	cd $TESTDIR
+	tar -czf $ARCHIVES/$PID-$1-$2.tgz $1/$2/$ARCHDIR
 
 #	rm -rf $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg
 }	
