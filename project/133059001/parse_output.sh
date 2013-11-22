@@ -12,8 +12,10 @@ Unique calls admitted
 Dropped after root
 EOF
 sed 's/[^0-9]*//'`
+OUT=$1
+shift
 
-echo $@ $FLOW_DATA >&2
+echo $@ $FLOW_DATA >$OUT
 
 for flow in flows/flow*
 do
@@ -32,9 +34,9 @@ EOF`
 		AVG_PACKET_LOSS=`bc -ll <<EOF
 		($PACKETS_SENT - $PACKETS_LOST) / $PACKETS_SENT.0
 EOF`
-		grep PACKET_SENT_BY_SOURCE $flow | cut -d' ' -f 3 > start.txt
+		#grep PACKET_SENT_BY_SOURCE $flow | cut -d' ' -f 3 > start.txt
 		grep destination $flow | cut -d' ' -f10 --output-delimiter=, | sort -n > end.txt
-		$PROJDIR/calc_jitter.py start.txt end.txt | read AVG_JITTER MED_JITTER
+		$PROJDIR/calc_jitter.py end.txt | read AVG_JITTER MED_JITTER
 	else
 		LATENCY="inf"
 		AVG_PACKET_LOSS=0

@@ -49,7 +49,7 @@ int printSlotChannelNodes()
 	
 	int i,j,k;
 	
-	fk = fopen("outputFiles/channelInfo.txt","a+");
+	fk = fopen(FolderChannelInfoFile,"a+");
 	
 
 	fprintf(fk,"\n globalCallsInProgress %d",globalCallsInProgress);
@@ -402,8 +402,8 @@ int setSchedulingElementsSingleChannel(int source, int destination, int flowId, 
 	//fprintf(stderr, "\n flow in scheduler single channel %d",flowId);
 	//exit(0);
 	
-	fp = fopen("outputFiles/simCalls.txt","a+");
-	fq = fopen("outputFiles/admitCalls.txt","a+");
+	fp = fopen(FolderSimulatedCallsFile,"a+");
+	fq = fopen(FolderAdmittedCallsFile,"a+");
 		
 	//printf("\n root numSchedElem %d",nodeID[ROOT].numSchedElem);
 	
@@ -681,7 +681,7 @@ int revokeElementsSingleChannel(int flowId)
 	
 	j = i + elementsToRemove; //what do we gain from this statement???
 
-	ft = fopen("outputFiles/channelInfo.txt","a+");
+	ft = fopen(FolderChannelInfoFile,"a+");
 
 	for(l=0; l<(aPath->numOfNodesInPath - 1);l++,i++)
 	{
@@ -831,7 +831,7 @@ int minirevokeElements(int flowId) // only for revoking the elements of the voic
 	
 	j = i + elementsToRemove;
 
-	ft = fopen("outputFiles/channelInfo.txt","a+");
+	ft = fopen(FolderChannelInfoFile,"a+");
 	//manan change
 	if(voiceMsg == 1)
 	{
@@ -1219,9 +1219,9 @@ int setSchedulingElements(int source, int destination, int flowId, int incomingP
 	
 	//printf("\n flow in scheduler %d",flowId);
 	
-	fp = fopen("outputFiles/simCalls.txt","a+");
-	fq = fopen("outputFiles/admitCalls.txt","a+");
-	fr = fopen("outputFiles/scheduleInfo.txt","a+");
+	fp = fopen(FolderSimulatedCallsFile,"a+");
+	fq = fopen(FolderAdmittedCallsFile,"a+");
+	fr = fopen(FolderScheduleInfoFile,"a+");
 	
 	//printf("\n root numSchedElem %d",nodeID[ROOT].numSchedElem);
 
@@ -1824,7 +1824,7 @@ int setSchedulingElements(int source, int destination, int flowId, int incomingP
 	
 	fprintf(stderr,"\n Flow admitted %d totalCallsAdmitted %d",flowId, noOfCallsAdmitted);
 	
-	fa = fopen("outputFiles/channelInfo.txt","a+");
+	fa = fopen(FolderChannelInfoFile,"a+");
 	fprintf(fa,"\n Call admitted");
 	fclose(fa);
 	
@@ -2166,7 +2166,7 @@ int revokeElements(int flowId)
 	
 	j = i + elementsToRemove;
 
-	ft = fopen("outputFiles/channelInfo.txt","a+");
+	ft = fopen(FolderChannelInfoFile,"a+");
 	//manan change
 	if(voiceMsg == 1)
 	{

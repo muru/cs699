@@ -380,7 +380,7 @@ int setUpNewSchedule(int node)
 				}	
 				else
 				{
-					fz = fopen("outputFiles/callAccepted.txt","a+");
+					fz = fopen(FolderCallAcceptedFile,"a+");
 					fprintf(fz,"\n flowId %d %d source %d %d",EXTRACT_FLOWID(nodeID[node].localScheduleElements[i].flowId_channel), flowStat[j].flowId, node, flowSource);
 					fclose(fz);
 					numSuccessCalls[EXTRACT_FLOWID(nodeID[node].localScheduleElements[i].flowId_channel)] = 1;
@@ -851,13 +851,13 @@ int scheduleFlowRequest(int node)
 	//********Rajesh change ends******	
 	
 
-	strcpy(flowStr, "flows/flow");
+	strcpy(flowStr, FlowsFilePrefix);
 	sprintf(convStr,"%d",tempFlowID);
 	filename = strcat(flowStr,convStr);
 
 	fp = fopen(filename,"w+");
 	
-	fq = fopen("outputFiles/flowStartTimes.txt","a+");
+	fq = fopen(FolderFlowStartTimesFile,"a+");
 	
 	noOfCallsOriginated++;
 
@@ -1166,13 +1166,13 @@ int scheduleVoiceFlowRequest(int node, int overalle2eDestination)
 	numOfFlowsInProgress++;
 	//fprintf(stderr,"\t Voice Flow no %d added, total flows %d", tempFlowID, numOfFlowsInProgress);
 
-	strcpy(flowStr, "flows/flow");
+	strcpy(flowStr, FlowsFilePrefix);
 	sprintf(convStr,"%d",tempFlowID);
 	filename = strcat(flowStr,convStr);
 
 	fp = fopen(filename,"w+");
 	
-	fq = fopen("outputFiles/flowStartTimes.txt","a+");
+	fq = fopen(FolderFlowStartTimesFile,"a+");
 	
 	noOfCallsOriginated++; // should it be this or not, saw its references, think its not important
 

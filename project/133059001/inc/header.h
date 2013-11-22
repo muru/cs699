@@ -3,7 +3,9 @@
 
 #define PHASE_SCHEDULER 1
 
+#ifndef GENERATE_REQUESTS_FROM_FILE
 #define GENERATE_REQUESTS_FROM_FILE 0
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -113,8 +115,8 @@
 //specifies a window, use in conjuction with backoff variable, depends on data rate
 
 //****************************************************
-#define MAX_PHASES (NO_OF_DATA_SLOTS/4)
-#define MAX_SCHED_ELEMENTS (MAX_NO_CHANNELS * NO_OF_DATA_SLOTS * MAX_NO_HOPS)
+//#define MAX_PHASES (NO_OF_DATA_SLOTS/4)
+//#define MAX_SCHED_ELEMENTS (MAX_NO_CHANNELS * NO_OF_DATA_SLOTS * MAX_NO_HOPS)
 
 #define TREE_UPDATE_REPEAT 3
 
@@ -122,9 +124,9 @@
 #define BACKOFF_LIMIT 5 
 //limit on node.backoff, note that backoff is not the part of current implementation
 
-#define JOIN_WAIT_TIME (5 * FRAME_DURATION)
-#define JOIN_TIMEOUT (5 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS) 
-#define FLOW_TIMEOUT (5 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS)
+//#define JOIN_WAIT_TIME (5 * FRAME_DURATION)
+//#define JOIN_TIMEOUT (5 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS) 
+//#define FLOW_TIMEOUT (5 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS)
 #define SCHEDULE_MISS_THRESHOLD 10
 //#define SCHEDULE_TIMEOUT (10 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS)
 // node disable change, schedule timeout is one minute
@@ -132,7 +134,7 @@
 //#define MAX_SCHEDULE_SLOTS 40 //we can have at most 40 slots as a logical group, not part of current implementation
 
 #define BW_INTERVAL (5*1000)
-#define BW_TIMEOUT (MAX_FLOW_RETRY * BW_INTERVAL)
+//#define BW_TIMEOUT (MAX_FLOW_RETRY * BW_INTERVAL)
 
 #define DATA_PACKET_SIZE 45//60 //45
 #define LINK_LEVEL_ACK_SIZE 2 
@@ -141,7 +143,7 @@
 //portability changes start
 #define SECOND 1000
 #define TOPOLOGY_UPDATE_PERIOD (40)
-#define ROOT_TOPOLOGY_UPDATE_REFRESH (5*TOPOLOGY_UPDATE_PERIOD)
+//#define ROOT_TOPOLOGY_UPDATE_REFRESH (5*TOPOLOGY_UPDATE_PERIOD)
 #define ATTEMPT_LIMIT 20
 //portability changes end
 
@@ -182,6 +184,59 @@
 extern int flowDropDueToE2EPacketLosses;
 
 //********Rajesh change ends******
+
+/** Derived values moved here on 20/11/13 by Muru
+ */
+
+#define CallAcceptedFile "callAccepted.txt"
+#define FolderCallAcceptedFile "outputFiles/callAccepted.txt"
+#define FlowsFilePrefix "flows/flow"
+#define FlowStartTimesFile "flowStartTimes.txt"
+#define FolderFlowStartTimesFile "outputFiles/flowStartTimes.txt"
+#define NodeLogFilePrefix "logs/node"
+#define StoreCapFilePrefix "store_cap/node"
+#define GlobalFlowFilePrefix "flows/globalFlow"
+#define MobilityFilePrefix "mobility/node"
+#define ChannelInfoFile "channelInfo.txt"
+#define FolderChannelInfoFile "outputFiles/channelInfo.txt"
+#define SimulatedCallsFile "simCalls.txt"
+#define FolderSimulatedCallsFile "outputFiles/simCalls.txt"
+#define AdmittedCallsFile "admitCalls.txt"
+#define FolderAdmittedCallsFile "outputFiles/admitCalls.txt"
+#define ScheduleInfoFile "scheduleInfo.txt"
+#define FolderScheduleInfoFile "outputFiles/scheduleInfo.txt"
+#define ResultsFile "results.txt"
+#define FolderResultsFile "outputFiles/results.txt"
+#define CallsDistributionFile "callsDistribution.txt"
+#define FolderCallsDistributionFile "outputFiles/callsDistribution.txt"
+#define HopDistributionFile "hopDistribution.txt"
+#define FolderHopDistributionFile "outputFiles/hopDistribution.txt"
+#define NodeUpTimeFile "nodeUpTime.txt"
+#define FolderNodeUpTimeFile "outputFiles/nodeUpTime.txt"
+#define EventQueueDumpFile "event_queue_dump.txt"
+#define FolderEventQueueDumpFile "outputFiles/event_queue_dump.txt"
+#define VoiceMessageFile "voiceMsg.txt"
+#define FolderVoiceMessageFile "outputFiles/voiceMsg.txt"
+#define FlowSequenceFile "flowSequence.txt"
+#define FolderFlowSequenceFile "outputFiles/flowSequence.txt"
+#define AutoTearDownFile "automatic_teardown.txt"
+#define FolderAutoTearDownFile "outputFiles/automatic_teardown.txt"
+#define VoiceEndFile "Voice_End.txt"
+#define FolderVoiceEndFile "outputFiles/Voice_End.txt"
+#define VoiceStartFile "Voice_Start.txt"
+#define FolderVoiceStartFile "outputFiles/Voice_Start.txt"
+#define VoiceLogFile "Voice_Log.txt"
+#define FolderVoiceLogFile "outputFiles/Voice_Log.txt"
+
+#include "config.h"
+
+#define MAX_PHASES (NO_OF_DATA_SLOTS/4)
+#define MAX_SCHED_ELEMENTS (MAX_NO_CHANNELS * NO_OF_DATA_SLOTS * MAX_NO_HOPS)
+#define JOIN_WAIT_TIME (5 * FRAME_DURATION)
+#define JOIN_TIMEOUT (5 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS) 
+#define FLOW_TIMEOUT (5 * MAX_NO_INFRA_NODES * FRAME_DURATION * MAX_NO_SCHEDULE_FRAGMENTS)
+#define BW_TIMEOUT (MAX_FLOW_RETRY * BW_INTERVAL)
+#define ROOT_TOPOLOGY_UPDATE_REFRESH (5*TOPOLOGY_UPDATE_PERIOD)
 
 //***********************************************************************************************************************
 
@@ -585,7 +640,7 @@ struct nodeInfo
 	int expectingPathChange; // mobility change 26-4-10
 	int next_hop;
 	double timeLastHandoffSent; // mobility change 27-4-10
-	struct scheduleElement localScheduleElements[MAX_SCHED_ELEMENTS];
+	struct scheduleElement *localScheduleElements;
 	//struct scheduleElement newScheduleElements[MAX_SCHED_ELEMENTS];
 	//int tempNumSchedElem;
 	int scheduleMissed;
@@ -707,15 +762,15 @@ extern struct schedule * globalSchedule;	//still to be used, not sure if require
 extern int globalNumSchedElem;
 //VJ End
 
-extern struct scheduleElement globalScheduleElements[MAX_SCHED_ELEMENTS];
+extern struct scheduleElement *globalScheduleElements;
 extern int scheduleSlots;	//to view data slots as logically contigous slots across frames
 extern double scheduleInterval;
 
 extern int flowsPerNode[MAX_NO_NODES];
-extern int phasesPerNode[MAX_NO_NODES][MAX_PHASES];
-extern int slotsPerNode[MAX_NO_NODES][NO_OF_DATA_SLOTS]; // am doubtful of this being used
+extern int **phasesPerNode;
+extern int **slotsPerNode; // am doubtful of this being used
 extern int slotsPerNodeSC[MAX_NO_NODES];
-extern int slotChannelNodes[NO_OF_DATA_SLOTS][MAX_NO_CHANNELS][MAX_NO_NODES];
+extern int ***slotChannelNodes;
 
 extern int schedulePacketChange;	//if any of the below 4 variables change, this gets ON
 
@@ -917,5 +972,19 @@ void printDataQueue(int infra); // mobility change 6-5-10
 struct event * getSetUpNewScheduleEvent(double time, int node);
 struct event * getGenerateFlowRequestEvent(double time, int flowId);
 //***********************************************************************************************************************
-
+//#define MAX_FLOW_RETRY 9
+//#define MAX_PACKET_SIZE 112   
+//#define PACKET_TX_TIME 2 //1
+//#define ACK_TIMEOUT  0.4 //1.4 //0.7
+//#define DATA_RATE 250 //1000 //125 //(250)
+//#define CONTROL_SLOT_DURATION (4.5) //(1.125)//(1.5) //(13)//(4.5)
+//#define CONTENTION_SLOT_DURATION (3) //(0.75)//(1) //(11)//(3)
+//#define DATA_SLOT_DURATION (3) //(0.75)//(0.8) //(7)//(3)
+//#define NO_OF_SLOTS 19 //67 //92 //10 //19
+//#define NO_OF_CONTROL_SLOTS 2 //8 //1 //2
+//#define NO_OF_CONTENTION_SLOTS 1 //4 //1 //1
+//#define NO_OF_DATA_SLOTS (NO_OF_SLOTS-(NO_OF_CONTROL_SLOTS + NO_OF_CONTENTION_SLOTS))
+//#define FRAME_DURATION (NO_OF_DATA_SLOTS * DATA_SLOT_DURATION + NO_OF_CONTROL_SLOTS * CONTROL_SLOT_DURATION + NO_OF_CONTENTION_SLOTS * CONTENTION_SLOT_DURATION)
+//#define DATA_PACKET_SIZE 45//60 //45
+//#define LINK_LEVEL_ACK_SIZE 2 
 #endif

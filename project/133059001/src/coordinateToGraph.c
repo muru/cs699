@@ -42,6 +42,19 @@ int parseCoordinateFile()
 	
 	fp = fopen("coordinateFile.txt", "r");
 	fq = fopen("networkGraph.txt", "w+");
+	
+	// Changes: Muru
+	if (!fp)
+	{
+		perror("coordinateFile.txt");
+		exit(-1);
+	}
+	if (!fq)
+	{
+		perror("networkGraph.txt");
+		exit(-1);
+	}
+	// End changes
 	currentNode = 0;
 	
 	while(currentNode < MAX_NO_NODES)

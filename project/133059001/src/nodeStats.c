@@ -7,7 +7,7 @@ int startLoggingNodeStats()
 	int i;
 
 	nodeStr = (char *)malloc(15 * sizeof(char));
-	nodeStr = strcpy(nodeStr, "logs/node");
+	nodeStr = strcpy(nodeStr, NodeLogFilePrefix);
 	convStr = (char *)malloc(15 * sizeof(char));
 
 	for(i=0;i<numOfNodesInNetwork;i++)
@@ -37,7 +37,7 @@ int endLoggingNodeStats()
 	int i;
 
 	nodeStr = (char *)malloc(15 * sizeof(char));
-	nodeStr = strcpy(nodeStr, "logs/node");
+	nodeStr = strcpy(nodeStr, NodeLogFilePrefix);
 
 	convStr = (char *)malloc(15 * sizeof(char));
 	for(i=0;i<numOfNodesInNetwork;i++)
@@ -55,7 +55,7 @@ int endLoggingNodeStats()
 		//fprintf(fp,"\n Control Packet losses %d",nodeStat[i].numChannelControlPacketLosses);
 		//fprintf(fp,"\n Control Packet drops %d",nodeStat[i].numQueueControlPacketDrops);
 		fclose(fp);
-		nodeStr = strcpy(nodeStr, "logs/node");
+		nodeStr = strcpy(nodeStr, NodeLogFilePrefix);
   	}  
 	free(nodeStr);
 	free(convStr);
@@ -69,7 +69,7 @@ int logNodeStats(int node, enum logType type, double value)
 	int i;
 
 	nodeStr = (char *)malloc(15 * sizeof(char));
-	nodeStr = strcpy(nodeStr, "logs/node");
+	nodeStr = strcpy(nodeStr, NodeLogFilePrefix);
 	convStr = (char *)malloc(15 * sizeof(char));
   
 	sprintf(convStr,"%d",node);
@@ -136,7 +136,7 @@ int logFlowStats(int flowId, char *str, double value)
 	flowStr = (char *)malloc(20 * sizeof(char));
 	convStr = (char *)malloc(15 * sizeof(char));
 	
-	strcpy(flowStr, "flows/flow");
+	strcpy(flowStr, FlowsFilePrefix);
 	sprintf(convStr,"%d",flowId);
 	filename = strcat(flowStr,convStr);
 
@@ -161,7 +161,7 @@ int logVoiceFlowStats(int flowId, char *str, double value)
 	flowStr = (char *)malloc(20 * sizeof(char));
 	convStr = (char *)malloc(15 * sizeof(char));
 	
-	strcpy(flowStr, "flows/flow");
+	strcpy(flowStr, FlowsFilePrefix);
 	sprintf(convStr,"%d",flowId);
 	filename = strcat(flowStr,convStr);
 
@@ -187,7 +187,7 @@ int logStoreCap(int node, long int store_cap, double time)
 	nodeStr = (char *)malloc(25 * sizeof(char));
 	convStr = (char *)malloc(15 * sizeof(char));
 	
-	strcpy(nodeStr, "store_cap/node");
+	strcpy(nodeStr, StoreCapFilePrefix);
 	sprintf(convStr,"%d",node);
 	filename = strcat(nodeStr,convStr);
 
@@ -215,13 +215,13 @@ int recordFlow(int flowId)
 	flowStr = (char *)malloc(25 * sizeof(char));
 	convStr = (char *)malloc(15 * sizeof(char));
 	
-	strcpy(flowStr, "flows/flow");
+	strcpy(flowStr, FlowsFilePrefix);
 	sprintf(convStr,"%d",flowId);
 	filename = strcat(flowStr,convStr);
 
 	fp = fopen(filename,"r");
 
-	strcpy(flowStr, "flows/globalFlow");
+	strcpy(flowStr, GlobalFlowFilePrefix);
 	sprintf(convStr,"%d",globalLogFlowId);
 	filename = strcat(flowStr,convStr);	
 
@@ -249,7 +249,7 @@ void logMobilityStats(enum logType type, int node, int infra, double time)
 	struct routingPath * aPath;
 
 	nodeStr = (char *)malloc(20 * sizeof(char));
-	nodeStr = strcpy(nodeStr, "mobility/node");
+	nodeStr = strcpy(nodeStr, MobilityFilePrefix);
 	convStr = (char *)malloc(15 * sizeof(char));
 	file_parent = (char *)malloc(30 * sizeof(char));
 	file_path = (char *)malloc(30 * sizeof(char));

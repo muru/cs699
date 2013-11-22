@@ -1,66 +1,104 @@
 #! /bin/bash
 
+SUCCESS_MSG="Run successful for"
+FAIL_MSG="Run failed for"
+PID=$$
+
 function INT_cleanup()
 {
     kill `jobs -pr`
+	pkill lo3mac
+	pkill parse_output.sh
     exit
+}
+
+function single_sim()
+{
+	SEED=$RANDOM
+	echo RAND_INIT = $SEED > included.cfg
+
+	if $1 $2 $SIM_TIME $3 $CALL_DURATION $STORED_VOICE_DURATION 2>err.log >run.log
+	then
+		echo $SUCCESS_MSG $1 $2 $3 $SEED 
+	else
+		echo $FAIL_MSG $1 $2 $3 $SEED
+	fi
+	
+	$PROJDIR/parse_output.sh $TESTDIR/$PID-overall.txt $2 $3 >> $TESTDIR/$PID-flows.txt
 }
 
 function run_sim()
 {
-	WORKDIR=$TESTDIR/$1/$2/
+	WORKDIR=$TESTDIR/$1/$2
+	ARCHDIR=$WORKDIR/$PID-$1-$2
 	mkdir -p $WORKDIR
 	cp $CONF $COORDS $WORKDIR/
 
 	cd $WORKDIR
-	mkdir -p logs flows mobility outputFiles store_cap
+	mkdir -p $DATADIRS
+		
+	single_sim $GENBIN $1 $2 
+	mkdir -p $ARCHDIR/run0
+	cp -R $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg $ARCHDIR/run0
 	
-	echo RAND_INIT = $RANDOM > included.cfg
-	$GENBIN $1 $SIM_TIME 1 $2 1 2>err1.log > run1.log;
+	for i in `seq 1 3`
+	do
+		single_sim $BIN $1 $2
+		mkdir -p $ARCHDIR/run$i
+		cp -R $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg $ARCHDIR/run$i
+	done
+	echo "tar -czf $ARCHIVES/$PID-$1-$2.tgz $ARCHDIR"
+	tar -czf $ARCHIVES/$PID-$1-$2.tgz $ARCHDIR
 
-	echo RAND_INIT = $RANDOM > included.cfg;
-	$BIN $1 $SIM_TIME 2>err2.log > run2.log;
-	
-	echo RAND_INIT = $RANDOM > included.cfg;
-	$BIN $1 $SIM_TIME 2>err3.log > run3.log
+#	rm -rf $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg
 }	
 
 # Don't want to leave any simulations running.
 trap INT_cleanup INT
 
-PROJDIR=$PWD	# Set to the absolute path of the working directory.
+# Set to the absolute path of the working directory.
+PROJDIR=~/cs699/project/133059001
 TESTDIR=$PROJDIR/tests
+ARCHIVES=$PROJDIR/archives
 BIN=$PROJDIR/bin/lo3mac
 GENBIN=$PROJDIR/bin/gen_lo3mac
+DATADIRS="logs flows mobility outputFiles store_cap"
 CONF=lo3sim.cfg
 COORDS=coordinateFile.txt
 
-ERR_RATES=(0.01 0.02 0.05)
-SIM_TIME=2
-CALL_TIME=1
-CALL_RATES=(0.33 0.5 1.0)
-STR_TIME=1
+mkdir -p $ARCHIVES
 
-# Use the no. of logical CPU cores available to limit no. of
-# active jobs.
-NJOBS=`lscpu | grep '^CPU(s):' | grep -Eo '[0-9]+'`
-
-# Make sure both binaries are up-o-date, even if called by make.
+# Make sure both binaries are up-to-date,
+# even if called by make.
 make norm
 make gen
 
-# Uncomment IncludeCfg line in base config.
-sed -i '/.*IncludeCfg.*/s/^[ \t]*#//' $CONF
+ERR_RATES=(0.01 0.02 0.05)
+SIM_TIME=2
+CALL_DURATION=1
+CALL_RATES=(0.3333333333 0.5 1.0)
+STORED_VOICE_DURATION=1
 
-mkdir -p $TESTDIR
+# Use the no. of logical CPU cores available to limit
+# no. of active jobs.
+NJOBS=`lscpu | grep '^CPU(s):' | grep -Eo '[0-9]+'`
+NJOBS=$(( NJOBS * 3 / 4))
+echo $NJOBS
+
+# Uncomment IncludeCfg line in base config.
+sed -i '/.*IncludeCfg.*/s/^[ \t]*##*//' $CONF
+
+echo '"Error Rate" "Call Rate" "Flow ID" Hops Latency "Avg Packet Loss" "Avg Jitter" "Median Jitter"' > $TESTDIR/$PID-flows.txt
+echo '"Error Rate" "Call Rate" "Total Flows" "Accepted Flows" "Dropped Flows"' > $TESTDIR/$PID-overall.txt
 
 for e in ${ERR_RATES[@]}
 do
 	for c in ${CALL_RATES[@]}
 	do
-		echo $e $c
 		run_sim $e $c &
 	done
 done
 
 wait
+
+cp $TESTDIR/$PID* $ARCHIVES/

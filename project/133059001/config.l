@@ -27,7 +27,7 @@ OPS		[-+*/)(=]
 <VALUE>{KEY}				{ yylval.kval = strdup(yytext); return KEY; }
 
 <VALUE>{INT}				{ 
-								yylval.nval.l = strtol(yytext, NULL, yytext[0] == 0 ? 8 : 10); 
+								yylval.nval.l = strtol(yytext, NULL, 0); 
 								yylval.nval.d = yylval.nval.l;
 								yylval.nval.type = 0;
 							 	return NUMBER; 
@@ -43,7 +43,7 @@ OPS		[-+*/)(=]
 {CMT}						;
 [ \t]+						;
 <INITIAL>IncludeCfg[ \t]+\"	BEGIN FNAME;
-<FNAME>{STR}\"				{
+<FNAME>{STR}/\"				{
 								next_file = fopen(yytext, "r");
 								if (next_file == NULL)
 								{

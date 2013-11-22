@@ -438,7 +438,7 @@ int revokeElements_schedAlgo(int flowId)
 	
 	j = flowFound + elementsToRemove;
 
-	ft = fopen("channelInfo.txt","a+");
+	ft = fopen(ChannelInfoFile,"a+");
 
 
 	fprintf(stderr,"global scheduling elements being removed %d\n for flowId %d\n",elementsToRemove,flowId);	

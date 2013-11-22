@@ -1,7 +1,11 @@
 #include "header.h"
 
 #define PRINT_UNIT (1*60*1000)
+#ifndef __CONFIG_H
 #define RAND_INIT 007
+#else
+#define RAND_INIT (config.rand_init)
+#endif
 
 int flowRequestReceptionCounter = 0;
 
@@ -16,7 +20,7 @@ int uniqueCallsDropped[MAX_FLOW_ID];
 //global variables, usage is documented in header.h
 struct event * queueHead = NULL;
 
-struct scheduleElement globalScheduleElements[MAX_SCHED_ELEMENTS];
+struct scheduleElement *globalScheduleElements;
 //so the schedule element contains the transmitter,recvr,flowid_channel,slot_tostart,and no of slots req. 
 
 int routingTree[MAX_NO_NODES*2];
@@ -39,10 +43,10 @@ int flowsPerNode[MAX_NO_NODES]; //number of flows per node, entries number
 //manan change
 int voiceFlowsPerNode[MAX_NO_NODES];
 //manan end
-int phasesPerNode[MAX_NO_NODES][MAX_PHASES]; //which node occupies what phases, entries 0 and 1
-int slotsPerNode[MAX_NO_NODES][NO_OF_DATA_SLOTS]; //which node occupies which data slot, entries 0 and 1?thinking of adding 2
+int **phasesPerNode; //which node occupies what phases, entries 0 and 1
+int **slotsPerNode; //which node occupies which data slot, entries 0 and 1?thinking of adding 2
 int slotsPerNodeSC[MAX_NO_NODES]; //SC was for single channel, no longer being used
-int slotChannelNodes[NO_OF_DATA_SLOTS][MAX_NO_CHANNELS][MAX_NO_NODES]; //if a node transmits in particular slot-channel, entries 0 and 1
+int ***slotChannelNodes; //if a node transmits in particular slot-channel, entries 0 and 1
 
 int globalLogFlowId = 1;//for storing statistics of nodes
 int globalUniqueFlowId = 1; //whats this for? for each unique flow
@@ -63,8 +67,8 @@ FILE * voice_start;
 FILE * voice_log;
 //manan end
 
-int scheduleSlots = NO_OF_DATA_SLOTS; //this gives the logical view of data slots across frames
-double scheduleInterval = FRAME_DURATION; //shouldnt it be the time taken for the schedule to go down the tree? its the time required to acomodate all the flows
+int scheduleSlots;// = 0; //NO_OF_DATA_SLOTS; //this gives the logical view of data slots across frames
+double scheduleInterval;// = 0; //FRAME_DURATION; //shouldnt it be the time taken for the schedule to go down the tree? its the time required to acomodate all the flows
 
 // tree book keeping
 int numOfNodesInTree = 0;
@@ -643,6 +647,33 @@ void printNeighborInfo(int node)
 //initialize and execute events
 int main(int argc, char *argv[])
 {
+#ifdef __CONFIG_H
+	parse_config();
+#endif
+	{
+		int i, j;
+		
+		globalScheduleElements = calloc(MAX_SCHED_ELEMENTS, sizeof(struct scheduleElement));
+		phasesPerNode = calloc(MAX_NO_NODES, sizeof(int*));
+		slotsPerNode = calloc(MAX_NO_NODES, sizeof(int*));
+		slotChannelNodes = calloc(NO_OF_DATA_SLOTS, sizeof(int**));
+
+		for (i = 0; i < MAX_NO_NODES; i++)
+		{
+			phasesPerNode[i] = calloc(MAX_PHASES, sizeof(int));
+			slotsPerNode[i] = calloc(NO_OF_DATA_SLOTS, sizeof(int));
+			nodeID[i].localScheduleElements = calloc(MAX_SCHED_ELEMENTS, sizeof(struct scheduleElement));
+			slotChannelNodes[i] = calloc(MAX_NO_CHANNELS, sizeof(int *));
+		}
+		for (i = 0; i < MAX_NO_NODES; i++)
+		{
+			for (j = 0; j < MAX_NO_CHANNELS; j++)
+				slotChannelNodes[i][j] = calloc(MAX_NO_NODES, sizeof(int));
+		}
+	
+		scheduleSlots = NO_OF_DATA_SLOTS;
+		scheduleInterval = FRAME_DURATION;
+	}
 	struct event * anEvent;//contains time of event, type, node of event, packet of event, pointer to next event
 	struct packetFormat * otherPacket;
 	
@@ -694,7 +725,7 @@ int main(int argc, char *argv[])
 	
 	if (argc < 6)
 	{
-		fprintf(stderr, "\n\n usage: ./lo3mac <errorrate_between(0,1)> <hoursofsim> callDuration[0,4)minutes interCallDuration[0,3)hours storedVoiceDuration[0,4)minutes > temp.dump\n\n");
+		fprintf(stderr, "\n\n usage: ./lo3mac <errorrate_between(0,1)> <hoursofsim> interCallDuration[0,3)hours callDuration[0,4)minutes storedVoiceDuration[0,4)minutes > temp.dump\n\n");
 		exit(0);
        
 	}
@@ -718,108 +749,108 @@ int main(int argc, char *argv[])
 	
 	FILE *fp, *fq, *fr;
 	
-	fp = fopen("outputFiles/results.txt","w+");	
+	fp = fopen(FolderResultsFile,"w+");	
 	if(fp == NULL)
 	{
-		fprintf(stderr,"\n error in opening file");
+		fprintf(stderr,"\n error in opening file %s", ResultsFile);
 		exit(0);
 	}
 	
-	fq = fopen("outputFiles/simCalls.txt","w+");
+	fq = fopen(FolderSimulatedCallsFile,"w+");
 	if(fq == NULL)
 	{
-		fprintf(stderr,"\n error in opening file");
+		fprintf(stderr,"\n error in opening file %s", SimulatedCallsFile);
 		exit(0);
 	}
 	else
 	fprintf(fq,"if 3 col, then globalCallsInProgress 0 simTime \n if 4 coloumns then flowid globalCallsInProgress ? simTime\n\n");
 	
-	fv = fopen("outputFiles/callsDistribution.txt","w+");
+	fv = fopen(FolderCallsDistributionFile,"w+");
 	if(fv == NULL)
 	{
-		fprintf(stderr,"\n error in opening file");
+		fprintf(stderr,"\n error in opening file, %s", CallsDistributionFile);
 		exit(0);
 	}
 	
-	fr = fopen("outputFiles/scheduleInfo.txt","w+");
+	fr = fopen(FolderScheduleInfoFile,"w+");
 	if(fr == NULL)
 	{
-		fprintf(stderr,"\n error in opening file");
+		fprintf(stderr,"\n error in opening file, %s", ScheduleInfoFile);
 		exit(0);
 		
 	}
 	
-	fc = fopen("outputFiles/hopDistribution.txt","w+");
+	fc = fopen(FolderHopDistributionFile,"w+");
 	if(fc == NULL)
 	{
-		fprintf(stderr,"\n error in opening file");
+		fprintf(stderr,"\n error in opening file, %s", HopDistributionFile);
 		exit(0);
 	}
 	
-	fn = fopen("outputFiles/nodeUpTime.txt","w+");
+	fn = fopen(FolderNodeUpTimeFile,"w+");
 	if(fn == NULL)
 	{
-		fprintf(stderr,"\n error in opening file");
+		fprintf(stderr,"\n error in opening file %s", NodeUpTimeFile);
 		exit(0);
 	}
 	
 	//manan change 
-	event_queue_dump = fopen("outputFiles/event_queue_dump.txt","a+");
+	event_queue_dump = fopen(FolderEventQueueDumpFile,"a+");
 	if(event_queue_dump == NULL)
 	{	
-	fprintf(stderr,"\n error in opening file event queue dump");
+	fprintf(stderr,"\n error in opening file %s", EventQueueDumpFile);
 	exit(0);
 	}
 	
-	vm = fopen("outputFiles/voiceMsg.txt","w+");
+	vm = fopen(FolderVoiceMessageFile,"w+");
 	if(vm == NULL)
 	{	
-	fprintf(stderr,"\n error in opening file voiceMsg.txt");
+	fprintf(stderr,"\n error in opening file %s", VoiceMessageFile);
 	exit(0);
 	}
 
-	dump = fopen("outputFiles/flowSequence.txt","w+"); // for dumping sequence of events
+	dump = fopen(FolderFlowSequenceFile,"w+"); // for dumping sequence of events
 	if(dump == NULL)
 	{	
-	fprintf(stderr,"\n error in opening file flowSequence.txt");
+	fprintf(stderr,"\n error in opening file %s", FlowSequenceFile);
 	exit(0);
 	}
 	
-	at = fopen("outputFiles/automatic_teardown.txt","w+");
+	at = fopen(FolderAutoTearDownFile,"w+");
 	if(at == NULL)
 	{
-	fprintf(stderr,"\n error in opening file automatic_teardown.txt");
+	fprintf(stderr,"\n error in opening file %s", AutoTearDownFile);
 	exit(0);
 	}
 
-	voice_end = fopen("outputFiles/Voice_End.txt","w+");
+	voice_end = fopen(FolderVoiceEndFile,"w+");
 	if(voice_end == NULL)
 	{
-	fprintf(stderr,"\n error in opening file Voice_End.txt");
+	fprintf(stderr,"\n error in opening file %s", VoiceEndFile);
 	exit(0);
 	}
 
-	voice_start = fopen("outputFiles/Voice_Start.txt","w+");
+	voice_start = fopen(FolderVoiceStartFile,"w+");
 	if(voice_start == NULL)
 	{
-	fprintf(stderr,"\n error in opening file Voice_Start.txt");
+	fprintf(stderr,"\n error in opening file %s", VoiceStartFile);
 	exit(0);
 	}
 
-	voice_log = fopen("outputFiles/Voice_Log.txt","w+");
+	voice_log = fopen(FolderVoiceLogFile,"w+");
 	if(voice_log == NULL)
 	{
-	fprintf(stderr,"\n error in opening file Voice_Log.txt");
+	fprintf(stderr,"\n error in opening file %s", VoiceLogFile);
 	}
 	
 	//manan end
-	
-	fx = fopen("outputFiles/flowStartTimes.txt","w+");
-	fy = fopen("outputFiles/admitCalls.txt","w+");
+			
+	fx = fopen(FolderFlowStartTimesFile,"w+");
+	fy = fopen(FolderAdmittedCallsFile,"w+");
 	fprintf(fy,"outputFiles/noOfCallsAdmitted, flowId, globalCallsInProgress, simTime\n\n");
-	fz = fopen("outputFiles/callAccepted.txt","w+");
+	fz = fopen(FolderCallAcceptedFile,"w+");
 		
-	fk = fopen("outputFiles/channelInfo.txt","w+");	
+	fk = fopen(FolderChannelInfoFile,"w+");	
 		
 	fclose(fx);
 	fclose(fy);
