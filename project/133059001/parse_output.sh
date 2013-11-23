@@ -1,10 +1,7 @@
 #! /bin/bash
 
 PROJDIR=~/cs699/project/133059001	# Set to the absolute path of the working directory.
-
-# FLOWS=`grep 'Unique flow requests received at root' results.txt | sed 's/.*[0-9]+//'`
-# ADMITTED_FLOWS=`grep 'Unique calls admitted' results.txt | sed 's/.*[0-9]+//'`
-# DROPPED_FLOWS=`grep 'Admitted - Successful' results.txt | sed 's/.*[0-9]+//'`
+SCRIPTDIR=$PROJDIR/scripts
 
 FLOW_DATA=`grep -f- outputFiles/results.txt <<EOF | 
 Unique flow requests received at root
@@ -12,6 +9,8 @@ Unique calls admitted
 Dropped after root
 EOF
 sed 's/[^0-9]*//'`
+
+# Get the output file name.
 OUT=$1
 shift
 
@@ -23,6 +22,10 @@ do
 	START_TIME=`grep Time_Flow_Request_Sent $flow | cut -d' ' -f3`
 	ACCEPT_TIME=`grep Time_Flow_Request_Granted $flow | cut -d' ' -f3`
 	N_HOPS=`grep No_Of_Hops $flow | cut -d' ' -f3`
+
+	LATENCY="inf"
+	AVG_PACKET_LOSS=0
+	JITTER="0 0"
 
 	if [[ $ACCEPT_TIME > 0 ]]
 	then
@@ -36,13 +39,8 @@ EOF`
 EOF`
 		#grep PACKET_SENT_BY_SOURCE $flow | cut -d' ' -f 3 > start.txt
 		grep destination $flow | cut -d' ' -f10 --output-delimiter=, | sort -n > end.txt
-		$PROJDIR/calc_jitter.py end.txt | read AVG_JITTER MED_JITTER
-	else
-		LATENCY="inf"
-		AVG_PACKET_LOSS=0
-		AVG_JITTER=0
-		MED_JITTER=0
+		JITTER=`$SCRIPTDIR/calc_jitter.py end.txt`
 	fi
-	echo $@ $flow $N_HOPS $LATENCY $AVG_PACKET_LOSS $AVG_JITTER $MED_JITTER
+	echo $@ $flow $N_HOPS $LATENCY $AVG_PACKET_LOSS $JITTER
 	#read
 done

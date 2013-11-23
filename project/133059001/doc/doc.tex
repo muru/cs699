@@ -3,7 +3,7 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{marginnote}
+\usepackage{array}
 \usepackage{multicol}
 \usepackage{graphicx}
 \usepackage{subfig}
@@ -13,30 +13,57 @@
 \begin{document}
 \title{LO3 MAC Simulator}
 \author{Murukesh Mohanan\\133059001}
-\section{Introduction}
-The code is reasonably organized: you can find the source files in src/, 
-header files in inc/, object files and binaries in obj/ and bin/ 
-respectively, and so on. Files related to this report are present in doc/.
-Simulation results for the most recent run are in tests/ and archived
-reults in archives/. 
+\maketitle
+\section{Compilation}
+The code is reasonably organized: you can find the source files in \texttt{src/}, 
+header files in \texttt{inc/}, object files and binaries in \texttt{obj/} and 
+\texttt{bin/} respectively, and so on. Files related to this report are present 
+in \texttt{doc/}. Simulation results for the most recent run are in
+\texttt{tests/} and archived results in \texttt{archives/}. 
 Compiling is simple:
 \begin{itemize}
 	\item To compile the normal binary, do \\
-		make [norm]  
-		This creates bin/lo3mac, which relies on a pre-created recordFlow.txt.
+		\texttt{make [norm]}  \\
+		This creates \texttt{bin/lo3mac}, which relies on a 
+		pre-created \texttt{recordFlow.txt}.\\
 		To run it, do: \\
-		bin/lo3mac $\langle$error rate$\rangle$ <sim duration$\rangle$
+		\texttt{bin/lo3mac} $\langle$error rate$\rangle$ 
+			$\langle$sim duration$\rangle$
 	\item To compile the generator binary, do \\
-		make gen
-		This creates bin/gen\_lo3mac, which generates recordFlow.txt for future use.
+		\texttt{make gen} \\
+		This creates \texttt{bin/gen\_lo3mac}, which generates 
+		\texttt{recordFlow.txt} for future use.\\
 		To run it do: \\
-		bin/gen\_lo3mac $\langle$error rate$\rangle$ $\langle$sim duration$\rangle$ $\langle$call interval$\rangle$ $\langle$call duration$\rangle$ $\langle$stored voice duration$\rangle$
+		\texttt{bin/gen\_lo3mac} $\langle$error rate$\rangle$ 
+			$\langle$sim duration$\rangle$ $\langle$call interval$\rangle$
+			$\langle$call duration$\rangle$ 
+			$\langle$stored voice duration$\rangle$\footnote{Please refer to Table \ref{table:params} for details on these parameters.}
+	\item To run the test simulation, do \\
+		\texttt{make test}\\
+		and then to update this document, do \\
+		\texttt{make report}
 \end{itemize}
-Please refer to Table \ref{table:params} for details on these parameters.
+For various reasons, I decided to let the default target of \texttt{make}
+be \texttt{bin/lo3mac} instead of this report.
+\section{Execution}
+The \texttt{run\_tests.sh}, \texttt{parse\_output.sh} and 
+\texttt{plot\_data.sh} are various helper scripts:
+\begin{itemize}
+	\item \texttt{run\_tests.sh} runs the simulator for various
+	pre-set parameters, 
+	\item \texttt{parse\_output.sh} sifts through the output of the
+	simulator for the values we need, and 
+	\item \texttt{plot\_data.sh} takes this data and runs various Python 
+	scripts on them and finally plots them.
+\end{itemize}
+DO edit the shell scripts and change \texttt{\$PROJDIR} to reflect the 
+absolute path of the project directory before running them. The Python
+scripts in the badly-named \texttt{scripts} directory need not be 
+modified.
 
-\begin[t]{table}
+\begin{table}[m]
 \centering
-\begin{tabular}{|l|r|l|}
+\begin{tabular}{|l|r|l|m{'2cm'}}
 	\hline
 	Parameter & Range & Unit \\ \hline
 	Error Rate & $[0, 1)$ & (probability) \\
@@ -49,8 +76,26 @@ Please refer to Table \ref{table:params} for details on these parameters.
 \label{table:params}
 \end{table}
 
-
-
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{latency-vs-error.eps}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{loss-vs-hops.eps}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{jitter-vs-error.eps}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{jitter-vs-loss.eps}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{jitter-latency-vs-error.eps}
+\end{figure}
 
 \end{document}
 

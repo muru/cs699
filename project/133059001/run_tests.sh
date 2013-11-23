@@ -34,6 +34,7 @@ function run_sim()
 	cp $CONF $COORDS $WORKDIR/
 
 	cd $WORKDIR
+	# This directory will be compressed and archived.
 	ARCHDIR=$PID-$1-$2
 	mkdir -p $DATADIRS $ARCHDIR
 		
@@ -41,7 +42,7 @@ function run_sim()
 	mkdir -p $ARCHDIR/run0
 	cp -R $DATADIRS err.log run.log recordFlow.txt networkGraph.txt included.cfg $ARCHDIR/run0
 	
-	for i in `seq 1 1`
+	for i in `seq 1 3`
 	do
 		single_sim $BIN $1 $2
 		mkdir -p $ARCHDIR/run$i
@@ -61,6 +62,7 @@ trap INT_cleanup INT
 PROJDIR=~/cs699/project/133059001
 TESTDIR=$PROJDIR/tests
 ARCHIVES=$PROJDIR/archives
+SCRIPTDIR=$PROJDIR/scripts
 BIN=$PROJDIR/bin/lo3mac
 GENBIN=$PROJDIR/bin/gen_lo3mac
 DATADIRS="logs flows mobility outputFiles store_cap"
@@ -80,12 +82,6 @@ CALL_DURATION=1
 CALL_RATES=(0.3333333333 0.5 1.0)
 STORED_VOICE_DURATION=1
 
-# Use the no. of logical CPU cores available to limit
-# no. of active jobs.
-NJOBS=`lscpu | grep '^CPU(s):' | grep -Eo '[0-9]+'`
-NJOBS=$(( NJOBS * 3 / 4))
-echo $NJOBS
-
 # Uncomment IncludeCfg line in base config.
 sed -i '/.*IncludeCfg.*/s/^[ \t]*##*//' $CONF
 
@@ -103,3 +99,4 @@ done
 wait
 
 cp $TESTDIR/$PID* $ARCHIVES/
+echo $PID > $ARCHDIR/last

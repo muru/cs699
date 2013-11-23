@@ -1,5 +1,8 @@
 CC = gcc
 LD = gcc
+LC=latex
+XC=xelatex
+
 CFLAGS += -DDEBUG_FRAC
 CFLAGS += -DDEBUG_ENABLE -g
 LFLAGS += -lm -ll
@@ -12,6 +15,7 @@ SRCDIR = src
 BINDIR = bin
 OBJDIR = obj
 INCDIR = inc
+DOCDIR = doc
 DATADIRS = logs outputFiles flows mobility store_cap tests archives doc
 
 CFLAGS += -I $(INCDIR)
@@ -20,9 +24,11 @@ HFILES = $(addprefix $(INCDIR)/, header.h config.h y.tab.h)
 
 CFILES = coordinateToGraph.c handleDataSlot.c input.c routingPath.c fragment.c handlePackets.c scheduler.c handlePriorityQueue.c nodeStats.c simulation.c getEventStructures.c handleScheduleTxRx.c randomfunc.c handleContentionSlot.c rootfunc.c lex.yy.c y.tab.c
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:%.c=%.o)) 
-# coordinateToGraph.o handleDataSlot.o input.o routingPath.o fragment.o handlePackets.o scheduler.o  handlePriorityQueue.o nodeStats.o simulation.o getEventStructures.o handleScheduleTxRx.o randomfunc.o handleContentionSlot.o rootfunc.o)
+PLOTS = $(addprefix $(DOCDIR)/, latency-vs-error.eps loss-vs-hop.eps jitter-vs-error.eps scatter-jitter-vs-loss.eps jitter-latency-vs-error.eps)
+TEX = $(DOCDIR)/doc.tex
 
-SCRIPTS = run_tests.sh parse_output.sh calc_jitter.py
+SCRIPTS = run_tests.sh parse_output.sh plot_data.sh 
+PYSCRIPTS = $(addprefix scripts/, calc_jitter.py jitter-error.py  jitter-loss.py  latency-error.py  loss-hops.py)
 
 PROG = $(BINDIR)/lo3mac
 GEN_PROG = $(BINDIR)/gen_lo3mac
@@ -39,15 +45,13 @@ gen: $(GEN_PROG) | $(DATADIRS)
 test:
 	./run_tests.sh
 
-all: test
+report: $(TEX) $(PLOTS)
+	cd $(DOCDIR) && $(XC) $(<F)
 
-#gen_header: $(INCDIR)/header.h
-#	grep -q 'GENERATE_REQUESTS_FROM_FILE *0' $^ || \
-#	sed -ibak 's/\(GENERATE_REQUESTS_FROM_FILE\) .*/\1 0/' $^
+$(PLOTS): archives/last
+	./plot_data.sh `cat $<`
 
-#norm_header: $(INCDIR)/header.h
-#	grep -q 'GENERATE_REQUESTS_FROM_FILE *1' $^ || \
-#	sed -ibak 's/\(GENERATE_REQUESTS_FROM_FILE\) .*/\1 1/' $^
+all: test doc
 
 $(DATADIRS):
 	mkdir -p $(DATADIRS)
@@ -69,8 +73,8 @@ clean:
 	rm -f outputFiles/*
 	rm -f mobility/node*
 	rm -f store_cap/*
-	rm -rf tests/*
 	rm -f networkGraph.txt 
+	rm -f $(DOCDIR)/*.{acn,acr,alg,aux,dvi,out,toc,txt} $(PDF) $(PLOTS)
 	rm -f $(SRCDIR)/lex.yy.c $(SRCDIR)/y.tab.c $(INCDIR)/y.tab.h 
 
 $(INCDIR)/y.tab.h $(SRCDIR)/y.tab.c $(SRCDIR)/lex.yy.c : config.l config.y $(INCDIR)/config.h

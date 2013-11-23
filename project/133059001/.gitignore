@@ -9,12 +9,12 @@ inc/*bak
 src/lex.yy.c
 src/y.tab.c
 inc/y.tab.h
-files.txt
-recordFlow.txt
-networkGraph.txt
-cscope*
-temp.dump
 doc/*.aux
 doc/*.log
 doc/*.out
+doc/*.txt
 doc/*.synctex.gz
+doc/*converted*
+cscope*
+temp.dump
+*.txt
